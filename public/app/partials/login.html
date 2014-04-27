@@ -1,0 +1,70 @@
+
+user: <input type="text" ng-model="email">
+password: <input type="password" ng-model="password">
+<button ng-click="login()">sign in</button>
+
+<button class="btn btn-primary btn-block" ng-click="facebook()"><i class="fa fa-facebook"></i><span class="spacer"></span>login</button>
+
+
+<!--
+<div class="modal-header">
+    <div class='pull-right'><button class="btn btn-default btn-sm"  ng-click="cancel()"><i class="fa fa-times"></i></button></div>
+    <h2 class="text-center"><?php echo $translator->text('login'); ?></h2>
+</div>
+
+<div class="modal-body">
+    <div class="modal-spacer"></div>
+    <div class="row">
+        <div class="col-xs-7 text-right">
+            <?php echo $translator->text('dont_have_account'); ?>
+        </div>
+        <div class="col-xs-5 text-left">
+            <button class="btn btn-grey btn-sm" ng-click="signup()"><?php echo $translator->text('sign_up'); ?></button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+    </div>
+
+    <p>
+    <div class="row">
+        <div class="col-sm-5">
+            <button class="btn btn-primary btn-block" ng-click="facebook()"><i class="fa fa-facebook"></i><span class="spacer"></span><?php echo $translator->text('login_with_facebook'); ?></button>
+            <?php if (!$mobile){ ?>
+            <div class="fb-facepile" data-href="https://facebook.com/BoticcaOfficial" data-max-rows="1" data-width="200"></div>
+            <?php } ?>
+        </div>
+        <div class="col-sm-2 text-center">
+            <h2><?php echo $translator->text('or'); ?></h2>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <input class="form-control" type="email" name="email" ng-model="result.email" id="email" value="" placeholder="<?php echo $translator->text('email'); ?>" auto-focus>
+                </div>
+                <div class="col-sm-12 form-group">
+                    <input class="form-control" type="password" name="password" ng-model="result.password" id="password" value="" placeholder="<?php echo $translator->text('password'); ?>">
+                </div>
+                <div class="col-sm-12 form-group text-center">
+                    <button class="btn btn-grey btn-block" ng-click="login()"><?php echo $translator->text('login'); ?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </p>
+
+    <p class="text-right">
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <a ng-click="forgotPopup()"><?php echo $translator->text('forgot_password'); ?></a>
+        </div>
+    </div>
+    </p>
+
+</div>
+
+
+-->

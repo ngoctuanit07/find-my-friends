@@ -1,0 +1,31 @@
+{
+  "name": "pedro/find-my-friends",
+  "version": "1.0.0",
+  "ignore": [
+    "**/.*",
+    "component.json"
+  ],
+  "dependencies": {
+    "font-awesome": "~3",
+    "ng": "angular/bower-angular",
+    "ng-router": "angular/bower-angular-route",
+    "ng-sanitize": "angular/bower-angular-sanitize",
+    "ng-cookies": "angular/bower-angular-cookies",
+    "ng-i18n": "angular/bower-angular-i18n",
+    "ng-resource": "angular/bower-angular-resource",
+    "ui-router": "angular-ui/ui-router",
+    "ui-utils": "angular-ui/ui-utils",
+    "ng-rest": "mgonto/restangular",
+    "ng-translate": "PascalPrecht/bower-angular-translate",
+    "ng-storage": "agrublev/angularLocalStorage",
+
+      "angular-bootstrap": "~0.10.0",
+      "angular-animate": "~1.2.15",
+      "angular-bootstrap": "~0.10.0",
+      "angular-cookies": "~1.2.15",
+      "angular-resource": "~1.2.15",
+      "angular-route": "~1.2.15",
+      "angular": "~1.2.15",
+      "angular-touch": "~1.2.15"
+  }
+}

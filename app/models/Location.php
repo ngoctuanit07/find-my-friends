@@ -5,6 +5,9 @@ class Location extends Eloquent {
 
     public function toArray()
     {
-        return ['lat' => $this->latitude];
+        return ['latitude' => $this->latitude,
+                'longitude' => $this->longitude,
+                'accuracy' => $this->accuracy,
+                'created_at' => $this->created_at];
     }
 }

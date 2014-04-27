@@ -12,7 +12,9 @@
 */
 
 
-Route::get('/', 'HomeController@showWelcome');
+Route::get('/', function(){
+    return View::make('index');
+});
 
 Route::get('users', 'HomeController@showTest');
 

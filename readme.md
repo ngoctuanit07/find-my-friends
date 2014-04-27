@@ -1,4 +1,9 @@
 ## Laravel PHP Framework
 
-composer install
+instalar composer ?
+
+php composer.phar install
 php artisan migrate
+
+brew install npm
+npm install -g bower
