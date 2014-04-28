@@ -1,0 +1,22 @@
+<ion-view title="Dashboard">
+  <ion-content class="has-header padding">
+      <google-map center="map.center" zoom="map.zoom">
+          <marker ng-repeat="friend in friends"
+                  coords="friend.location"
+                  icon='friend.photo'>
+          </marker>
+      </google-map>
+
+
+      <div class="list">
+
+          <a ng-repeat="friend in friends"
+             class="item item-avatar" href="#/tab/friend/{{friend.id}}">
+              <img src="{{friend.photo}}">
+              <h2>{{friend.name}}</h2>
+              <p>Back off, man. I'm a scientist.</p>
+          </a>
+
+      </div>
+  </ion-content>
+</ion-view>

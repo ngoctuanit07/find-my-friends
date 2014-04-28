@@ -12,6 +12,7 @@
       "angular-resource": "~1.2.15",
       "angular-route": "~1.2.15",
       "angular": "~1.2.15",
-      "angular-touch": "~1.2.15"
+      "angular-touch": "~1.2.15",
+      "ionic": "1.0.0-beta.1"
   }
 }

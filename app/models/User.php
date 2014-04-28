@@ -105,6 +105,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'photo' => $this->photo,
             'friends' => $this->friends->toArray(),
             'location' => $this->getLastLocation()->toArray()
         ];

@@ -1,21 +1,45 @@
-'use strict';
+angular.module('starter.services', [])
 
-/* Services */
+/**
+ * A simple example service that returns some data.
+ */
+.factory('Friends', function() {
+  // Might use a resource here that returns a JSON array
 
+  // Some fake testing data
+  var friends = [
+    { id: 0, name: 'Scruff McGruff' },
+    { id: 1, name: 'G.I. Joe' },
+    { id: 2, name: 'Miss Frizzle' },
+    { id: 3, name: 'Ash Ketchum' }
+  ];
 
-// Demonstrate how to register services
-// In this case it is a simple value service.
+  return {
+    all: function() {
+      return friends;
+    },
+    get: function(friendId) {
+      // Simple index lookup
+      return friends[friendId];
+    }
+  }
+});
+
 angular.module('myApp.services', []).
-  value('version', '0.1')
+    value('version', '0.1')
 
     .service('connection', ['$http', function($http) {
 
         this._sendData = function(method, url, data) {
             return $http({
-               method: method,
-               url: url,
-               data: data
+                method: method,
+                url: url,
+                data: data
             });
+        }
+
+        this.getUser = function () {
+            return this._sendData('GET', 'me', {});
         }
 
         this.login = function(email, pass) {
@@ -56,7 +80,7 @@ angular.module('myApp.services', []).
                             //
                         }
                     });
-            });
+                });
         };
     }])
 

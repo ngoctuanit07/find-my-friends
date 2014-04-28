@@ -10,14 +10,13 @@ angular.module('myApp.controllers', [])
         $scope.login = function() {
             connection.login($scope.email, $scope.password)
                 .success(function(response) {
-                    console.log(response);
+                    console.log(response + '->' + $scope.email);
                 });
         }
 
 
 
         $scope.facebook = function() {
-            //loginFacebook.initFacebook();
             loginFacebook.facebook();
         }
   }])
