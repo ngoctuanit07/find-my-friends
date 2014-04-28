@@ -28,17 +28,18 @@ angular.module('myApp.services', []).
     }])
 
 
-    .service('loginFacebook', ['$window', function($window){
+    .service('loginFacebook', ['connection', '$window', function(connection, $window){
         this.facebookInited = false;
+        var $scope = this;
 
         this.facebook = function() {
             $window.FB.getLoginStatus(function (response) {
                 if (response.authResponse) {
-                    this._login(response);
+                    $scope._login(response);
                 } else {
                     $window.FB.login(function (response) {
                         if (response.authResponse) {
-                            this._login(response);
+                            $scope._login(response);
                         }
                     }, {scope: 'email'});
                 }
