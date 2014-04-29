@@ -3,17 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSessionTable extends Migration {
+class CreateUserSessionTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-        Schema::create('session', function($table)
-		{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('user_session', function($table)
+        {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
@@ -25,16 +25,16 @@ class CreateSessionTable extends Migration {
             $table->string('facebook_token')->nullable();
             $table->timestamps();
         });
-	}
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-        Schema::drop('session');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('user_session');
+    }
 
 }

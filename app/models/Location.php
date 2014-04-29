@@ -8,6 +8,11 @@ class Location extends Eloquent {
         return ['latitude' => $this->latitude,
                 'longitude' => $this->longitude,
                 'accuracy' => $this->accuracy,
-                'created_at' => $this->created_at];
+                'updated' => $this->updated_at];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('User', 'user_id');
     }
 }

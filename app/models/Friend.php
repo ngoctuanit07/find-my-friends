@@ -11,12 +11,12 @@ class Friend extends Eloquent {
 
     public function friendUser()
     {
-        return $this->hasOne('User', 'id');
+        return $this->belongsTo('User', 'friend_user_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('User', 'user_id');
     }
 
     public function setAuth($auth)
@@ -27,8 +27,8 @@ class Friend extends Eloquent {
     public function toArray()
     {
         return [
-            'id'=> $this->friend_user_id,
-            'user' => $this->friendUser->toArray(),
+            'friend_id'=> $this->friend_user_id,
+            'friend' => $this->friendUser->toArrayWithoutFriends(),
             'status' => $this->status
         ];
     }

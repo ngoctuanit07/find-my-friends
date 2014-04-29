@@ -82,7 +82,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function sessions()
     {
-        return $this->hasMany('Session');
+        return $this->hasMany('UserSession');
     }
 
     public function locations()
@@ -97,7 +97,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function getLastLocation()
     {
-        return $this->locations->last();
+        return $this->locations()->orderBy('id', 'asc')->first();
     }
 
     public function toArray()
@@ -107,6 +107,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             'name' => $this->name,
             'photo' => $this->photo,
             'friends' => $this->friends->toArray(),
+            'location' => $this->getLastLocation()->toArray()
+        ];
+    }
+
+    public function toArrayWithoutFriends()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'photo' => $this->photo,
             'location' => $this->getLastLocation()->toArray()
         ];
     }
