@@ -10,22 +10,21 @@ class LoginController extends \BaseController {
     public function postPassword()
     {
         if (Auth::check()) {
-            return Response::json(['ja tasi']);
+            return Response::json(['status' => 'already_logged_in']);
         }
-        $email = "";
-        $password = "";
+
         if (Input::has('email') && Input::has('password')) {
             $email = Input::get('email');
             $password = Input::get('password');
         } else {
-            return Response::json(['iii'=>'iiii']);
+            return Response::json(['status' => 'missing_parameters']);
         }
 
         if (Auth::attempt(array('email' => $email, 'password' => $password), true))
         {
-            return Response::json(['ola'=>'ola']);
+            return Response::json(['status' => 'logged_in']);
         }
-        return Response::json(['bah'=>'bah']);
+        return Response::json(['status' => 'error']);
     }
 
     public function postFacebook()
@@ -36,7 +35,6 @@ class LoginController extends \BaseController {
             $accessToken = $this->facebookService->getAccessToken();
 
             if ( ! Auth::attempt(array('facebook_uid' => $userId), true) ) {
-                // cria o user aqui
                 $user = new User();
                 $user->email = $userProfile['email'];
                 $user->name = $userProfile['name'];

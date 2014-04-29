@@ -2,15 +2,15 @@
 
 class MeController extends \BaseController {
 
-    public function __construct()
+    public function __construct(MeService $meService)
     {
         $this->beforeFilter('auth');
+        $this->meService = $meService;
     }
 
 	public function getIndex()
     {
-        $users = User::all();
-        return Response::json($users);
+        return Response::json($this->meService->getUser(Auth::getUser()->id));
     }
 
     public function getTest()

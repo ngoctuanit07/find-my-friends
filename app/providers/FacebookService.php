@@ -2,14 +2,9 @@
 
 class FacebookService
 {
-    /**
-     * @var string
-     */
+
     private $_user;
 
-    /**
-     * @var \Facebook
-     */
     private $_facebook;
 
     public function __construct()
@@ -17,11 +12,6 @@ class FacebookService
         $this->_facebook = new Facebook(self::getConfig());
     }
 
-    /**
-     * get facebook config, gives appId and secret to be used
-     *
-     * @return array
-     */
     static public function getConfig()
     {
         $config = array(
@@ -32,11 +22,6 @@ class FacebookService
         return $config;
     }
 
-    /**
-     * returns user profile from facebook, an array of data with user info
-     *
-     * @return bool|array
-     */
     public function getUserProfile()
     {
         $user = $this->getFacebookUserId();
@@ -53,11 +38,6 @@ class FacebookService
         return false;
     }
 
-    /**
-     * get facebook access token
-     *
-     * @return string|false
-     */
     public function getAccessToken()
     {
         $user = $this->getFacebookUserId();
