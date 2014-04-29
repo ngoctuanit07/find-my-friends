@@ -47,7 +47,7 @@ angular.module('myApp.services', []).
         }
 
         this.loginfacebook = function(token) {
-            return this._sendData('GET', 'login?code=' + token, {});
+            return this._sendData('POST', 'login/facebook?code=' + token, {});
         }
     }])
 
@@ -64,7 +64,7 @@ angular.module('myApp.services', []).
                         if (response.authResponse) {
                             $scope._login(response);
                         }
-                    }, {scope: 'email'});
+                    }, {scope: ['email']});
                 }
             });
         };
@@ -76,6 +76,7 @@ angular.module('myApp.services', []).
                         try {
                             // resposta ao teu codigo
                             console.log("fiz login!");
+                            console.log(html);
                         } catch (e) {
                             //
                         }

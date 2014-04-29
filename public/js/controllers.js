@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, connection) {
+.controller('DashCtrl', function($scope, connection, loginFacebook) {
         $scope.map = {
             center: {
                 latitude: 45,
@@ -15,6 +15,10 @@ angular.module('starter.controllers', [])
             .success(function(users){
                 $scope.friends = users;
             });
+
+        $scope.facebook = function() {
+            loginFacebook.facebook();
+        }
 })
 
 .controller('FriendsCtrl', function($scope, Friends) {
