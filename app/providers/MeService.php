@@ -2,7 +2,7 @@
 
 class MeService
 {
-    public function getUser($userId) {
-        return User::find($userId);
+    public function getMe($user) {
+        return User::find($user->id);
     }
 }

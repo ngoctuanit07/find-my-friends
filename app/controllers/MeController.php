@@ -2,15 +2,31 @@
 
 class MeController extends \BaseController {
 
-    public function __construct(MeService $meService)
+    public function __construct(MeService $meService, LocationService $locationService)
     {
         $this->beforeFilter('auth');
         $this->meService = $meService;
+        $this->locationService = $locationService;
     }
 
 	public function getIndex()
     {
-        return Response::json($this->meService->getUser(Auth::getUser()->id));
+        $user = Auth::getUser();
+        return Response::json($this->meService->getMe($user));
+    }
+
+    public function postLocation()
+    {
+        if (Input::has('latitude') && Input::has('longitude') && Input::has('accuracy')) {
+            $latitude = Input::get('latitude');
+            $longitude = Input::get('longitude');
+            $accuracy = Input::get('accuracy');
+            $user = Auth::getUser();
+            $this->locationService->addLocation($latitude, $longitude, $accuracy, $user);
+            return Response::json(['status' => 'location_acceptedd']);
+        } else {
+            return Response::json(['status' => 'missing_parameters']);
+        }
     }
 
     public function getTest()
@@ -78,10 +94,5 @@ class MeController extends \BaseController {
         $user1->friends()->save($friend2);
 
         return Response::json($user1);
-    }
-
-    public function postLocation()
-    {
-        echo "post location dddd";
     }
 }

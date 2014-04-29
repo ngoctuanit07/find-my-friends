@@ -2,9 +2,38 @@
 
 class LoginController extends \BaseController {
 
-    public function __construct(FacebookService $facebookService)
+    public function __construct(LoginService $loginService, FacebookService $facebookService)
     {
+        $this->loginService = $loginService;
         $this->facebookService = $facebookService;
+    }
+
+    public function postRegister()
+    {
+        if (Input::has('email') && Input::has('password') && Input::has('name')) {
+            $email = Input::get('email');
+            $password = Input::get('password');
+            $name = Input::get('name');
+
+            $user = $this->loginService->register($email, $name, $password);
+            if ( $user === NULL ) {
+                return Response::json(['status' => 'error']);
+            } else {
+                return Response::json(['status' => 'registered']);
+            }
+        } else {
+            return Response::json(['status' => 'missing_parameters']);
+        }
+    }
+
+    public function postLogout()
+    {
+        if (Auth::check()) {
+            Auth::logout();
+            return Response::json(['status' => 'logged_out']);
+        } else {
+            return Response::json(['status' => 'already_logged_out']);
+        }
     }
 
     public function postPassword()

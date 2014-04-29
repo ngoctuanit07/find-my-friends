@@ -97,7 +97,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function getLastLocation()
     {
-        return $this->locations()->orderBy('id', 'asc')->take(1)->get();
+        return $this->locations()->orderBy('id', 'desc')->take(1)->get();
     }
 
     public function toArray()
