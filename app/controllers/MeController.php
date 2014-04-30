@@ -87,13 +87,23 @@ class MeController extends \BaseController {
 
         $friend1 = new Friend();
         $friend1->setFriendUser($user2);
-        $friend1->status = 'sent_request';
+        $friend1->status = 'sharing';
         $user1->friends()->save($friend1);
+
+        $friend1Back = new Friend();
+        $friend1Back->setFriendUser($user1);
+        $friend1Back->status = 'sharing';
+        $user2->friends()->save($friend1Back);
 
         $friend2 = new Friend();
         $friend2->setFriendUser($user3);
-        $friend2->status = 'sharing';
+        $friend2->status = 'not_sharing';
         $user1->friends()->save($friend2);
+
+        $friend2Back = new Friend();
+        $friend2Back->setFriendUser($user1);
+        $friend2Back->status = 'not_sharing';
+        $user3->friends()->save($friend2Back);
 
         return Response::json($user1);
     }

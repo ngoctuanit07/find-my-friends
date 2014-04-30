@@ -25,11 +25,17 @@ class Friend extends Eloquent {
         return $this->belongsTo('User');
     }
 
+    public function canShareLocation()
+    {
+        if ($this->status === 'sharing') return true;
+        else return false;
+    }
+
     public function toArray()
     {
         return [
             'friend_id'=> $this->friend_user_id,
-            'friend' => $this->friendUser->toArrayForFriend($this->userId),
+            'friend' => $this->friendUser->toArrayForFriend($this->user_id),
             'status' => $this->status
         ];
     }

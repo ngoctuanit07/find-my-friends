@@ -26,7 +26,16 @@
       <file leaf-file-name="MeController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/MeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="8" selection-start="121" selection-end="121" vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="1590">
+            <state line="76" column="0" selection-start="2502" selection-end="2502" vertical-scroll-proportion="-47.5" vertical-offset="0" max-vertical-offset="1740">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MeService.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/providers/MeService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="-25.625" vertical-offset="0" max-vertical-offset="1410">
               <folding />
             </state>
           </provider>
@@ -35,7 +44,7 @@
       <file leaf-file-name="FriendController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/FriendController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="57" selection-start="585" selection-end="585" vertical-scroll-proportion="4.3333335" vertical-offset="434" max-vertical-offset="1110">
+            <state line="14" column="35" selection-start="306" selection-end="306" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="1110">
               <folding />
             </state>
           </provider>
@@ -44,7 +53,7 @@
       <file leaf-file-name="User.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="5" selection-start="2086" selection-end="2086" vertical-scroll-proportion="0.8224852" vertical-offset="1139" max-vertical-offset="1920">
+            <state line="95" column="5" selection-start="1620" selection-end="1620" vertical-scroll-proportion="0.17899409" vertical-offset="1289" max-vertical-offset="1995">
               <folding />
             </state>
           </provider>
@@ -53,7 +62,7 @@
       <file leaf-file-name="Friend.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/Friend.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="40" selection-start="493" selection-end="493" vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="615">
+            <state line="23" column="5" selection-start="452" selection-end="452" vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="705">
               <folding />
             </state>
           </provider>
@@ -115,9 +124,9 @@
         <option value="$PROJECT_DIR$/app/routes.php" />
         <option value="$PROJECT_DIR$/app/providers/MeService.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_04_27_200849_create_friend_table.php" />
-        <option value="$PROJECT_DIR$/app/models/Friend.php" />
-        <option value="$PROJECT_DIR$/app/controllers/MeController.php" />
         <option value="$PROJECT_DIR$/app/controllers/FriendController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/MeController.php" />
+        <option value="$PROJECT_DIR$/app/models/Friend.php" />
         <option value="$PROJECT_DIR$/app/models/User.php" />
       </list>
     </option>
@@ -1034,13 +1043,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/providers/MeService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.5325444" vertical-offset="255" max-vertical-offset="1410">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/HomeController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="700">
@@ -1057,28 +1059,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Friend.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="40" selection-start="493" selection-end="493" vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="615">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/FriendController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="57" selection-start="585" selection-end="585" vertical-scroll-proportion="4.3333335" vertical-offset="434" max-vertical-offset="1110">
+        <state line="23" column="5" selection-start="452" selection-end="452" vertical-scroll-proportion="-14.375" vertical-offset="0" max-vertical-offset="705">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/MeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="8" selection-start="121" selection-end="121" vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="1590">
+        <state line="76" column="0" selection-start="2502" selection-end="2502" vertical-scroll-proportion="-47.5" vertical-offset="0" max-vertical-offset="1740">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/providers/MeService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="-25.625" vertical-offset="0" max-vertical-offset="1410">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/FriendController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="35" selection-start="306" selection-end="306" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="1110">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="5" selection-start="2086" selection-end="2086" vertical-scroll-proportion="0.8224852" vertical-offset="1139" max-vertical-offset="1920">
+        <state line="95" column="5" selection-start="1620" selection-end="1620" vertical-scroll-proportion="0.17899409" vertical-offset="1289" max-vertical-offset="1995">
           <folding />
         </state>
       </provider>

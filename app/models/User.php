@@ -111,13 +111,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         ];
     }
 
-    public function toArrayForFriend($userId)
+    public function toArrayForFriend($friendId)
     {
+        $friend = $this->friends()->where('friend_user_id', $friendId)->first();
+        $location = [];
+        if ($friend === null) return [];
+        if ($friend->canShareLocation()) $location = $this->getLastLocation()->toArray();
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'photo' => $this->photo,
-            'location' => $this->getLastLocation()->toArray()
+            'location' => $location
         ];
     }
 }
