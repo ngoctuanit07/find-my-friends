@@ -17,12 +17,12 @@ class LoginController extends \BaseController {
 
             $user = $this->loginService->register($email, $name, $password);
             if ( $user === NULL ) {
-                return Response::json(['status' => 'error']);
+                return Response::error(215, 'Failed to register');
             } else {
-                return Response::json(['status' => 'registered']);
+                return Response::json(['message' => 'Registered']);
             }
         } else {
-            return Response::json(['status' => 'missing_parameters']);
+            return Response::error('Missing parameters');
         }
     }
 
@@ -30,30 +30,30 @@ class LoginController extends \BaseController {
     {
         if (Auth::check()) {
             Auth::logout();
-            return Response::json(['status' => 'logged_out']);
+            return Response::json(['message' => 'Logged out']);
         } else {
-            return Response::json(['status' => 'already_logged_out']);
+            return Response::json(['message' => 'Already logged out']);
         }
     }
 
     public function postPassword()
     {
         if (Auth::check()) {
-            return Response::json(['status' => 'already_logged_in']);
+            return Response::json(['message' => 'Already logged in']);
         }
 
         if (Input::has('email') && Input::has('password')) {
             $email = Input::get('email');
             $password = Input::get('password');
         } else {
-            return Response::json(['status' => 'missing_parameters']);
+            return Response::error('Missing parameters');
         }
 
         if (Auth::attempt(array('email' => $email, 'password' => $password), true))
         {
-            return Response::json(['status' => 'logged_in']);
+            return Response::json(['message' => 'Logged in']);
         }
-        return Response::json(['status' => 'error']);
+        return Response::error('Log in failed');
     }
 
     public function postFacebook()
@@ -72,11 +72,11 @@ class LoginController extends \BaseController {
 
                 $user->save();
 
-                return Response::json(['status' => 'created']);
+                return Response::json(['messaged' => 'Created user and logged in']);
             }
-            return Response::json(['status' => 'logged_in']);
+            return Response::json(['message' => 'Logged in']);
         } else {
-            return Response::json(['status' => 'error']);
+            return Response::error('Facebook log in failed');
         }
     }
 }

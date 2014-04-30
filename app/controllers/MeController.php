@@ -2,17 +2,16 @@
 
 class MeController extends \BaseController {
 
-    public function __construct(MeService $meService, LocationService $locationService)
+    public function __construct(MeService $meService)
     {
         $this->beforeFilter('auth');
         $this->meService = $meService;
-        $this->locationService = $locationService;
     }
 
 	public function getIndex()
     {
         $user = Auth::getUser();
-        return Response::json($this->meService->getMe($user));
+        return Response::ok($this->meService->getMe($user));
     }
 
     public function postLocation()
@@ -22,10 +21,10 @@ class MeController extends \BaseController {
             $longitude = Input::get('longitude');
             $accuracy = Input::get('accuracy');
             $user = Auth::getUser();
-            $this->locationService->addLocation($latitude, $longitude, $accuracy, $user);
-            return Response::json(['status' => 'location_acceptedd']);
+            $this->meService->addLocation($latitude, $longitude, $accuracy, $user);
+            return Response::json(['message' => 'Location accepted']);
         } else {
-            return Response::json(['status' => 'missing_parameters']);
+            return Response::json(['message' => 'Missing parameters']);
         }
     }
 
