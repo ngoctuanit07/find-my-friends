@@ -17,7 +17,7 @@ class LoginController extends \BaseController {
 
             $user = $this->loginService->register($email, $name, $password);
             if ( $user === NULL ) {
-                return Response::error(215, 'Failed to register');
+                return Response::error('Failed to register');
             } else {
                 return Response::json(['message' => 'Registered']);
             }

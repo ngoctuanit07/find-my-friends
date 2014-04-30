@@ -27,8 +27,8 @@ class CreateFriendTable extends Migration {
 
             $table->unique( array('user_id','friend_user_id') );
 
-            $table->enum('status', array('pending', 'authorized',
-                                        'not_authorized', 'blocked'))->default('pending');
+            $table->enum('status', array('sent_request', 'pending_confirmation' , 'sharing',
+                                        'not_sharing', 'blocked'));
 
             $table->timestamps();
 		});

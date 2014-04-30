@@ -9,7 +9,7 @@ class Response extends BaseResponse {
         return BaseResponse::json($data);
     }
 
-    public static function error($code, $message)
+    public static function error($message, $code = 500)
     {
         return BaseResponse::json([ 'status' => $code, 'message' => $message], $code);
     }

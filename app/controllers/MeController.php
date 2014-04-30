@@ -42,6 +42,7 @@ class MeController extends \BaseController {
         $user1->name = "Pedro Fernandes";
         $user1->password = Hash::make("123");
         $user1->photo = "http://graph.facebook.com/100001104862080/picture?type=square";
+        $user1->save();
 
         $user2 = new User();
         $user2->email = "zipleen@gmail.com";
@@ -86,10 +87,12 @@ class MeController extends \BaseController {
 
         $friend1 = new Friend();
         $friend1->setFriendUser($user2);
+        $friend1->status = 'sent_request';
         $user1->friends()->save($friend1);
 
         $friend2 = new Friend();
         $friend2->setFriendUser($user3);
+        $friend2->status = 'sharing';
         $user1->friends()->save($friend2);
 
         return Response::json($user1);

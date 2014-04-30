@@ -11,15 +11,9 @@
 |
 */
 
-
-Route::get('/', function(){
-    return View::make('index');
-});
-
-Route::get('users', 'HomeController@showTest');
-
 Route::controller('me', 'MeController');
 Route::controller('login', 'LoginController');
+Route::controller('friend', 'FriendController');
 
 /*
 Route::group(array('before' => 'auth','prefix' => 'api/v1'), function()
