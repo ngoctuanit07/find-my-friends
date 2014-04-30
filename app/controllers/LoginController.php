@@ -2,10 +2,11 @@
 
 class LoginController extends \BaseController {
 
-    public function __construct(LoginService $loginService, FacebookService $facebookService)
+    public function __construct(LoginService $loginService, FacebookService $facebookService, MeService $meService)
     {
         $this->loginService = $loginService;
         $this->facebookService = $facebookService;
+        $this->meService = $meService;
     }
 
     public function postRegister()
@@ -64,8 +65,11 @@ class LoginController extends \BaseController {
             $accessToken = $this->facebookService->getAccessToken();
 
             if ( ! Auth::attempt(array('facebook_uid' => $userId), true) ) {
-                $user = new User();
-                $user->email = $userProfile['email'];
+                $foundUser = $this->meService->getUserFromEmail($userProfile['email']);
+                if (!$foundUser) {
+                    $user = new User();
+                    $user->email = $userProfile['email'];
+                }
                 $user->name = $userProfile['name'];
                 $user->facebook_uid = $userId;
                 $user->photo = 'http://graph.facebook.com/'+$userId+'/picture?type=small';

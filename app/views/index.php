@@ -113,8 +113,10 @@
     <script src='vendor/underscore/underscore.js'></script>
     <script src="vendor/angular-google-maps/dist/angular-google-maps.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
+    <script src="js/controllers/DashController.js"></script>
+    <script src="js/controllers/FriendDetailController.js"></script>
+    <script src="js/controllers/LoginController.js"></script>
+    <script src="js/services/services.js"></script>
 </head>
 <div id="fb-root"></div>
 

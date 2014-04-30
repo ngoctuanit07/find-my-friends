@@ -33,7 +33,7 @@ angular.module('myApp.services', []).
         this._sendData = function(method, url, data) {
             return $http({
                 method: method,
-                url: url,
+                url: 'api/v1/' + url,
                 data: data
             });
         }

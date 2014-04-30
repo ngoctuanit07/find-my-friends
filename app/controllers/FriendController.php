@@ -66,4 +66,8 @@ class FriendController extends \BaseController {
         }
     }
 
+    public function deleteIndex()
+    {
+
+    }
 }
