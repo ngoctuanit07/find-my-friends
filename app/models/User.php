@@ -111,7 +111,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         ];
     }
 
-    public function toArrayWithoutFriends()
+    public function toArrayForFriend($userId)
     {
         return [
             'id' => $this->id,

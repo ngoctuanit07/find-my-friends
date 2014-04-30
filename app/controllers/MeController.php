@@ -14,7 +14,7 @@ class MeController extends \BaseController {
         return Response::ok($this->meService->getMe($user));
     }
 
-    public function postLocation()
+    public function putLocation()
     {
         if (Input::has('latitude') && Input::has('longitude') && Input::has('accuracy')) {
             $latitude = Input::get('latitude');

@@ -2,10 +2,39 @@
 
 class FriendController extends \BaseController {
 
+    public $restful = true;
+
     public function __construct(MeService $meService)
     {
         $this->beforeFilter('auth');
         $this->meService = $meService;
+    }
+
+    public function postStatus($id)
+    {
+        if (Input::has('status')) {
+            $status = Input::get('status');
+
+            if (!in_array($status, Friend::$states)) {
+                return Response::error('Invalid status for friend');
+            }
+
+            $user = Auth::getUser();
+            $friendUser = $this->meService->getUser($id);
+            if ($friendUser === null) {
+                return Response::error('Invalid friend id');
+            }
+            $friend = $this->meService->updateStatus($user, $friendUser, $status);
+            if ($friend === null) {
+                return Response::error('Failed updating status to friend');
+            } else {
+                return Response::ok($this->meService->updateStatus($user, $friendUser, $status));
+            }
+        }
+
+        else {
+            return Response::error('Missing parameters');
+        }
     }
 
     public function postIndex()
