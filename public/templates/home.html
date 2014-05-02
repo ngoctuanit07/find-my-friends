@@ -1,0 +1,27 @@
+<ion-view title="Home">
+    <ion-content padding="true">
+        <p>
+            <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
+        </p>
+        <google-map center="map.center" zoom="map.zoom">
+            <marker ng-repeat="friend in friends"
+                    coords="friend.user.location"
+                    icon="friend.user.photo"
+                    >
+            </marker>
+            <marker coords="user.location"
+                    icon="user.photo">
+            </marker>
+        </google-map>
+
+
+        <div class="list">
+            <a ng-repeat="friend in friends"
+               class="item item-avatar" href="#/tab/friend/{{friend.user.id}}">
+                <img src="{{friend.user.photo}}">
+                <h2>{{friend.user.name}}</h2>
+                <p>{{friend.user.location.updated.date}}</p>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

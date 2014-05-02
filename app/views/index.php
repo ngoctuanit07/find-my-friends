@@ -113,27 +113,20 @@
     <script src='vendor/underscore/underscore.js'></script>
     <script src="vendor/angular-google-maps/dist/angular-google-maps.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/controllers/DashController.js"></script>
+    <script src="js/controllers/HomeController.js"></script>
     <script src="js/controllers/FriendDetailController.js"></script>
     <script src="js/controllers/LoginController.js"></script>
     <script src="js/services/services.js"></script>
 </head>
 <div id="fb-root"></div>
 
-<body ng-app="starter" animation="slide-left-right-ios7">
-<!--
-  The nav bar that will be updated as we navigate between views.
--->
-<ion-nav-bar class="bar-stable nav-title-slide-ios7">
-    <ion-nav-back-button class="button-icon icon ion-chevron-left">
-        Back
+<body ng-app="starter">
+<ion-nav-bar class="bar-positive nav-title-slide-ios7">
+    <ion-nav-back-button class="button-icon ion-arrow-left-c">
     </ion-nav-back-button>
 </ion-nav-bar>
-<!--
-  The views will be rendered in the <ion-nav-view> directive below
-  Templates are in the /templates folder (but you could also
-  have templates inline in this html file if you'd like).
--->
-<ion-nav-view></ion-nav-view>
+
+<ion-nav-view animation="slide-left-right"></ion-nav-view>
+
 </body>
 </html>

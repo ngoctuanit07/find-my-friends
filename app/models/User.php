@@ -97,7 +97,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function getLastLocation()
     {
-        return $this->locations()->orderBy('id', 'desc')->take(1)->get();
+        $lastId = $this->locations()->max('id');
+        return Location::find($lastId);
     }
 
     public function toArray()
@@ -114,7 +115,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function toArrayForFriend($friendId)
     {
         $friend = $this->friends()->where('friend_user_id', $friendId)->first();
-        $location = [];
+        $location = null;
         if ($friend === null) return [];
         if ($friend->canShareLocation()) $location = $this->getLastLocation()->toArray();
 

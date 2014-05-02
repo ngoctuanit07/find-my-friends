@@ -35,7 +35,7 @@ class Friend extends Eloquent {
     {
         return [
             'friend_id'=> $this->friend_user_id,
-            'friend' => $this->friendUser->toArrayForFriend($this->user_id),
+            'user' => $this->friendUser->toArrayForFriend($this->user_id),
             'status' => $this->status
         ];
     }

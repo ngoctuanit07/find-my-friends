@@ -46,6 +46,10 @@ angular.module('myApp.services', []).
             return this._sendData('POST', 'login/password', {'email': email, 'password': pass});
         }
 
+        this.logout = function() {
+            return this._sendData('POST', 'log')
+        }
+
         this.loginfacebook = function(token) {
             return this._sendData('POST', 'login/facebook?code=' + token, {});
         }
