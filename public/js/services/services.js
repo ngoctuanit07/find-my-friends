@@ -6,7 +6,7 @@ angular.module('starter.services', [])
         this._sendData = function(method, url, data) {
             return $http({
                 method: method,
-                url: 'api/v1/' + url,
+                url: remoteUrl + 'api/v1/' + url,
                 data: data
             });
         }
