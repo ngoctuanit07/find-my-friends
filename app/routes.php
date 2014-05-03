@@ -11,11 +11,7 @@
 |
 */
 
-Route::get('/', function(){
-    return View::make('index');
-});
-
-Route::group(array('prefix' => 'api/v1'), function()
+Route::group(array('prefix' => 'v1'), function()
 {
     Route::controller('me', 'MeController');
     Route::controller('login', 'LoginController');
