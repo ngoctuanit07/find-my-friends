@@ -30,5 +30,13 @@ Either you need to install this to a vhost in apache, or just run:
 
 # cordova
 
-sudo npm install -g cordova
-sudo npm install -g ios-sim
+install cordova:
+- sudo npm install -g cordova
+- sudo npm install -g ios-sim
+
+Build project with:
+- cd cordova
+- cordova build
+
+Run with:
+- cordova emulate
