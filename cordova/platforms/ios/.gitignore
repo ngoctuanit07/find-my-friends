@@ -1,5 +1,8 @@
 *.mode1v3
 *.perspectivev3
 *.pbxuser
+*.hmap
+*.xccheckout
 .DS_Store
 build/
+www/*
