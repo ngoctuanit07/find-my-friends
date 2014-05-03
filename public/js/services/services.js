@@ -28,37 +28,11 @@ angular.module('starter.services', [])
         }
     }])
 
-    .factory('PollerService', ['$http', 'FindMyFriendsService', function($http, FindMyFriendsService){
-        var defaultPollingTime = 10000;
-        var polls = {};
-
-        return {
-            start: function(name, url, pollingTime, callback) {
-                // Check to make sure poller doesn't already exist
-                if (!polls[name]) {
-                    var poller = function() {
-                        $http.get(url).then(callback);
-                    }
-                    poller();
-                    polls[name] = setInterval(poller, pollingTime || defaultPollingTime);
-                }
-            },
-
-            stop: function(name) {
-                clearInterval(polls[name]);
-                delete polls[name];
-            }
-        }
-    }])
-
     .factory('MeModel', ['$http', 'FindMyFriendsService', '$filter', '$q', '$interval', function($http, FindMyFriendsService, $filter, $q, $interval){
         var $scope = this;
         $scope.user = null;
-        var poller;
-        
+
         return {
-            
-            
             getFriend: function(id) {
                 if ($scope.user != undefined) {
                     var found = $filter('filter')($scope.user.friends, {'friend_id': id});
@@ -73,7 +47,6 @@ angular.module('starter.services', [])
             },
             
             getMe: function() {
-                console.log('oa');
                 var deferred = $q.defer();
                 if ($scope.user) {
                     deferred.resolve($scope.user);
@@ -83,7 +56,6 @@ angular.module('starter.services', [])
                      .then(function (data) {
                          // TODO check errors
                         $scope.user = data.data;
-                        console.log('done!');
                         deferred.resolve($scope.user);
                      });
                 }
