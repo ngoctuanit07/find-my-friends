@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="edu.find-my-friends" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>FindMyFriends</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.4.0">
+        <param name="APP_ID" value="694514773928221" />
+        <param name="APP_NAME" value="998d17a5f14b9303cba4622e5c7127dc" />
+    </gap:plugin>
+</widget>

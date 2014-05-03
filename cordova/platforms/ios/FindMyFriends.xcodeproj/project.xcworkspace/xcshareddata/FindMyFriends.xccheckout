@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BD514719-F6E3-4084-B3CA-4B726DAA6C65</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FindMyFriends</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1B59F8FC-1361-46B3-B4AD-D4DD18FF3FB6</key>
+		<string>ssh://github.com/pedrorfernandes/find-my-friends.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>cordova/platforms/ios/FindMyFriends.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1B59F8FC-1361-46B3-B4AD-D4DD18FF3FB6</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/pedrorfernandes/find-my-friends.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1B59F8FC-1361-46B3-B4AD-D4DD18FF3FB6</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1B59F8FC-1361-46B3-B4AD-D4DD18FF3FB6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>find-my-friends</string>
+		</dict>
+	</array>
+</dict>
+</plist>
