@@ -28,3 +28,7 @@ Write the host, user, pass and dbname in app/config/database.php, in connections
 Either you need to install this to a vhost in apache, or just run:
 - php artisan serve
 
+# cordova
+
+sudo npm install -g cordova
+sudo npm install -g ios-sim
