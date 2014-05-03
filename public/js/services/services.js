@@ -1,34 +1,7 @@
 angular.module('starter.services', [])
+    .value('version', '0.1')
 
-/**
- * A simple example service that returns some data.
- */
-.factory('Friends', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var friends = [
-    { id: 0, name: 'Scruff McGruff' },
-    { id: 1, name: 'G.I. Joe' },
-    { id: 2, name: 'Miss Frizzle' },
-    { id: 3, name: 'Ash Ketchum' }
-  ];
-
-  return {
-    all: function() {
-      return friends;
-    },
-    get: function(friendId) {
-      // Simple index lookup
-      return friends[friendId];
-    }
-  }
-});
-
-angular.module('myApp.services', []).
-    value('version', '0.1')
-
-    .service('connection', ['$http', function($http) {
+    .service('FindMyFriendsService', ['$http', function($http) {
 
         this._sendData = function(method, url, data) {
             return $http({
@@ -38,7 +11,7 @@ angular.module('myApp.services', []).
             });
         }
 
-        this.getUser = function () {
+        this.getMe = function () {
             return this._sendData('GET', 'me', {});
         }
 
@@ -47,7 +20,7 @@ angular.module('myApp.services', []).
         }
 
         this.logout = function() {
-            return this._sendData('POST', 'log')
+            return this._sendData('POST', 'login/logout');
         }
 
         this.loginfacebook = function(token) {
@@ -55,8 +28,71 @@ angular.module('myApp.services', []).
         }
     }])
 
+    .factory('PollerService', ['$http', 'FindMyFriendsService', function($http, FindMyFriendsService){
+        var defaultPollingTime = 10000;
+        var polls = {};
 
-    .service('loginFacebook', ['connection', '$window', function(connection, $window){
+        return {
+            start: function(name, url, pollingTime, callback) {
+                // Check to make sure poller doesn't already exist
+                if (!polls[name]) {
+                    var poller = function() {
+                        $http.get(url).then(callback);
+                    }
+                    poller();
+                    polls[name] = setInterval(poller, pollingTime || defaultPollingTime);
+                }
+            },
+
+            stop: function(name) {
+                clearInterval(polls[name]);
+                delete polls[name];
+            }
+        }
+    }])
+
+    .factory('MeModel', ['$http', 'FindMyFriendsService', '$filter', '$q', '$interval', function($http, FindMyFriendsService, $filter, $q, $interval){
+        var $scope = this;
+        $scope.user = null;
+        var poller;
+        
+        return {
+            
+            
+            getFriend: function(id) {
+                if ($scope.user != undefined) {
+                    var found = $filter('filter')($scope.user.friends, {'friend_id': id});
+                    if (found[0] !== undefined) {
+                        return found[0];
+                    }
+                }
+            },
+            
+            reset: function() {
+                $scope.user = null;  
+            },
+            
+            getMe: function() {
+                console.log('oa');
+                var deferred = $q.defer();
+                if ($scope.user) {
+                    deferred.resolve($scope.user);
+                }
+                else {
+                    FindMyFriendsService.getMe()
+                     .then(function (data) {
+                         // TODO check errors
+                        $scope.user = data.data;
+                        console.log('done!');
+                        deferred.resolve($scope.user);
+                     });
+                }
+                return deferred.promise;
+            }
+        }
+    }])
+
+    .service('loginFacebook', ['FindMyFriendsService', '$window', function(FindMyFriendsService, $window){
         var $scope = this;
 
         this.facebook = function() {
@@ -74,7 +110,7 @@ angular.module('myApp.services', []).
         };
 
         this._login = function (response) {
-            connection.loginfacebook(response.authResponse.accessToken)
+            FindMyFriendsService.loginfacebook(response.authResponse.accessToken)
                 .success( function (data) {
                     angular.forEach(data, function (html, element) {
                         try {

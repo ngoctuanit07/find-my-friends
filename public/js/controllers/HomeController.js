@@ -1,9 +1,13 @@
 angular.module('starter.controllers', [])
 
-    .controller('HomeCtrl', function($scope, connection) {
-        $scope.friends = {};
+    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval) {
+        
         $scope.user = null;
-
+        $scope.location = {};
+        $scope.friends = {};
+        $scope.poller = null;
+       
+        
         $scope.map = {
             center: {
                 latitude: 41.175488,
@@ -15,19 +19,44 @@ angular.module('starter.controllers', [])
             }
         };
 
-        connection.getUser()
-            .success(function(user){
-                $scope.user = user;
-                $scope.friends = user.friends;
-
-                $scope.map = {
+        $scope.$watch('location', function() {
+            $scope.map = {
+                    
                     center: {
-                        latitude: user.location.latitude,
-                        longitude: user.location.longitude
+                        latitude: $scope.location.latitude,
+                        longitude: $scope.location.longitude
                     },
                     zoom: 15
                 };
-            });
+        });
+        
+        $scope.refresh = function() {
+            MeModel.reset();
+            $scope.fetch();            
+        }
+        
+        $scope.fetch = function() {
+            MeModel.getMe().then(function(user){
+                $scope.user = user;
+                            $scope.friends = user.friends;
+                            $scope.location = user.location;
+                        });
+        }
+           
+       $scope.start = function() {
+                $scope.poller = $interval($scope.refresh, 10000);
+            };
 
+            $scope.stop = function() {
+                $interval.cancel($scope.poller);
+                $scope.poller = null;
+            };
+            
+        $scope.fetch();
+        $scope.start();
+       
+        $scope.$on('$destroy', function(e) {
+                $interval.cancel($scope.poller);
+        });
     })
 ;

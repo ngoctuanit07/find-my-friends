@@ -1,18 +1,18 @@
 angular.module('starter.controllers')
 
-    .controller('LoginCtrl', function($scope, $state, connection, loginFacebook) {
+    .controller('LoginCtrl', function($scope, $state, FindMyFriendsService, loginFacebook, PollerService) {
         $scope.facebook = function() {
             loginFacebook.facebook();
         }
 
         $scope.login = function(user) {
             console.log('Login', user.email);
-            connection.login(user.email, user.password);
+            FindMyFriendsService.login(user.email, user.password);
             $state.go('tabs.home');
         };
 
         $scope.logout = function() {
-            connection.logout();
+            FindMyFriendsService.logout();
             $state.go('login');
         }
     })

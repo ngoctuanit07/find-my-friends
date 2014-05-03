@@ -1,7 +1,7 @@
 angular.module('starter.controllers')
 
-    .controller('FriendDetailCtrl', function($scope, $stateParams, connection) {
-        console.log($scope.user);
-        $scope.friend = connection.get($stateParams.friendId);
+    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel) {
+        $scope.friend = MeModel.getFriend($stateParams.friendId);
+        
     })
 ;
