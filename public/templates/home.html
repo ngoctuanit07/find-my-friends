@@ -23,14 +23,12 @@
         </div>
     </ion-content>
 
-    <div class="bar bar-footer bar-energized">
-        <div class="title">
-            <a class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
-                <img src="{{user.photo}}">
-                <h2>{{user.name}}</h2>
-                <p>{{user.location.updated.date}}</p>
-                <button class="button button-assertive">10 km</button>
-            </a>
-        </div>
+    <div class="bar bar-footer bar-positive" href="#/friend/1">
+        <a class="item-thumbnail-left item-button-right">
+            <img src="{{user.photo}}">
+            <h3>{{user.name}}</h3>
+            <p>{{user.location.updated.date}}</p>
+            <i id="footerIcon" class="button button-clear pull-right ion-chevron-right"></i>
+        </a>
     </div>
 </ion-view>

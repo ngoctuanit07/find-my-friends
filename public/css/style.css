@@ -1,6 +1,16 @@
 /* Empty. Add your own CSS if you like */
 .angular-google-map-container { height: 400px; }
 
-#distance {
+.bar-footer{
+    height:100px;
+}
+
+.bar-footer a h3 {
+    margin-top: 10px;
+    color: #ffffff;
+}
+
+#footerIcon {
     top: 30%;
+    font-size: 40px;
 }
