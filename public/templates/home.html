@@ -6,7 +6,7 @@
         </a>
     </ion-nav-buttons>
 
-    <ion-content padding="true">
+    <ion-content padding="false">
         <a href="#/map">
             <google-map
              center="map.center" 
@@ -31,19 +31,20 @@
             </google-map>
         </a>
         <div class="list">
-            <a ng-repeat="friend in friends"
+            <a ng-repeat="friend in friends" 
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                 <img ng-src="{{friend.user.photo}}?type=square">
-                <h2>{{friend.user.name}}</h2>
-                <p>{{friend.user.location.updated.date}}</p>
-                <button ng-if="friend.user.status == 'sharing'"
-                        class="button button-assertive">
+
+                {{friend.user.name}}
+                <p style="margin:0;">{{timeSince(friend.user.location.updated.date)}}</p>
+                <span ng-if="friend.user.status == 'sharing'"
+                      class="badge badge-balanced">
                     {{friend.user.distance | number:2 }} km
-                </button>
+                </span>
 
                 <button ng-if="friend.user.status == 'not_sharing'"
                         class="button button-energized"
-                        ng-click="askForLocation({{friend.user.id}} )">
+                        ng-click="askForLocation({{friend.user.id}} ); do($event);" >
                     Ask
                 </button>
 
