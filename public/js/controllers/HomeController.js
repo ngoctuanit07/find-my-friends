@@ -6,6 +6,7 @@ angular.module('starter.controllers', [])
         $scope.friends = {};
         $scope.markers = [];
         $scope.poller = null;
+        $scope.navPoller = null;
 
         // google maps object that controls the map
         $scope.map = {
@@ -47,12 +48,19 @@ angular.module('starter.controllers', [])
             // now let's send this to the api
             
         }
+        
+        $scope.errorLocation = function(error) {
+            console.log('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+        }
+
+        $scope.refreshPosition = function() {
+            navigator.geolocation.getCurrentPosition($scope.saveLocation, $scope.errorLocation);
+        }
 
         $scope.refresh = function() {
             MeModel.reset();
             $scope.fetch();
-
-            navigator.geolocation.getCurrentPosition($scope.saveLocation);
         }
 
         $scope.fetch = function() {
@@ -92,19 +100,23 @@ angular.module('starter.controllers', [])
 
         $scope.start = function() {
             $scope.poller = $interval($scope.refresh, 10000);
+            $scope.navPoller = $interval($scope.refreshPosition, 180000);
         };
 
         $scope.stop = function() {
             $interval.cancel($scope.poller);
+            $interval.cancel($scope.navPoller);
             $scope.poller = null;
+            $scope.navPoller = null;
         };
 
+        $scope.refreshPosition();
         $scope.fetch();
         $scope.start();
 
-
         $scope.$on('$destroy', function(e) {
             $interval.cancel($scope.poller);
+            $interval.cancel($scope.navPoller);
         });
     })
 ;
