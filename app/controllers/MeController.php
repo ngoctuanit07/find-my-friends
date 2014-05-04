@@ -8,7 +8,7 @@ class MeController extends \BaseController {
         $this->meService = $meService;
     }
 
-	public function getIndex()
+    public function getIndex()
     {
         $user = Auth::getUser();
         return Response::ok($this->meService->getMe($user));
@@ -16,15 +16,20 @@ class MeController extends \BaseController {
 
     public function putLocation()
     {
-        if (Input::has('latitude') && Input::has('longitude') && Input::has('accuracy')) {
-            $latitude = Input::get('latitude');
-            $longitude = Input::get('longitude');
-            $accuracy = Input::get('accuracy');
-            $user = Auth::getUser();
-            $this->meService->addLocation($latitude, $longitude, $accuracy, $user);
-            return Response::json(['message' => 'Location accepted']);
+        if (Input::has('location')) {
+            $location = Input::get('location');
+            if (isset($location['latitude']) && isset($location['longitude']) && isset($location['accuracy'])) {
+                $latitude = $location['latitude'];
+                $longitude = $location['longitude'];
+                $accuracy = $location['accuracy'];
+                $user = Auth::getUser();
+                $this->meService->addLocation($latitude, $longitude, $accuracy, $user);
+                return Response::json(['message' => 'Location accepted']);
+            } else {
+                return Response::error('Missing parameters');
+            }
         } else {
-            return Response::json(['message' => 'Missing parameters']);
+            return Response::error('Missing parameters');
         }
     }
 
