@@ -41,20 +41,20 @@ class MeController extends \BaseController {
         $user1->email = "pedro@mail.com";
         $user1->name = "Pedro Fernandes";
         $user1->password = Hash::make("123");
-        $user1->photo = "http://graph.facebook.com/100001104862080/picture?type=square";
+        $user1->photo = "http://graph.facebook.com/100001104862080/picture";
         $user1->save();
 
         $user2 = new User();
         $user2->email = "luis@mail.com";
         $user2->name = "Luis Fernandes";
         $user2->password = Hash::make("123");
-        $user2->photo = "http://graph.facebook.com/560685994/picture?type=square";
+        $user2->photo = "http://graph.facebook.com/560685994/picture";
 
         $user3 = new User();
         $user3->email = "isa@mail.com";
         $user3->name = "Isabel Portugal";
         $user3->password = Hash::make("123");
-        $user3->photo = "http://graph.facebook.com/100000534883740/picture?type=square";
+        $user3->photo = "http://graph.facebook.com/100000534883740/picture";
 
         $user1->save();
         $user2->save();

@@ -53,7 +53,7 @@ angular.module('starter.controllers', [])
                             longitude: friend.user.location.longitude,
                         } ,
                         options: {zIndex:1 + friend.friend_id},
-                        photo: "img/hover.png"
+                        photoSmall: "img/hover.png"
                     };
                     this.push(placeholder);
                     
@@ -61,6 +61,7 @@ angular.module('starter.controllers', [])
                     friend.user.options = {};
                     friend.user.options.zIndex = 2 + friend.friend_id;
                     friend.user.location.latitude = parseFloat(friend.user.location.latitude) + 0.00055;
+                    friend.user.photoSmall = friend.user.photo + '?width=15&height=15';
                     this.push(friend.user);
                 }, markers);
                 
@@ -68,7 +69,7 @@ angular.module('starter.controllers', [])
                 var location = {
                     location: user.location,
                     options: {zIndex:10},
-                    photo: "img/point.png"
+                    photoSmall: "img/point.png"
                 };
                 markers.push(location);
                 angular.extend($scope.markers, markers);
