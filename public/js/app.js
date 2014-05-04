@@ -43,6 +43,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 templateUrl: "templates/me.html",
                 controller: "MeCtrl"
             })
+            .state('map', {
+                url: "/map",
+                templateUrl: "templates/map.html",
+                controller: "MapCtrl"
+            })
         ;
 
         $urlRouterProvider.otherwise("/login");

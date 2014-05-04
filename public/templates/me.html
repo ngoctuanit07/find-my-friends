@@ -1,6 +1,32 @@
 <ion-view title="{{user.name}}">
     <ion-content has-header="true" padding="true">
         <p>{{user.name}}</p>
-        <p>Banging your head against a wall uses 150 calories an hour.</p>
+        <p>Banging your head against a wall uses 150 calories an hour.
+
+        <div class="item item-divider">
+            Sharing location with...
+        </div>
+        <div class="list">
+            <a ng-repeat="friend in friends | filter:{status:'sharing'}:true"
+               class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
+                <img src="{{friend.user.photo}}">
+                <h2>{{friend.user.name}}</h2>
+                <button class="button button-assertive">Stop</button>
+            </a>
+        </div>
+
+        <div ng-if="(friends | filter:{status:'pending_confirmation'}:true).length > 0">
+        <div class="item item-divider">
+            Pending requests
+        </div>
+        <div class="list">
+            <a ng-repeat="friend in friends | filter:{status:'pending_confirmation'}:true"
+               class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
+                <img src="{{friend.user.photo}}">
+                <h2>{{friend.user.name}}</h2>
+                <button class="button button-calm">Accept</button>
+            </a>
+        </div>
+        </div>
     </ion-content>
 </ion-view>

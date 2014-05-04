@@ -57,12 +57,14 @@ angular.module('starter.controllers', [])
                     };
                     this.push(placeholder);
                     
-                    // marker with PICTURE
-                    friend.user.options = {};
-                    friend.user.options.zIndex = 2 + friend.friend_id;
-                    friend.user.location.latitude = parseFloat(friend.user.location.latitude) + 0.00055;
-                    friend.user.photoSmall = friend.user.photo + '?width=15&height=15';
-                    this.push(friend.user);
+                    // marker with PICTURE - needs a copy because otherwise JS will change user.friends.user object
+                    //   which changes it for everyone - and we need to hack the location =)
+                    var friendUser = angular.copy(friend.user);
+                    friendUser.options = {};
+                    friendUser.options.zIndex = 2 + friend.friend_id;
+                    friendUser.location.latitude = parseFloat(friendUser.location.latitude) + 0.00055;
+                    friendUser.photoSmall = friendUser.photo + '?width=15&height=15';
+                    this.push(friendUser);
                 }, markers);
                 
                 //lets add our location to the markers
@@ -87,7 +89,7 @@ angular.module('starter.controllers', [])
         }
 
         $scope.start = function() {
-            $scope.poller = $interval($scope.refresh, 1000);
+            $scope.poller = $interval($scope.refresh, 10000);
         };
 
         $scope.stop = function() {

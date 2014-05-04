@@ -1,0 +1,14 @@
+<ion-view title="Find My Friends">
+    <ion-content padding="true">
+        <google-map id="big-map" center="map.center" zoom="map.zoom">
+            <marker ng-repeat="friend in friends"
+                    coords="friend.user.location"
+                    icon="friend.user.photo"
+                    >
+            </marker>
+            <marker coords="user.location"
+                    icon="user.photo">
+            </marker>
+        </google-map>
+    </ion-content>
+</ion-view>
