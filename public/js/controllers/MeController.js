@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-    .controller('MeCtrl', function($scope, MeModel) {
+    .controller('MeCtrl', function($scope, MeModel, FindMyFriendsService, $state) {
         $scope.user = null;
         $scope.friends = {}
 
@@ -8,6 +8,12 @@ angular.module('starter.controllers')
         MeModel.getMe().then(function(user){
             $scope.user = user;
             $scope.friends = user.friends;
-        })
+        });
+        
+        $scope.logOut = function() {
+            FindMyFriendsService.logout().then(function() {
+                $state.go('login');
+            });
+        };
     })
 ;
