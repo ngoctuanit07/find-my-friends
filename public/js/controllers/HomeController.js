@@ -6,6 +6,7 @@ angular.module('starter.controllers', [])
         $scope.friends = {};
         $scope.markers = [];
         $scope.poller = null;
+        $scope.navPoller = null;
 
         // google maps object that controls the map
         $scope.map = {
@@ -18,7 +19,10 @@ angular.module('starter.controllers', [])
             dragging: false,
             options: {
                 panControl: false,
-                streetViewControl: false
+                streetViewControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                zoomControl: false
             },
             infoWindowWithCustomClass: {
                 options: {
@@ -47,12 +51,23 @@ angular.module('starter.controllers', [])
             // now let's send this to the api
             FindMyFriendsService.updateLocation(newLocation.coords);
         }
+        
+        $scope.errorLocation = function(error) {
+            console.log('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+        }
+
+        $scope.refreshPosition = function() {
+            navigator.geolocation.getCurrentPosition($scope.saveLocation, $scope.errorLocation, {
+                maximumAge: 30000,
+                timeout: 5000,
+                enableHighAccuracy: false
+            });
+        }
 
         $scope.refresh = function() {
             MeModel.reset();
             $scope.fetch();
-
-            navigator.geolocation.getCurrentPosition($scope.saveLocation);
         }
 
         $scope.fetch = function() {
@@ -62,23 +77,11 @@ angular.module('starter.controllers', [])
                 // TODO handle deleted users, and calculate distance if wasn't cached
                 angular.extend($scope.friends, user.friends);
 
-                var markers = [];
-                angular.forEach($scope.friends, function(friend){
-                    // calculate distance
-                    friend.user.distance = getDistanceInKm($scope.user.location, friend.user.location);
-                    friend.user.showWindow = true;
-                    friend.user.photoSmall = 'img/empty.gif';
-
-                    // little photo for map
-                    friend.user.photoThumb = friend.user.photo + '?width='+ window.devicePixelRatio*32 +'&height=' + window.devicePixelRatio*32;
-                    this.push(friend.user);
-                }, markers);
-
-                //lets add our location to the markers
-                user.photoSmall = "img/point.png";
-                markers.push(user);
+                var markers = MeModel.getMarkers();
                 angular.extend($scope.markers, markers);
-
+                
+                return user;
+                
             }, function(data){
                 if (data.status == "error") {
                     $state.go('login');
@@ -86,43 +89,36 @@ angular.module('starter.controllers', [])
                     // unknown error ?!
                     console.log(data);
                 }
-
+                return data;
             });
         }
 
         $scope.start = function() {
             $scope.poller = $interval($scope.refresh, 10000);
+            $scope.navPoller = $interval($scope.refreshPosition, 180000);
         };
 
         $scope.stop = function() {
             $interval.cancel($scope.poller);
+            $interval.cancel($scope.navPoller);
             $scope.poller = null;
+            $scope.navPoller = null;
         };
 
-        $scope.fetch();
-        $scope.start();
-
+        // only start polling if we are logged in
+        $scope.fetch().then(function(data){
+            if (data.status === undefined) {
+                $scope.refreshPosition();
+                $scope.start();  
+            }
+        });
+        
 
         $scope.$on('$destroy', function(e) {
             $interval.cancel($scope.poller);
+            $interval.cancel($scope.navPoller);
         });
     })
 ;
 
-function getDistanceInKm(location1,location2) {
-    var R = 6371; // Radius of the earth in km
-    var dLat = deg2rad(location2.latitude-location1.latitude);
-    var dLon = deg2rad(location2.longitude-location1.longitude);
-    var a =
-            Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(deg2rad(location1.latitude)) * Math.cos(deg2rad(location2.latitude)) *
-                    Math.sin(dLon/2) * Math.sin(dLon/2)
-        ;
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c; // Distance in km
-    return d;
-}
 
-function deg2rad(deg) {
-    return deg * (Math.PI/180)
-}
