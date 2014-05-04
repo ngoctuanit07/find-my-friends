@@ -23,7 +23,7 @@ class MeController extends \BaseController {
                 $longitude = $location['longitude'];
                 $accuracy = $location['accuracy'];
                 $user = Auth::getUser();
-                $this->meService->addLocation($latitude, $longitude, $accuracy, $user);
+                $this->meService->updateLocation($latitude, $longitude, $accuracy, $user);
                 return Response::json(['message' => 'Location accepted']);
             } else {
                 return Response::error('Missing parameters');
@@ -65,30 +65,32 @@ class MeController extends \BaseController {
         $user2->save();
         $user3->save();
 
+        /*
         $location1 = new Location();
         $location1->latitude = 41.1732764;
         $location1->longitude = -8.5833835;
         $location1->accuracy = 10;
+        $user1->location()->save($location1);
+        */
 
         $location2 = new Location();
         $location2->latitude = 41.173103;
         $location2->longitude = -8.5846973;
         $location2->accuracy = 2;
+        $user2->location()->save($location2);
 
         $location3 = new Location();
         $location3->latitude = 41.1751462;
         $location3->longitude = -8.5858238;
         $location3->accuracy = 5;
+        $user3->location()->save($location3);
 
+        /*
         $location4 = new Location();
         $location4->latitude = 41.1725294;
         $location4->longitude = -8.5875624;
         $location4->accuracy = 15;
-
-        $user1->locations()->save($location1);
-        $user2->locations()->save($location2);
-        $user3->locations()->save($location3);
-        $user1->locations()->save($location4);
+        */
 
         $friend1 = new Friend();
         $friend1->setFriendUser($user2);

@@ -85,9 +85,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('UserSession');
     }
 
-    public function locations()
+    public function location()
     {
-        return $this->hasMany('Location');
+        return $this->hasOne('Location');
     }
 
     public function friends()
@@ -95,10 +95,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('Friend');
     }
 
-    public function getLastLocation()
+    public function getLocation()
     {
-        $lastId = $this->locations()->max('id');
-        return Location::find($lastId);
+        return ($this->location != null ? $this->location->toArray() : null);
     }
 
     public function toArray()
@@ -108,7 +107,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             'name' => $this->name,
             'photo' => $this->photo,
             'friends' => $this->friends->toArray(),
-            'location' => $this->getLastLocation()->toArray()
+            'location' => $this->getLocation()
         ];
     }
 
@@ -117,7 +116,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $friend = $this->friends()->where('friend_user_id', $friendId)->first();
         $location = null;
         if ($friend === null) return [];
-        if ($friend->canShareLocation()) $location = $this->getLastLocation()->toArray();
+        if ($friend->canShareLocation()) $location = $this->getLocation();
 
         return [
             'id' => $this->id,
