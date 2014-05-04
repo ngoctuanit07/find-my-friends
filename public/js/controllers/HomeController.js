@@ -38,8 +38,13 @@ angular.module('starter.controllers', [])
             MeModel.getMe().then(function(user){
                 $scope.user = user;
 
-                // TODO handle deleted users
+                // TODO handle deleted users, and calculate distance if wasn't cached
                 angular.extend($scope.friends, user.friends);
+
+                angular.forEach($scope.friends, function(friend) {
+                    friend.user.distance = getDistanceInKm($scope.user.location, friend.user.location)
+                });
+
                 $scope.location = user.location;
             });
         }
@@ -61,3 +66,21 @@ angular.module('starter.controllers', [])
         });
     })
 ;
+
+function getDistanceInKm(location1,location2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(location2.latitude-location1.latitude);
+    var dLon = deg2rad(location2.longitude-location1.longitude);
+    var a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(location1.latitude)) * Math.cos(deg2rad(location2.latitude)) *
+                    Math.sin(dLon/2) * Math.sin(dLon/2)
+        ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
