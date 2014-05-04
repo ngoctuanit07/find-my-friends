@@ -77,12 +77,12 @@ class MeService
         return $friend;
     }
 
-    public function addLocation($latitude, $longitude, $accuracy, $user)
+    public function updateLocation($latitude, $longitude, $accuracy, $user)
     {
-        $location = new Location();
+        $location = $user->location ?: new Location();
         $location->latitude = $latitude;
         $location->longitude = $longitude;
         $location->accuracy = $accuracy;
-        $user->locations()->save($location);
+        $user->location()->save($location);
     }
 }

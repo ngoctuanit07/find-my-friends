@@ -19,9 +19,9 @@ class CreateLocationTable extends Migration {
             $table->foreign('user_id')
                 ->references('id')->on('user')
                 ->onDelete('cascade');
-            $table->decimal('latitude', 10, 6);
-            $table->decimal('longitude', 10, 6);
-            $table->decimal('accuracy', 10, 6);
+            $table->decimal('latitude', 10, 6)->nullable();
+            $table->decimal('longitude', 10, 6)->nullable();
+            $table->decimal('accuracy', 10, 6)->nullable();
             $table->string('device_id', 100)->nullable();
             $table->string('user_agent', 200)->nullable();
             $table->timestamps();
