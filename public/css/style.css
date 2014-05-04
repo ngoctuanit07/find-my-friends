@@ -1,5 +1,11 @@
 /* Empty. Add your own CSS if you like */
-.angular-google-map-container { height: 225px; }
+.angular-google-map-container {
+    height: 225px;
+}
+
+#big-map {
+    height: 100%;
+}
 
 .bar-footer {
     height: 60px;

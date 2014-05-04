@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-    .controller('MeCtrl', function($scope, MeModel, $filter) {
+    .controller('MeCtrl', function($scope, MeModel) {
         $scope.user = null;
         $scope.friends = {}
 
