@@ -36,17 +36,17 @@ angular.module('starter.controllers', [])
          });
          */
 
-        $scope.saveLocation = function(location) {
+        $scope.saveLocation = function(newLocation) {
             // because our location is inside the markers array, we need to find "us" and update the location right away
             userObjectInMarkers = $filter('filter')($scope.markers, {'photoSmall': "img/point.png"})[0];
             // we need to use $scope.$apply because angular has no way to know that markers was updated
             // because saveLocation() is called async - so we help angular check the variables!
             $scope.$apply(function () {
-                userObjectInMarkers.location = location.coords;
+                userObjectInMarkers.location = newLocation.coords;
             });
             
             // now let's send this to the api
-            
+            FindMyFriendsService.updateLocation(newLocation.coords);
         }
         
         $scope.errorLocation = function(error) {
