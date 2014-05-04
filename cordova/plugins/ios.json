@@ -65,10 +65,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
                             "count": 1
                         },
@@ -125,9 +121,6 @@
     },
     "installed_plugins": {
         "org.apache.cordova.contacts": {
-            "PACKAGE_NAME": "edu.find-my-friends"
-        },
-        "org.apache.cordova.device": {
             "PACKAGE_NAME": "edu.find-my-friends"
         },
         "org.apache.cordova.geolocation": {

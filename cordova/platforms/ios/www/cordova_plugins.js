@@ -78,13 +78,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.device/www/device.js",
-        "id": "org.apache.cordova.device.device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.geolocation/www/Coordinates.js",
         "id": "org.apache.cordova.geolocation.Coordinates",
         "clobbers": [
@@ -117,7 +110,6 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "org.apache.cordova.contacts": "0.2.10",
-    "org.apache.cordova.device": "0.2.9",
     "org.apache.cordova.geolocation": "0.3.7",
     "com.phonegap.plugins.facebookconnect": "0.4.0"
 }
