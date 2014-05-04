@@ -1,15 +1,21 @@
 <ion-view title="Find My Friends">
     <ion-content padding="true">
-        <google-map center="map.center" zoom="map.zoom">
-            <marker ng-repeat="friend in friends"
-                    coords="friend.user.location"
-                    icon="friend.user.photo"
+        <google-map 
+         center="map.center" 
+         zoom="map.zoom" 
+         control="map.control"
+         options="map.options" 
+        >
+            <markers models="markers"
+                    coords="'location'"
+                    icon="'photo'"
+                    fit="true"
+                    options="'options'"
                     >
-            </marker>
-            </marker>
-            <marker coords="user.location"
+            </markers>
+            <!--<marker coords="location"
                     icon="user.photo">
-            </marker>
+            </marker>-->
         </google-map>
 
         <div class="list">
