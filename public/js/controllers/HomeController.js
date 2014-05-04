@@ -1,12 +1,13 @@
 angular.module('starter.controllers', [])
 
-    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state) {
+    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath) {
 
         $scope.user = null;
         $scope.friends = {};
         $scope.markers = [];
         $scope.poller = null;
         $scope.navPoller = null;
+        $scope.timeSince = GeoMath.timeSince;
 
         // google maps object that controls the map
         $scope.map = {
