@@ -55,7 +55,11 @@ angular.module('starter.controllers', [])
         }
 
         $scope.refreshPosition = function() {
-            navigator.geolocation.getCurrentPosition($scope.saveLocation, $scope.errorLocation);
+            navigator.geolocation.getCurrentPosition($scope.saveLocation, $scope.errorLocation, {
+                maximumAge: 30000,
+                timeout: 5000,
+                enableHighAccuracy: false
+            });
         }
 
         $scope.refresh = function() {
@@ -86,7 +90,9 @@ angular.module('starter.controllers', [])
                 user.photoSmall = "img/point.png";
                 markers.push(user);
                 angular.extend($scope.markers, markers);
-
+                
+                return user;
+                
             }, function(data){
                 if (data.status == "error") {
                     $state.go('login');
@@ -94,7 +100,7 @@ angular.module('starter.controllers', [])
                     // unknown error ?!
                     console.log(data);
                 }
-
+                return data;
             });
         }
 
@@ -110,9 +116,14 @@ angular.module('starter.controllers', [])
             $scope.navPoller = null;
         };
 
-        $scope.refreshPosition();
-        $scope.fetch();
-        $scope.start();
+        // only start polling if we are logged in
+        $scope.fetch().then(function(data){
+            if (data.status === undefined) {
+                $scope.refreshPosition();
+                $scope.start();  
+            }
+        });
+        
 
         $scope.$on('$destroy', function(e) {
             $interval.cancel($scope.poller);
