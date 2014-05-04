@@ -3,6 +3,9 @@ angular.module('starter.services', [])
 
     .service('GeoMath', [function() {
         this.getDistanceInKm = function(location1, location2) {
+            if(location1 == null || location2 == null) {
+                return 0;
+            }
             var R = 6371; // Radius of the earth in km
             var dLat = this.deg2rad(location2.latitude-location1.latitude);
             var dLon = this.deg2rad(location2.longitude-location1.longitude);
@@ -70,14 +73,16 @@ angular.module('starter.services', [])
                 if ($scope.user != undefined) {
                     var markers = [];
                     angular.forEach($scope.user.friends, function(friend){
-                        // calculate distance
-                        friend.user.distance = GeoMath.getDistanceInKm($scope.user.location, friend.user.location);
-                        friend.user.showWindow = true;
-                        friend.user.photoSmall = 'img/empty.gif';
+                        if(friend.user.location!==null) {
+                            // calculate distance
+                            friend.user.distance = GeoMath.getDistanceInKm($scope.user.location, friend.user.location);
+                            friend.user.showWindow = true;
+                            friend.user.photoSmall = 'img/empty.gif';
 
-                        // little photo for map
-                        friend.user.photoThumb = friend.user.photo + '?width='+ window.devicePixelRatio*32 +'&height=' + window.devicePixelRatio*32;
-                        this.push(friend.user);
+                            // little photo for map
+                            friend.user.photoThumb = friend.user.photo + '?width='+ window.devicePixelRatio*32 +'&height=' + window.devicePixelRatio*32;
+                            this.push(friend.user);
+                        }
                     }, markers);
 
                     //lets add our location to the markers
