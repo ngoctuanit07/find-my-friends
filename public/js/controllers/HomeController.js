@@ -53,7 +53,7 @@ angular.module('starter.controllers', [])
                         friend_id: friend.friend_id,
                         location: {
                             latitude: friend.user.location.latitude,
-                            longitude: friend.user.location.longitude,
+                            longitude: friend.user.location.longitude
                         } ,
                         options: {zIndex:1 + friend.friend_id},
                         photoSmall: "img/hover.png"

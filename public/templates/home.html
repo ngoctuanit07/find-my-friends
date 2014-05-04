@@ -1,29 +1,36 @@
 <ion-view title="Find My Friends">
+    <ion-nav-buttons side="right">
+        <a href="#/add-friends">
+            <button class="button button-clear ion-person-add">
+            </button>
+        </a>
+    </ion-nav-buttons>
+
     <ion-content padding="true">
-    
-    <a href="#/map">
-        <google-map 
-         center="map.center" 
-         zoom="map.zoom" 
-         control="map.control"
-         options="map.options" 
-        >
-            <markers models="markers"
-                    coords="'location'"
-                    icon="'photoSmall'"
-                    fit="true"
-                    options="'options'"
+
+        <a href="#/map">
+            <google-map
+                    center="map.center"
+                    zoom="map.zoom"
+                    control="map.control"
+                    options="map.options"
                     >
-            </markers>
-            <!--<marker coords="location"
-                    icon="user.photo">
-            </marker>-->
-        </google-map>
-    </a>
+                <markers models="markers"
+                         coords="'location'"
+                         icon="'photoSmall'"
+                         fit="true"
+                         options="'options'"
+                        >
+                </markers>
+                <!--<marker coords="location"
+                        icon="user.photo">
+                </marker>-->
+            </google-map>
+        </a>
         <div class="list">
             <a ng-repeat="friend in friends"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
-                <img src="{{friend.user.photo}}?type=square">
+                <img ng-src="{{friend.user.photo}}?type=square">
                 <h2>{{friend.user.name}}</h2>
                 <p>{{friend.user.location.updated.date}}</p>
                 <button class="button button-assertive">{{friend.user.distance | number:2 }} km</button>
@@ -33,7 +40,7 @@
 
     <ion-footer-bar class="bar-footer bar-positive">
         <a class="item-avatar-left item-button-right" href="#/me">
-            <img src="{{user.photo}}">
+            <img ng-src="{{user.photo}}">
             <h4>Me</h4>
             <p>
                 Sharing with

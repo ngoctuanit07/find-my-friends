@@ -9,7 +9,7 @@
         <div class="list">
             <a ng-repeat="friend in friends | filter:{status:'sharing'}:true"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
-                <img src="{{friend.user.photo}}">
+                <img ng-src="{{friend.user.photo}}">
                 <h2>{{friend.user.name}}</h2>
                 <button class="button button-assertive">Stop</button>
             </a>
@@ -22,7 +22,7 @@
         <div class="list">
             <a ng-repeat="friend in friends | filter:{status:'pending_confirmation'}:true"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
-                <img src="{{friend.user.photo}}">
+                <img ng-src="{{friend.user.photo}}">
                 <h2>{{friend.user.name}}</h2>
                 <button class="button button-calm">Accept</button>
             </a>

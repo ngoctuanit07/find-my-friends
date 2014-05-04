@@ -48,6 +48,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 templateUrl: "templates/map.html",
                 controller: "MapCtrl"
             })
+            .state('add-friends', {
+                url: "/add-friends",
+                templateUrl: "templates/add-friends.html",
+                controller: "AddFriendsCtrl"
+            })
         ;
 
         $urlRouterProvider.otherwise("/login");
