@@ -1,9 +1,9 @@
-cordova/platforms/ios/FindMyFriends/FindMyFriends-Info.plist<?xml version='1.0' encoding='utf-8'?>
-<widget id="edu.find-my-friends" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="edu.find-my-friends" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
-    <preference name="DisallowOverscroll" value="true" />
+    <preference name="DisallowOverscroll" value="false" />
     <preference name="EnableViewportScale" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="FadeSplashScreenDuration" value=".25" />
@@ -16,7 +16,6 @@ cordova/platforms/ios/FindMyFriends/FindMyFriends-Info.plist<?xml version='1.0' 
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
-    <preference name="webviewbounce" value="false" />
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
@@ -50,4 +49,6 @@ cordova/platforms/ios/FindMyFriends/FindMyFriends-Info.plist<?xml version='1.0' 
         <param name="APP_ID" value="694514773928221" />
         <param name="APP_NAME" value="998d17a5f14b9303cba4622e5c7127dc" />
     </gap:plugin>
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="webviewbounce" value="false" />
 </widget>

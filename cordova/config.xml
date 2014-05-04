@@ -16,4 +16,6 @@
         <param name="APP_ID" value="694514773928221" />
         <param name="APP_NAME" value="998d17a5f14b9303cba4622e5c7127dc" />
     </gap:plugin>
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="webviewbounce" value="false" />
 </widget>
