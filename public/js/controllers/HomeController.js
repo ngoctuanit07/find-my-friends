@@ -80,6 +80,12 @@ angular.module('starter.controllers', [])
                 var markers = MeModel.getMarkers();
                 angular.extend($scope.markers, markers);
                 
+                _.each($scope.markers, function (marker) {
+                    marker.onClicked = function () {
+                        $state.go("friend", marker.id);
+                    };
+                });
+                
                 return user;
                 
             }, function(data){
