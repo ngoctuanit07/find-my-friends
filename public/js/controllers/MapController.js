@@ -2,35 +2,36 @@ angular.module('starter.controllers')
 
     .controller('MapCtrl', function($scope, MeModel) {
         $scope.user = null;
-        $scope.location = {};
-        $scope.friends = {};
+        $scope.markers = {};
 
-
-        MeModel.getMe().then(function(user){
-            $scope.user = user;
-            $scope.friends = user.friends;
-        })
-
+        // google maps object that controls the map
         $scope.map = {
             center: {
-                latitude: 41.175488,
+                latitude: 40.175488,
                 longitude: -8.5978381
             },
-            zoom: 15,
+            zoom: 10,
+            control: {},
+            dragging: true,
             options: {
-                shadow: "http://simpleicon.com/wp-content/uploads/map-marker-1.png"
+                panControl: false,
+                streetViewControl: false,
+                mapTypeControl: true,
+                scaleControl: true,
+                zoomControl: true, 
+                rotateControl: true,
+                scrollwheel: true
+            },
+            infoWindowWithCustomClass: {
+                options: {
+                    boxClass: 'custom-info-window'
+                }
             }
         };
 
-        $scope.$watch('location', function() {
-            $scope.map = {
-
-                center: {
-                    latitude: $scope.location.latitude,
-                    longitude: $scope.location.longitude
-                },
-                zoom: 15
-            };
+         MeModel.getMe().then(function(user){
+            $scope.user = user;
+            $scope.markers = MeModel.getMarkers();
         });
     })
 ;
