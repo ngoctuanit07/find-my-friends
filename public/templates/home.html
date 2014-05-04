@@ -27,7 +27,11 @@
         <a class="item-avatar-left item-button-right" href="#/me">
             <img src="{{user.photo}}">
             <h4>Me</h4>
-            <p>Sharing with 3 friends</p>
+            <p>
+                Sharing with
+                {{ (user.friends | filter:{status:'sharing'}:true).length }}
+                friend(s)
+            </p>
             <i id="footerIcon" class="button button-clear pull-right ion-chevron-right"></i>
         </a>
     </ion-footer-bar>

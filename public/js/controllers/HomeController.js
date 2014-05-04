@@ -45,7 +45,7 @@ angular.module('starter.controllers', [])
         }
 
         $scope.start = function() {
-            $scope.poller = $interval($scope.refresh, 1000000);
+            $scope.poller = $interval($scope.refresh, 10000);
         };
 
         $scope.stop = function() {
