@@ -7,3 +7,9 @@ composer.phar
 .DS_Store
 Thumbs.db
 .idea
+cordova/platforms/android
+cordova/platforms/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/CordovaLib.xcscheme
+cordova/platforms/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/xcschememanagement.plist
+cordova/platforms/ios/FindMyFriends.xcodeproj/project.xcworkspace/xcuserdata/pedro.xcuserdatad/UserInterfaceState.xcuserstate
+cordova/platforms/ios/FindMyFriends.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/FindMyFriends.xcscheme
+cordova/platforms/ios/FindMyFriends.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/xcschememanagement.plist

@@ -37,7 +37,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: "/friend/:friendId",
                 templateUrl: "templates/friend-detail.html",
                 controller: "FriendDetailCtrl"
-
+            })
+            .state('me', {
+                url: "/me",
+                templateUrl: "templates/me.html",
+                controller: "MeCtrl"
             })
         ;
 

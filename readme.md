@@ -38,5 +38,8 @@ Build project with:
 - cd cordova
 - cordova build
 
+Build for android:
+- cordova platform add android
+
 Run with:
 - cordova emulate

@@ -6,11 +6,11 @@
                     icon="friend.user.photo"
                     >
             </marker>
+            </marker>
             <marker coords="user.location"
                     icon="user.photo">
             </marker>
         </google-map>
-
 
         <div class="list">
             <a ng-repeat="friend in friends"
@@ -23,12 +23,12 @@
         </div>
     </ion-content>
 
-    <div class="bar bar-footer bar-positive" href="#/friend/1">
-        <a class="item-thumbnail-left item-button-right">
+    <ion-footer-bar class="bar-footer bar-positive">
+        <a class="item-avatar-left item-button-right" href="#/me">
             <img src="{{user.photo}}">
-            <h3>{{user.name}}</h3>
-            <p>{{user.location.updated.date}}</p>
+            <h4>Me</h4>
+            <p>Sharing with 3 friends</p>
             <i id="footerIcon" class="button button-clear pull-right ion-chevron-right"></i>
         </a>
-    </div>
+    </ion-footer-bar>
 </ion-view>

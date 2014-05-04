@@ -1,16 +1,27 @@
 /* Empty. Add your own CSS if you like */
 .angular-google-map-container { height: 225px; }
 
-.bar-footer{
-    height:100px;
+.bar-footer {
+    height: 60px;
 }
 
-.bar-footer a h3 {
-    margin-top: 10px;
+.list {
+    padding-bottom: 16px;
+}
+
+.bar-footer a h4 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.bar-footer a {
+    text-decoration:none;
     color: #ffffff;
 }
 
 #footerIcon {
-    top: 30%;
+    right: 0%;
+    top: 25%;
     font-size: 40px;
 }
