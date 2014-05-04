@@ -37,6 +37,20 @@ class FriendController extends \BaseController {
         }
     }
 
+    public function postRequest($id)
+    {
+        $user = Auth::getUser();
+        $friendUser = $this->meService->getUser($id);
+        if ($friendUser === null) {
+            return Response::error('Invalid friend id');
+        }
+        $friend = $this->meService->requestLocationShare($user, $friendUser);
+        if ($friend === null)
+            return Response::error('Failed to request location share');
+        else
+            return Response::json(['message' => 'Location request sent']);
+    }
+
     public function postIndex()
     {
         $user = Auth::getUser();

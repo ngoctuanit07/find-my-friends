@@ -35,10 +35,13 @@ class MeService
             && ( $newStatus === 'sharing' || $newStatus === 'not_sharing' );
     }
 
+    private static $invalidStatusUpdates = [
+        'sent_request', 'pending_confirmation', 'asked_to_share',
+    ];
+
     public function updateStatus($user, $friendUser, $newStatus)
     {
-        if($newStatus === 'sent_request' || $newStatus === 'pending_confirmation')
-            return null;
+        if(in_array($newStatus, $this->invalidStatusUpdates)) return null;
 
         $friend = $user->friends()->where('friend_user_id', $friendUser->id)->first();
 
@@ -55,6 +58,21 @@ class MeService
 
         $friend->status = $newStatus;
         $friend->save();
+        return $friend;
+    }
+
+    public function requestLocationShare($user, $friendUser)
+    {
+        $friend = $friendUser->friends()->where('friend_user_id', $user->id)->first();
+
+        if ($friend === null) return null;
+        if($friend->status !== 'not_sharing') return null;
+
+        $friend->status = 'asked_to_share';
+        $friend->save();
+
+        // TODO send push notification to friendUser
+
         return $friend;
     }
 

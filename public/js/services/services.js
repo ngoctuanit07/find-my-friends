@@ -42,6 +42,10 @@ angular.module('starter.services', [])
             return this._sendData('PUT', 'me/location', {'location': location});
         }
 
+        this.sendShareRequest = function (friendId) {
+            return this._sendData('POST', 'friend/request/' + friendId, {});
+        }
+
         this.login = function(email, pass) {
             return this._sendData('POST', 'login/password', {'email': email, 'password': pass});
         }

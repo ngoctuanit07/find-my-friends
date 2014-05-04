@@ -124,6 +124,12 @@ angular.module('starter.controllers', [])
             $interval.cancel($scope.poller);
             $interval.cancel($scope.navPoller);
         });
+
+        $scope.askForLocation = function(friendId) {
+            // TODO add callback for errors
+            FindMyFriendsService.sendShareRequest(friendId);
+            $scope.refresh();
+        }
     })
 ;
 

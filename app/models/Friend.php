@@ -6,7 +6,7 @@ class Friend extends Eloquent {
 
     public static $states = [
         'sent_request', 'pending_confirmation' ,
-        'sharing', 'not_sharing',
+        'sharing', 'not_sharing', 'asked_to_share',
         'blocked'
     ];
 
