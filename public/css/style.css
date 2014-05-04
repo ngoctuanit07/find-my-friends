@@ -42,12 +42,19 @@ img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
     height: 100%;
 }
 
+/* ------- FOOTER -------- */
+
 .bar-footer {
     height: 60px;
 }
 
 .list {
     padding-bottom: 16px;
+}
+
+.bar-footer a {
+    width: 100%;
+    height: 100%;
 }
 
 .bar-footer a h4 {
