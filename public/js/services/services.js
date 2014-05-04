@@ -15,6 +15,11 @@ angular.module('starter.services', [])
             return this._sendData('GET', 'me', {});
         }
 
+        this.updateLocation = function (location) {
+           // TODO continue
+           // return this._sendData('PUT', 'me/location', location);
+        }
+
         this.login = function(email, pass) {
             return this._sendData('POST', 'login/password', {'email': email, 'password': pass});
         }

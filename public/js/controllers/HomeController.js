@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])
         $scope.friends = {};
         $scope.markers = [];
         $scope.poller = null;
-        
+
         // google maps object that controls the map
         $scope.map = {
             center: {
@@ -29,16 +29,23 @@ angular.module('starter.controllers', [])
         };
 
         /*
-        $scope.$watch('location', function() {
-            $scope.map.control.refresh({
-                latitude: $scope.location.latitude, 
-                longitude: $scope.location.longitude});
-        });
-        */
+         $scope.$watch('location', function() {
+         $scope.map.control.refresh({
+         latitude: $scope.location.latitude,
+         longitude: $scope.location.longitude});
+         });
+         */
+
+        $scope.saveLocation = function(location) {
+            $scope.location = location.coords;
+            // push to api
+        }
 
         $scope.refresh = function() {
             MeModel.reset();
             $scope.fetch();
+
+            navigator.geolocation.getCurrentPosition($scope.saveLocation);
         }
 
         $scope.fetch = function() {
@@ -47,29 +54,25 @@ angular.module('starter.controllers', [])
 
                 // TODO handle deleted users, and calculate distance if wasn't cached
                 angular.extend($scope.friends, user.friends);
-                
+
                 var markers = [];
                 angular.forEach($scope.friends, function(friend){
                     // calculate distance
                     friend.user.distance = getDistanceInKm($scope.user.location, friend.user.location);
                     friend.user.showWindow = true;
                     friend.user.photoSmall = 'img/empty.gif';
-                    
+
                     // little photo for map
                     friend.user.photoThumb = friend.user.photo + '?width=15&height=15';
                     this.push(friend.user);
                 }, markers);
-                
+
                 //lets add our location to the markers
-                var location = {
-                    location: user.location,
-                    options: {zIndex:10},
-                    photoSmall: "img/point.png"
-                };
-                markers.push(location);
+                user.photoSmall = "img/point.png";
+                markers.push(user);
                 angular.extend($scope.markers, markers);
 
-                $scope.location = user.location;
+                $scope.location = $scope.user.location;
             }, function(data){
                 if (data.status == "error") {
                     $state.go('login');
@@ -77,7 +80,7 @@ angular.module('starter.controllers', [])
                     // unknown error ?!
                     console.log(data);
                 }
-                
+
             });
         }
 
@@ -92,7 +95,7 @@ angular.module('starter.controllers', [])
 
         $scope.fetch();
         $scope.start();
-        
+
 
         $scope.$on('$destroy', function(e) {
             $interval.cancel($scope.poller);
