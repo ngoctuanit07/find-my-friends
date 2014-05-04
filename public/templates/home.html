@@ -7,26 +7,26 @@
     </ion-nav-buttons>
 
     <ion-content padding="true">
-
-        <a href="#/map">
-            <google-map
-                    center="map.center"
-                    zoom="map.zoom"
-                    control="map.control"
-                    options="map.options"
+        <google-map
+         center="map.center" 
+         zoom="map.zoom" 
+         control="map.control"
+         options="map.options" 
+        >
+            <markers models="markers"
+                    coords="'location'"
+                    icon="'photoSmall'"
+                    fit="true"
+                    options="'options'"
                     >
-                <markers models="markers"
-                         coords="'location'"
-                         icon="'photoSmall'"
-                         fit="true"
-                         options="'options'"
-                        >
-                </markers>
-                <!--<marker coords="location"
-                        icon="user.photo">
-                </marker>-->
-            </google-map>
-        </a>
+                    <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
+                        <img ng-non-bindable src="{{ photoThumb }}">
+                    </windows>
+            </markers>
+            <!--<marker coords="location"
+                    icon="user.photo">
+            </marker>-->
+        </google-map>
         <div class="list">
             <a ng-repeat="friend in friends"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">

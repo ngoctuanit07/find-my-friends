@@ -20,6 +20,11 @@ angular.module('starter.controllers', [])
             options: {
                 panControl: false,
                 streetViewControl: false
+            },
+            infoWindowWithCustomClass: {
+                options: {
+                    boxClass: 'custom-info-window'
+                }
             }
         };
 
@@ -46,28 +51,13 @@ angular.module('starter.controllers', [])
                 var markers = [];
                 angular.forEach($scope.friends, function(friend){
                     // calculate distance
-                    friend.user.distance = getDistanceInKm($scope.user.location, friend.user.location)
+                    friend.user.distance = getDistanceInKm($scope.user.location, friend.user.location);
+                    friend.user.showWindow = true;
+                    friend.user.photoSmall = 'img/empty.gif';
                     
-                    // image placeholder that has an arrow
-                    var placeholder = {
-                        friend_id: friend.friend_id,
-                        location: {
-                            latitude: friend.user.location.latitude,
-                            longitude: friend.user.location.longitude
-                        } ,
-                        options: {zIndex:1 + friend.friend_id},
-                        photoSmall: "img/hover.png"
-                    };
-                    this.push(placeholder);
-                    
-                    // marker with PICTURE - needs a copy because otherwise JS will change user.friends.user object
-                    //   which changes it for everyone - and we need to hack the location =)
-                    var friendUser = angular.copy(friend.user);
-                    friendUser.options = {};
-                    friendUser.options.zIndex = 2 + friend.friend_id;
-                    friendUser.location.latitude = parseFloat(friendUser.location.latitude) + 0.00055;
-                    friendUser.photoSmall = friendUser.photo + '?width=15&height=15';
-                    this.push(friendUser);
+                    // little photo for map
+                    friend.user.photoThumb = friend.user.photo + '?width=15&height=15';
+                    this.push(friend.user);
                 }, markers);
                 
                 //lets add our location to the markers
