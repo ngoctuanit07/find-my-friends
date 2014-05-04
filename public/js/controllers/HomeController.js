@@ -19,7 +19,10 @@ angular.module('starter.controllers', [])
             dragging: false,
             options: {
                 panControl: false,
-                streetViewControl: false
+                streetViewControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                zoomControl: false
             },
             infoWindowWithCustomClass: {
                 options: {
