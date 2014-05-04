@@ -70,7 +70,7 @@ angular.module('starter.controllers', [])
                     friend.user.photoSmall = 'img/empty.gif';
 
                     // little photo for map
-                    friend.user.photoThumb = friend.user.photo + '?width=15&height=15';
+                    friend.user.photoThumb = friend.user.photo + '?width='+ window.devicePixelRatio*32 +'&height=' + window.devicePixelRatio*32;
                     this.push(friend.user);
                 }, markers);
 
