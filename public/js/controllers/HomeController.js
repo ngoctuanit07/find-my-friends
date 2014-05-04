@@ -3,7 +3,6 @@ angular.module('starter.controllers', [])
     .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state) {
 
         $scope.user = null;
-        $scope.location = {};
         $scope.friends = {};
         $scope.markers = [];
         $scope.poller = null;
@@ -37,8 +36,16 @@ angular.module('starter.controllers', [])
          */
 
         $scope.saveLocation = function(location) {
-            $scope.location = location.coords;
-            // push to api
+            // because our location is inside the markers array, we need to find "us" and update the location right away
+            userObjectInMarkers = $filter('filter')($scope.markers, {'photoSmall': "img/point.png"})[0];
+            // we need to use $scope.$apply because angular has no way to know that markers was updated
+            // because saveLocation() is called async - so we help angular check the variables!
+            $scope.$apply(function () {
+                userObjectInMarkers.location = location.coords;
+            });
+            
+            // now let's send this to the api
+            
         }
 
         $scope.refresh = function() {
@@ -72,7 +79,6 @@ angular.module('starter.controllers', [])
                 markers.push(user);
                 angular.extend($scope.markers, markers);
 
-                $scope.location = $scope.user.location;
             }, function(data){
                 if (data.status == "error") {
                     $state.go('login');
