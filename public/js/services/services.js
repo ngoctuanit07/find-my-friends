@@ -54,9 +54,12 @@ angular.module('starter.services', [])
                 else {
                     FindMyFriendsService.getMe()
                      .then(function (data) {
-                         // TODO check errors
+                         // success
                         $scope.user = data.data;
                         deferred.resolve($scope.user);
+                     }, function (data) {
+                         // error!
+                        deferred.reject(data.data);    
                      });
                 }
                 return deferred.promise;
