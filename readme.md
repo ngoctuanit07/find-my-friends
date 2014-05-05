@@ -36,10 +36,14 @@ install cordova:
 
 Build project with:
 - cd cordova
-- cordova build
+- cordova build ios
 
 Build for android:
-- cordova platform add android
+first set adb directory in cordova/local.properties and cordova/CordovaLib/local.properties
+
+- cd cordova
+- cordova build android
 
 Run with:
-- cordova emulate
+- cordova emulate ios
+- cordova emulate android
