@@ -86,8 +86,12 @@ angular.module('starter.services', [])
                 method: 'GET',
                 url: 'https://maps.googleapis.com/maps/api/geocode/json',
                 params: {'latlng': location.latitude + ',' + location.longitude,
-                        'sensor': 'true' }
+                    'sensor': 'true' }
             });
+        }
+
+        this.getDistance = function(friendId) {
+            return this._sendData('GET', 'friend/distance/' + friendId, {});
         }
 
         this.getMe = function () {

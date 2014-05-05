@@ -37,6 +37,34 @@ class FriendController extends \BaseController {
         }
     }
 
+    public function getDistance($id)
+    {
+        $user = Auth::getUser();
+        $friendUser = $this->meService->getUser($id);
+        if ($friendUser === null) {
+            return Response::error('Invalid friend id');
+        }
+        $friend = $friendUser->friends()->where('friend_user_id', $user->id)->first();
+
+        if ($friend === null)
+            return Response::error('Not a friend');
+
+        if ($friend->status === 'sharing') {
+            $userLocation = $user->location;
+            $friendLocation = $friendUser->location;
+            if ($userLocation === null || $friendLocation === null)
+                return Response::error('Don\'t have user or friend location');
+
+            $url = 'http://maps.googleapis.com/maps/api/distancematrix/json?'
+                . 'origins=' . $userLocation->latitude . ',' . $userLocation->longitude
+                . '&destinations='. $friendLocation->latitude . ',' . $friendLocation->longitude
+                . '&sensor=true';
+            return Response::ok(json_decode(file_get_contents($url)));
+        } else
+            return Response::json(['message' => 'Friend not sharing location']);
+
+    }
+
     public function postRequest($id)
     {
         $user = Auth::getUser();

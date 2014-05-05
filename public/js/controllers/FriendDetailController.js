@@ -4,6 +4,8 @@ angular.module('starter.controllers')
         $scope.user = null;
         $scope.markers = [];
         $scope.address = '';
+        $scope.distance = '';
+        $scope.duration = '';
 
         // google maps object that controls the map
         $scope.map = {
@@ -45,6 +47,16 @@ angular.module('starter.controllers')
             return MeModel.getMe().then(function(user){
                 $scope.user = user;
                 $scope.markers = MeModel.getMarkers();
+
+                FindMyFriendsService.getDistance($scope.friend.user.id)
+                    .success(function(response) {
+                        console.log(response);
+
+                        if (response.rows.length > 0) {
+                            $scope.distance = response.rows[0].elements[0].distance.text;
+                            $scope.duration = response.rows[0].elements[0].duration.text;
+                        }
+                    })
             });
         };
 
