@@ -69,24 +69,56 @@ class FacebookService
 	public function getFacebookSession()
 	{
 		if (!$this->_user) {
-			$helper = new FacebookJavaScriptLoginHelper();
-			try {
-				$this->_user = $helper->getSession();
-			} catch (FacebookRequestException $ex) {
-				// When Facebook returns an error
-				//if (APPLICATION_ENV=="dev") {
-				error_log($ex->getMessage());
-				//}
-				return false;
-			} catch (\Exception $ex) {
-				// When validation fails or other local issues
-				if (APPLICATION_ENV == "dev") {
-					error_log($ex->getMessage());
-				}
-				return false;
+			if ($_SERVER['HTTP_ORIGIN'] == "file://" && Input::has('code')) {
+				// facebook in ios does not set fbsr_APPIP (signed_request), which makes sessionFromJavascript fail
+				// $_SERVER['HTTP_ORIGIN'] seems to be file:// when the request comes from cordova, so instead of hacking let's detect it by this parameter
+				$this->_user = $this->_getFacebookSessionFromCode();
+			} else {
+				$this->_user = $this->_getFacebookSessionFromJavaScript();
 			}
 		}
 		return $this->_user;
+	}
+
+	private function _getFacebookSessionFromJavaScript()
+	{
+		$helper = new FacebookJavaScriptLoginHelper();
+		try {
+			return $helper->getSession();
+		} catch (FacebookRequestException $ex) {
+			// When Facebook returns an error
+			//if (APPLICATION_ENV=="dev") {
+			error_log($ex->getMessage());
+			//}
+			return false;
+		} catch (\Exception $ex) {
+			// When validation fails or other local issues
+			if (APPLICATION_ENV == "dev") {
+				error_log($ex->getMessage());
+			}
+			return false;
+		}
+	}
+
+	private function _getFacebookSessionFromCode()
+	{
+		try {
+			$session = new FacebookSession(Input::get('code'));
+			$session->validate();
+			return $session;
+		} catch (FacebookRequestException $ex) {
+			// When Facebook returns an error
+			//if (APPLICATION_ENV=="dev") {
+			error_log($ex->getMessage());
+			//}
+			return false;
+		} catch (\Exception $ex) {
+			// When validation fails or other local issues
+			if (APPLICATION_ENV == "dev") {
+				error_log($ex->getMessage());
+			}
+			return false;
+		}
 	}
 
 	public function getFriends()
