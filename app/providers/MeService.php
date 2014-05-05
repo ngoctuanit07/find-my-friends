@@ -14,12 +14,12 @@ class MeService
 
     public function getUserFromFacebookId($facebookId)
     {
-        return User::where('facebook_uid', '=', $facebookId)->take(1)->get();
+        return User::where('facebook_uid', '=', $facebookId)->first();
     }
 
     public function getUserFromEmail($email)
     {
-        return User::where('email', '=', $email)->take(1)->get();
+        return User::where('email', '=', $email)->first();
     }
 
     public function friendshipExists($user, $friendUser)

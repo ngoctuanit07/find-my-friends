@@ -65,18 +65,20 @@ class LoginController extends \BaseController {
             $accessToken = $this->facebookService->getAccessToken();
 
             if ( ! Auth::attempt(array('facebook_uid' => $userId), true) ) {
-                $foundUser = $this->meService->getUserFromEmail($userProfile['email']);
-                if (!$foundUser) {
+                $user = $this->meService->getUserFromEmail($userProfile['email']);
+                if (!$user) {
                     $user = new User();
                     $user->email = $userProfile['email'];
                 }
                 $user->name = $userProfile['name'];
                 $user->facebook_uid = $userId;
-                $user->photo = 'http://graph.facebook.com/'+$userId+'/picture?type=small';
+                $user->photo = 'http://graph.facebook.com/'+$userId+'/picture';
 
                 $user->save();
 
-                return Response::json(['messaged' => 'Created user and logged in']);
+                // we should attemp login here to save the cookie!
+
+                return Response::json(['status' => 'ok', 'message' => 'Created user and logged in']);
             }
             return Response::json(['message' => 'Logged in']);
         } else {
