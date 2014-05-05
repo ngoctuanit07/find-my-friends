@@ -176,7 +176,7 @@ angular.module('starter.services', [])
                         if (response.authResponse) {
                             $scope._login(response);
                         }
-                    }, {scope: ['email']});
+                    }, {scope: 'email'});
                 }
             });
         };

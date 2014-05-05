@@ -17,19 +17,27 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-
-    <!-- your app's js -->
+    
+    <!-- facebook stuff, cordova seems to want this CDV.FB variable -->
     <script>
         window.fbAsyncInit = function() {
-            FB.init({
+            var opt = {
                 appId      : '694514773928221',
+                useCachedDialogs: false,
                 status     : true, // check login status
                 cookie     : true, // enable cookies to allow the server to access the session
                 oauth      : true, // enable OAuth 2.0
                 xfbml      : true  // parse XFBML
-            });
+            };
+            if (typeof CDV != 'undefined') {
+                opt.nativeInterface = CDV.FB;
+            }
+            FB.init(opt);
         };
-
+    </script>
+    <script src="cdv-plugin-fb-connect.js"></script>
+    <script src="facebook-js-sdk.js"></script>
+    <script>
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {return;}
