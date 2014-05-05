@@ -62,6 +62,10 @@ angular.module('starter.services', [])
                 intervalType += 's';
             }
 
+            if (isNaN(interval)) {
+                return 'Not found';
+            }
+
             return interval + ' ' + intervalType + ' ago';
         };
     }])
@@ -86,6 +90,26 @@ angular.module('starter.services', [])
 
         this.sendShareRequest = function (friendId) {
             return this._sendData('POST', 'friend/request/' + friendId, {});
+        }
+
+        this.stopSharingLocation = function(friendId) {
+            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'not_sharing'});
+        }
+
+        this.startSharingLocation = function(friendId) {
+            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'sharing'});
+        }
+
+        this.acceptFriendRequest = function(friendId) {
+            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'not_sharing'});
+        }
+
+        this.blockFriend = function(friendId) {
+            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'blocked'});
+        }
+
+        this.unblockFriend = function(friendId) {
+            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'not_sharing'});
         }
 
         this.login = function(email, pass) {

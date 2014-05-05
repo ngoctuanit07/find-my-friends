@@ -35,7 +35,7 @@ class MeService
             && ( $newStatus === 'sharing' || $newStatus === 'not_sharing' );
     }
 
-    private static $invalidStatusUpdates = [
+    private $invalidStatusUpdates = [
         'sent_request', 'pending_confirmation', 'asked_to_share',
     ];
 
