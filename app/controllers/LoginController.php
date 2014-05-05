@@ -59,11 +59,9 @@ class LoginController extends \BaseController {
 
     public function postFacebook()
     {
-		$fbSession = $this->facebookService->getFacebookSession();
-        if ($fbSession) {
-            $userProfile = $this->facebookService->getUserProfile();
-            //$accessToken = $this->facebookService->getAccessToken();
-
+		$userProfile = $this->facebookService->getUserProfile();
+		if ($userProfile) {
+            
             if ( $user = $this->meService->getUserFromFacebookId($userProfile->id) ) {
 				// found facebook user! let's auth
 				Auth::login($user, true);
