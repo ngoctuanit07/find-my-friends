@@ -22,7 +22,10 @@ angular.module('starter.controllers')
         $scope.logOut = function() {
             MeModel.reset();
             FindMyFriendsService.logout().then(function() {
-                $state.go('login');
+                FB.logout(function(response) {
+                    $state.go('login');
+                });
+
             });
         };
 

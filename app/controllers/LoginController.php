@@ -59,24 +59,22 @@ class LoginController extends \BaseController {
 
     public function postFacebook()
     {
-        $userId = $this->facebookService->getFacebookUserId();
-        if ($userId) {
-            $userProfile = $this->facebookService->getUserProfile();
-            $accessToken = $this->facebookService->getAccessToken();
-
-            if ( $user = $this->meService->getUserFromFacebookId($userId) ) {
+		$userProfile = $this->facebookService->getUserProfile();
+		if ($userProfile) {
+            
+            if ( $user = $this->meService->getUserFromFacebookId($userProfile->id) ) {
 				// found facebook user! let's auth
 				Auth::login($user, true);
 				return Response::json(['status' => 'ok', 'message' => 'Logged in']);
 			} else {
-                $user = $this->meService->getUserFromEmail($userProfile['email']);
+                $user = $this->meService->getUserFromEmail($userProfile->email);
                 if (!$user) {
                     $user = new User();
-                    $user->email = $userProfile['email'];
+                    $user->email = $userProfile->email;
                 }
-                $user->name = $userProfile['name'];
-                $user->facebook_uid = $userId;
-                $user->photo = 'http://graph.facebook.com/' . $userId . '/picture';
+                $user->name = $userProfile->name;
+                $user->facebook_uid = $userProfile->id;
+                $user->photo = 'http://graph.facebook.com/' . $user->facebook_uid . '/picture';
 
                 $user->save();
 
