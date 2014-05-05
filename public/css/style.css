@@ -12,6 +12,10 @@ img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
     display: none;
 }
 
+.photo-thumb {
+    height:32px;
+    width:32px;
+}
 
 .custom-info-window{
   background: rgba(0,0,0,0.5);
