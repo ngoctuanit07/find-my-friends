@@ -12,8 +12,8 @@ angular.module('starter.controllers', [])
         // google maps object that controls the map
         $scope.map = {
             center: {
-                latitude: 40.175488,
-                longitude: -8.5978381
+                latitude: 41.1781072,
+                longitude: -8.5955717
             },
             zoom: 10,
             control: {},
@@ -31,14 +31,6 @@ angular.module('starter.controllers', [])
                 }
             }
         };
-
-        /*
-         $scope.$watch('location', function() {
-         $scope.map.control.refresh({
-         latitude: $scope.location.latitude,
-         longitude: $scope.location.longitude});
-         });
-         */
 
         $scope.saveLocation = function(newLocation) {
             // because our location is inside the markers array, we need to find "us" and update the location right away
@@ -80,12 +72,6 @@ angular.module('starter.controllers', [])
 
                 var markers = MeModel.getMarkers();
                 angular.extend($scope.markers, markers);
-                
-                _.each($scope.markers, function (marker) {
-                    marker.onClicked = function () {
-                        $state.go("friend", marker.id);
-                    };
-                });
                 
                 return user;
                 

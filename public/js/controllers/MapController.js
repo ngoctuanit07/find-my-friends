@@ -1,8 +1,8 @@
 angular.module('starter.controllers')
 
-    .controller('MapCtrl', function($scope, MeModel) {
+    .controller('MapCtrl', function($scope, MeModel, $state) {
         $scope.user = null;
-        $scope.markers = {};
+        $scope.markers = [];
 
         // google maps object that controls the map
         $scope.map = {
@@ -32,6 +32,13 @@ angular.module('starter.controllers')
          MeModel.getMe().then(function(user){
             $scope.user = user;
             $scope.markers = MeModel.getMarkers();
+
+            _.each($scope.markers, function (marker) {
+                marker.onClicked = function () {
+                    $state.go("friend", marker.id);
+                };
+            });
+
         });
     })
 ;

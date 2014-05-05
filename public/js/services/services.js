@@ -80,6 +80,16 @@ angular.module('starter.services', [])
             });
         }
 
+        this.getAddress = function(location) {
+            // https://maps.googleapis.com/maps/api/geocode/json?latlng=41.173103,-8.584697&sensor=true
+            return $http({
+                method: 'GET',
+                url: 'https://maps.googleapis.com/maps/api/geocode/json',
+                params: {'latlng': location.latitude + ',' + location.longitude,
+                        'sensor': 'true' }
+            });
+        }
+
         this.getMe = function () {
             return this._sendData('GET', 'me', {});
         }
