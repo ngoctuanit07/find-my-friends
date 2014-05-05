@@ -1,1 +1,1 @@
- : /Users/pedro/Documents/git/find-my-friends/cordova/platforms/android/CordovaLib/ant-build/AndroidManifest.xml \
+ : /Users/zipleen/dev/find-my-friends/cordova/platforms/android/CordovaLib/ant-build/AndroidManifest.xml \

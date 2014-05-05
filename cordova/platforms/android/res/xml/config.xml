@@ -4,11 +4,13 @@
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
-    <feature name="Contacts">
-        <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
-    </feature>
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
+    <access origin="https://m.facebook.com" />
+    <access origin="https://graph.facebook.com" />
+    <access origin="https://api.facebook.com" />
+    <access origin="https://*.fbcdn.net" />
+    <access origin="https://*.akamaihd.net" />
+    <feature name="org.apache.cordova.facebook.Connect">
+        <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
     </feature>
     <name>FindMyFriends</name>
     <description>
