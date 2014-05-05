@@ -1,0 +1,33 @@
+<ion-view title="Welcome to Find My Friends">
+    <ion-content scroll="false">
+        
+        <div class="padding">
+            <button ng-click="facebook()" class="button button-block button-positive">
+              <i class="icon ion-social-facebook-outline"></i> Login With Facebook
+            </button>
+        </div>
+        
+        <div class="list">
+            <div class="item item-divider">
+                Login With Email
+              </div>
+            <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input type="text" ng-model="user.email">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Password</span>
+                <input type="password" ng-model="user.password">
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button button-block button-balanced" ng-click="login(user)">
+                Sign-In
+            </button>
+            
+            
+        </div>
+        
+        
+    </ion-content>
+</ion-view>

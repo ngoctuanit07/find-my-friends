@@ -1,0 +1,35 @@
+<ion-view title="{{friend.user.name}}">
+    <ion-content has-header="true" padding="false">
+        <a href="#/map">
+            <google-map
+                    center="map.center"
+                    zoom="map.zoom"
+                    control="map.control"
+                    options="map.options"
+                    >
+                <markers models="markers"
+                         coords="'location'"
+                         icon="'photoSmall'"
+                         fit="false"
+                         options="'options'"
+                        >
+                    <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
+                        <img class="photo-thumb" href="#/friend/{{ id }}" ng-non-bindable src="{{ photoThumb }}">
+                    </windows>
+                </markers>
+            </google-map>
+        </a>
+
+        <h2>{{address}}</h2>
+
+        <h4>Distance: {{distance}}</h4>
+        <h4>Duration: {{duration}}</h4>
+
+        <a target="_blank"
+           href="http://maps.google.com/maps?&q={{friend.user.name}}&ll={{friend.user.location.latitude}},{{friend.user.location.longitude}}">
+            <button class="button button-block button-positive">
+                Open in maps
+            </button>
+        </a>
+    </ion-content>
+</ion-view>

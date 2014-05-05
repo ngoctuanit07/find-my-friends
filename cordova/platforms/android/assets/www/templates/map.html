@@ -1,0 +1,25 @@
+<ion-view title="Find My Friends">
+    <ion-content padding="false" scroll="false">
+        <div class="bigMap">
+            <google-map
+                    center="map.center"
+                    zoom="map.zoom"
+                    control="map.control"
+                    options="map.options"
+                    draggable='true'
+                    >
+                <markers models="markers"
+                         coords="'location'"
+                         icon="'photoSmall'"
+                         fit="true"
+                         options="'options'"
+                         click="'onClicked'"
+                        >
+                    <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
+                        <img ng-non-bindable src="{{ photoThumb }}" class="photo-thumb">
+                    </windows>
+                </markers>
+            </google-map>
+        </div>
+    </ion-content>
+</ion-view>
