@@ -44,7 +44,7 @@
 
                 <button ng-if="friend.user.status == 'not_sharing'"
                         class="button button-energized"
-                        ng-click="askForLocation({{friend.user.id}} ); do($event);" >
+                        ng-click="askForLocation({{friend.user.id}})" prevent-default>
                     Ask
                 </button>
 

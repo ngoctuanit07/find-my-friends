@@ -16,6 +16,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         });
     })
 
+    .directive('preventDefault', function() {
+        return function(scope, element, attrs) {
+            angular.element(element).bind('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+            });
+        }
+    })
+
     .config(function($stateProvider, $urlRouterProvider) {
 
         $stateProvider
