@@ -76,7 +76,7 @@ class LoginController extends \BaseController {
                 }
                 $user->name = $userProfile['name'];
                 $user->facebook_uid = $userId;
-                $user->photo = 'http://graph.facebook.com/'+$userId+'/picture';
+                $user->photo = 'http://graph.facebook.com/' . $userId . '/picture';
 
                 $user->save();
 
