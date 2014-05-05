@@ -64,7 +64,11 @@ class LoginController extends \BaseController {
             $userProfile = $this->facebookService->getUserProfile();
             $accessToken = $this->facebookService->getAccessToken();
 
-            if ( ! Auth::attempt(array('facebook_uid' => $userId), true) ) {
+            if ( $user = $this->meService->getUserFromFacebookId($userId) ) {
+				// found facebook user! let's auth
+				Auth::login($user, true);
+				return Response::json(['status' => 'ok', 'message' => 'Logged in']);
+			} else {
                 $user = $this->meService->getUserFromEmail($userProfile['email']);
                 if (!$user) {
                     $user = new User();
@@ -77,10 +81,11 @@ class LoginController extends \BaseController {
                 $user->save();
 
                 // we should attemp login here to save the cookie!
+				Auth::login($user, true);
 
                 return Response::json(['status' => 'ok', 'message' => 'Created user and logged in']);
             }
-            return Response::json(['message' => 'Logged in']);
+
         } else {
             return Response::error('Facebook log in failed');
         }

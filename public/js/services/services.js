@@ -164,7 +164,7 @@ angular.module('starter.services', [])
         }
     }])
 
-    .service('loginFacebook', ['FindMyFriendsService', '$window', function(FindMyFriendsService, $window){
+    .service('loginFacebook', ['FindMyFriendsService', '$window', '$state', function(FindMyFriendsService, $window, $state){
         var $scope = this;
 
         this.facebook = function() {
@@ -184,15 +184,10 @@ angular.module('starter.services', [])
         this._login = function (response) {
             FindMyFriendsService.loginfacebook(response.authResponse.accessToken)
                 .success( function (data) {
-                    angular.forEach(data, function (html, element) {
-                        try {
-                            // resposta ao teu codigo
-                            console.log("fiz login!");
-                            console.log(html);
-                        } catch (e) {
-                            //
-                        }
-                    });
+                    if(data.status == "ok") {
+                        $state.go("home");
+                    }
+                    return false;
                 });
         };
     }])
