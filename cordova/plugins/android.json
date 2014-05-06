@@ -5,45 +5,11 @@
     },
     "config_munge": {
         "files": {
-            "config.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<access origin=\"https://m.facebook.com\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<access origin=\"https://graph.facebook.com\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<access origin=\"https://api.facebook.com\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<access origin=\"https://*.fbcdn.net\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<access origin=\"https://*.akamaihd.net\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"org.apache.cordova.facebook.Connect\"><param name=\"android-package\" value=\"org.apache.cordova.facebook.ConnectPlugin\" /></feature>",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
             "res/xml/config.xml": {
                 "parents": {
                     "/*": [
                         {
                             "xml": "<feature name=\"Contacts\"><param name=\"android-package\" value=\"org.apache.cordova.contacts.ContactManager\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -74,22 +40,49 @@
                         }
                     ]
                 }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<access origin=\"https://m.facebook.com\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://graph.facebook.com\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://api.facebook.com\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://*.fbcdn.net\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://*.akamaihd.net\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"org.apache.cordova.facebook.Connect\"><param name=\"android-package\" value=\"org.apache.cordova.facebook.ConnectPlugin\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
             }
         }
     },
     "installed_plugins": {
-        "com.phonegap.plugins.facebookconnect": {
-            "APP_ID": "694514773928221",
-            "APP_NAME": "998d17a5f14b9303cba4622e5c7127dc",
-            "PACKAGE_NAME": "edu.find_my_friends"
-        },
         "org.apache.cordova.contacts": {
             "PACKAGE_NAME": "edu.find_my_friends"
         },
-        "org.apache.cordova.device": {
+        "org.apache.cordova.geolocation": {
             "PACKAGE_NAME": "edu.find_my_friends"
         },
-        "org.apache.cordova.geolocation": {
+        "com.phonegap.plugins.facebookconnect": {
+            "APP_ID": "694514773928221",
+            "APP_NAME": "Find My Friends",
             "PACKAGE_NAME": "edu.find_my_friends"
         }
     },

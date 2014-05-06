@@ -1,3 +1,0 @@
-# view AndroidManifest.xml #generated:6
--keep class edu.find_my_friends.FindMyFriends { <init>(...); }
-

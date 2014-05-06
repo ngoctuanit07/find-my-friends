@@ -105,7 +105,7 @@
                     ],
                     "FacebookDisplayName": [
                         {
-                            "xml": "<string>998d17a5f14b9303cba4622e5c7127dc</string>",
+                            "xml": "<string>Find My Friends</string>",
                             "count": 1
                         }
                     ],
@@ -128,7 +128,7 @@
         },
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "694514773928221",
-            "APP_NAME": "998d17a5f14b9303cba4622e5c7127dc",
+            "APP_NAME": "Find My Friends",
             "PACKAGE_NAME": "edu.find-my-friends"
         }
     },
