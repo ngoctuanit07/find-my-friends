@@ -58,7 +58,7 @@ class LoginController extends \BaseController {
         return Response::error('Log in failed');
     }
 
-    private function getTokenAndUpdateLogin()
+    private function getTokenAndUpdateLoginTime()
     {
         $user = Auth::getUser();
         $user->updateLastLoginTime();
@@ -73,7 +73,7 @@ class LoginController extends \BaseController {
             if ( $user = $this->meService->getUserFromFacebookId($userProfile->id) ) {
 				// found facebook user! let's auth
 				Auth::login($user, true);
-                $this->getTokenAndUpdateLogin();
+                $this->getTokenAndUpdateLoginTime();
 
                 return Response::json(['status' => 'ok', 'message' => 'Logged in']);
 			} else {
@@ -90,7 +90,7 @@ class LoginController extends \BaseController {
 
                 // we should attemp login here to save the cookie!
 				Auth::login($user, true);
-                $this->getTokenAndUpdateLogin();
+                $this->getTokenAndUpdateLoginTime();
 
                 return Response::json(['status' => 'ok', 'message' => 'Created user and logged in']);
             }

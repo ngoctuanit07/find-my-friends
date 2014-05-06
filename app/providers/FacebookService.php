@@ -62,20 +62,22 @@ class FacebookService
 	}
 
 	/**
+     * @param access_token
 	 * return a facebook session
 	 *
 	 * @return \Facebook\FacebookSession
 	 */
-	public function getFacebookSession()
+	public function getFacebookSession($access_token = null)
 	{
 		if (!$this->_user) {
-			if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] == "file://" && Input::has('code')) {
+            if ($access_token !== null) {
+                $this->_user = $this->_getFacebookSessionFromUserToken($access_token);
+            }
+			else if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] == "file://" && Input::has('code')) {
 				// facebook in ios does not set fbsr_APPIP (signed_request), which makes sessionFromJavascript fail
 				// $_SERVER['HTTP_ORIGIN'] seems to be file:// when the request comes from cordova, so instead of hacking let's detect it by this parameter
 				$this->_user = $this->_getFacebookSessionFromCode();
-			} else if (Auth::getUser() !== null && Auth::getUser()->fb_token !== null)  {
-                $this->_user = $this->_getFacebookSessionFromUserToken();
-            }
+			}
             else {
 				$this->_user = $this->_getFacebookSessionFromJavaScript();
 			}
@@ -103,12 +105,10 @@ class FacebookService
 		}
 	}
 
-    private function _getFacebookSessionFromUserToken()
+    private function _getFacebookSessionFromUserToken($access_token)
     {
         try {
-            $user = Auth::getUser();
-            if ($user === null && $user->fb_token === null) return false;
-            $session = new FacebookSession($user->fb_token);
+            $session = new FacebookSession($access_token);
             $session->validate();
             return $session;
         } catch (FacebookRequestException $ex) {
@@ -147,9 +147,9 @@ class FacebookService
 		}
 	}
 
-	public function getFriends()
+	public function getFriends($access_token = null)
 	{
-		$session = $this->getFacebookSession();
+		$session = $this->getFacebookSession($access_token);
 		if ($session) {
 			try {
 				$request = new FacebookRequest($session, 'GET', '/me/friends', ['limit' => 5000]);

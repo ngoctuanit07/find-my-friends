@@ -36,7 +36,8 @@ class MeController extends \BaseController {
 
     public function getSocialFriends()
     {
-        return Response::ok($this->facebookService->getFriends());
+        $user = Auth::getUser();
+        return Response::ok($this->facebookService->getFriends($user->fb_token));
     }
 
     public function getTest()

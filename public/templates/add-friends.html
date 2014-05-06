@@ -2,18 +2,17 @@
     <ion-header-bar class="bar bar-subheader item-input-inset">
         <label class="item-input-wrapper">
             <i class="icon ion-ios7-search placeholder-icon"></i>
-            <input id="searchKey" type="search" placeholder="Search" ng-model="search.$" autocorrect="off" >
-            <button class="button button-clear" ng-click="clearSearch()">X</button>
+            <input id="searchKey" type="search" placeholder="Search" ng-model="filter.text" autocorrect="off" >
         </label>
         <button class="button button-clear" ng-click="search()">Search</button>
     </ion-header-bar>
     <ion-content has-header="true" padding="true">
 
         <ion-list class="list list-inset">
-            <ion-item ng-repeat="friend in friends"
+            <ion-item ng-repeat="friend in socialFriends | filter:{name:filter.text}"
                       class="item-avatar-left item-button-right">
-                <img ng-src="{{friend.user.photo}}">
-                <h2>{{friend.user.name}}</h2>
+                <img ng-src="http://graph.facebook.com/{{friend.id}}/picture">
+                <h2>{{friend.name}}</h2>
                 <button class="button button-calm">Invite</button>
             </ion-item>
         </ion-list>
