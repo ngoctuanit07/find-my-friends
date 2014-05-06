@@ -1,8 +1,8 @@
 angular.module('starter.controllers')
 
-    .controller('LoginCtrl', function($scope, $state, FindMyFriendsService, loginFacebook, MeModel) {
+    .controller('LoginCtrl', function($scope, $state, FindMyFriendsService, LoginFacebook, MeModel) {
         $scope.facebook = function() {
-            loginFacebook.facebook();
+            LoginFacebook.facebook();
         }
 
         $scope.login = function(user) {
