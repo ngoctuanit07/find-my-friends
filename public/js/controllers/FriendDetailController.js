@@ -50,8 +50,6 @@ angular.module('starter.controllers')
 
                 FindMyFriendsService.getDistance($scope.friend.user.id)
                     .success(function(response) {
-                        console.log(response);
-
                         if (response.rows.length > 0) {
                             $scope.distance = response.rows[0].elements[0].distance.text;
                             $scope.duration = response.rows[0].elements[0].duration.text;

@@ -34,7 +34,7 @@ class FacebookService
 	public function getUserProfile()
 	{
 		$session = $this->getFacebookSession();
-		if ($session) {
+        if ($session) {
 			try {
 				$request = new FacebookRequest($session, 'GET', '/me');
 				$answer = $request->execute();
@@ -50,10 +50,10 @@ class FacebookService
 
 	public function getAccessToken()
 	{
-		$user = $this->getFacebookSession();
-		if ($user) {
+        $session = $this->getFacebookSession();
+		if ($session) {
 			try {
-				return $user->getToken();
+				return $session->getToken();
 			} catch (FacebookRequestException $e) {
 				error_log($e);
 			}
@@ -69,11 +69,14 @@ class FacebookService
 	public function getFacebookSession()
 	{
 		if (!$this->_user) {
-			if ($_SERVER['HTTP_ORIGIN'] == "file://" && Input::has('code')) {
+			if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] == "file://" && Input::has('code')) {
 				// facebook in ios does not set fbsr_APPIP (signed_request), which makes sessionFromJavascript fail
 				// $_SERVER['HTTP_ORIGIN'] seems to be file:// when the request comes from cordova, so instead of hacking let's detect it by this parameter
 				$this->_user = $this->_getFacebookSessionFromCode();
-			} else {
+			} else if (Auth::getUser() !== null && Auth::getUser()->fb_token !== null)  {
+                $this->_user = $this->_getFacebookSessionFromUserToken();
+            }
+            else {
 				$this->_user = $this->_getFacebookSessionFromJavaScript();
 			}
 		}
@@ -99,6 +102,29 @@ class FacebookService
 			return false;
 		}
 	}
+
+    private function _getFacebookSessionFromUserToken()
+    {
+        try {
+            $user = Auth::getUser();
+            if ($user === null && $user->fb_token === null) return false;
+            $session = new FacebookSession($user->fb_token);
+            $session->validate();
+            return $session;
+        } catch (FacebookRequestException $ex) {
+            // When Facebook returns an error
+            //if (APPLICATION_ENV=="dev") {
+            error_log($ex->getMessage());
+            //}
+            return false;
+        } catch (\Exception $ex) {
+            // When validation fails or other local issues
+            if (APPLICATION_ENV == "dev") {
+                error_log($ex->getMessage());
+            }
+            return false;
+        }
+    }
 
 	private function _getFacebookSessionFromCode()
 	{
@@ -126,8 +152,16 @@ class FacebookService
 		$session = $this->getFacebookSession();
 		if ($session) {
 			try {
-				$request = new FacebookRequest($session, 'GET', '/me/friends');
-				return $request->execute();
+				$request = new FacebookRequest($session, 'GET', '/me/friends', ['limit' => 5000]);
+                $objectList = $request->execute()->getGraphObjectList();
+
+                $friends = [];
+                foreach($objectList as $object) {
+                    $friends[] = $object->asArray();
+                }
+
+                return $friends;
+
 			} catch (FacebookApiException $e) {
 				if (APPLICATION_ENV == "dev") {
 					error_log($e);

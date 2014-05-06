@@ -80,6 +80,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+    public function updateLastLoginTime()
+    {
+        $this->last_login = new \DateTime;
+        $this->save();
+    }
+
     public function sessions()
     {
         return $this->hasMany('UserSession');

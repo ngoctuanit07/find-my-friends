@@ -98,6 +98,10 @@ angular.module('starter.services', [])
             return this._sendData('GET', 'me', {});
         }
 
+        this.getSocialFriends = function () {
+            return this._sendData('GET', 'me/social-friends', {});
+        }
+
         this.updateLocation = function (location) {
             return this._sendData('PUT', 'me/location', {'location': location});
         }
@@ -228,6 +232,7 @@ angular.module('starter.services', [])
                     return false;
                 });
         };
+
     }])
 
 ;

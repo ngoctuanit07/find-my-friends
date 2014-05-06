@@ -2,10 +2,11 @@
 
 class MeController extends \BaseController {
 
-    public function __construct(MeService $meService)
+    public function __construct(MeService $meService, FacebookService $facebookService)
     {
         $this->beforeFilter('auth');
         $this->meService = $meService;
+        $this->facebookService = $facebookService;
     }
 
     public function getIndex()
@@ -31,6 +32,11 @@ class MeController extends \BaseController {
         } else {
             return Response::error('Missing parameters');
         }
+    }
+
+    public function getSocialFriends()
+    {
+        return Response::ok($this->facebookService->getFriends());
     }
 
     public function getTest()
