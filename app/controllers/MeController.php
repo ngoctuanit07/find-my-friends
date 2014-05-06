@@ -37,6 +37,7 @@ class MeController extends \BaseController {
     public function getSocialFriends()
     {
         $user = Auth::getUser();
+        if ($user->fb_token === null) return Response::ok([]);
         return Response::ok($this->facebookService->getFriends($user->fb_token));
     }
 

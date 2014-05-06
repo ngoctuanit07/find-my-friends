@@ -2,9 +2,9 @@
 
 class LoginController extends \BaseController {
 
-    public function __construct(LoginService $loginService, FacebookService $facebookService, MeService $meService)
+    public function __construct(RegisterService $registerService, FacebookService $facebookService, MeService $meService)
     {
-        $this->loginService = $loginService;
+        $this->registerService = $registerService;
         $this->facebookService = $facebookService;
         $this->meService = $meService;
     }
@@ -16,7 +16,7 @@ class LoginController extends \BaseController {
             $password = Input::get('password');
             $name = Input::get('name');
 
-            $user = $this->loginService->register($email, $name, $password);
+            $user = $this->registerService->register($email, $name, $password);
             if ( $user === NULL ) {
                 return Response::error('Failed to register');
             } else {
@@ -68,34 +68,29 @@ class LoginController extends \BaseController {
 
     public function postFacebook()
     {
-		$userProfile = $this->facebookService->getUserProfile();
-		if ($userProfile) {
-            if ( $user = $this->meService->getUserFromFacebookId($userProfile->id) ) {
-				// found facebook user! let's auth
-				Auth::login($user, true);
-                $this->getTokenAndUpdateLoginTime();
+        $userProfile = $this->facebookService->getUserProfile();
+        if ($userProfile) {
+            $user = $this->meService->getUserFromFacebookId($userProfile->id);
 
-                return Response::json(['status' => 'ok', 'message' => 'Logged in']);
-			} else {
+            if ($user === null)
                 $user = $this->meService->getUserFromEmail($userProfile->email);
-                if (!$user) {
-                    $user = new User();
-                    $user->email = $userProfile->email;
-                }
-                $user->name = $userProfile->name;
-                $user->facebook_uid = $userProfile->id;
-                $user->photo = 'http://graph.facebook.com/' . $user->facebook_uid . '/picture';
 
-                $user->save();
+            if ($user === null)
+                $user = new User();
 
-                // we should attemp login here to save the cookie!
-				Auth::login($user, true);
-                $this->getTokenAndUpdateLoginTime();
+            $user->email = $userProfile->email;
+            $user->name = $userProfile->name;
+            $user->facebook_uid = $userProfile->id;
+            $user->photo = 'http://graph.facebook.com/' . $user->facebook_uid . '/picture';
+            $user->save();
 
-                return Response::json(['status' => 'ok', 'message' => 'Created user and logged in']);
-            }
+            Auth::login($user, true);
+            $this->getTokenAndUpdateLoginTime();
 
-        } else {
+            return Response::json(['status' => 'ok', 'message' => 'Logged in with facebook']);
+        }
+
+        else {
             return Response::error('Facebook log in failed');
         }
     }

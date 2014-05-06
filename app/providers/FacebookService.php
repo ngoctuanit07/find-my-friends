@@ -159,7 +159,6 @@ class FacebookService
                 foreach($objectList as $object) {
                     $friends[] = $object->asArray();
                 }
-
                 return $friends;
 
 			} catch (FacebookApiException $e) {

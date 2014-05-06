@@ -4,10 +4,11 @@ class FriendController extends \BaseController {
 
     public $restful = true;
 
-    public function __construct(MeService $meService)
+    public function __construct(MeService $meService, RegisterService $registerService)
     {
         $this->beforeFilter('auth');
         $this->meService = $meService;
+        $this->registerService = $registerService;
     }
 
     public function postStatus($id)
@@ -82,29 +83,32 @@ class FriendController extends \BaseController {
     public function postIndex()
     {
         $user = Auth::getUser();
+        $friendUser = null;
 
         if (Input::has('id')) {
             $friendUser = $this->meService->getUser(Input::get('id'));
-            $friend = $this->meService->addFriend($user, $friendUser);
-            if ($friend === null) {
-                return Response::error('Failed to add friend');
-            } else {
-                return Response::json(['message' => 'Added new friend']);
+
+            if($friendUser === null) {
+                return Reponse::error('User id not found');
             }
         }
-
         else if (Input::has('facebook_uid')) {
-            // ...
-
+            $facebook_uid = Input::get('facebook_uid');
+            $friendUser = $this->registerService->registerFacebookId($facebook_uid);
         }
-
         else if (Input::has('email')) {
-            // ...
-
+            $email = Input::get('email');
+            $friendUser = $this->registerService->registerEmail($email);
         }
-
         else {
             return Response::error('Missing parameters');
+        }
+
+        $friend = $this->meService->addFriend($user, $friendUser);
+        if ($friend === null) {
+            return Response::error('Failed to add friend');
+        } else {
+            return Response::json(['message' => 'Added new friend']);
         }
     }
 

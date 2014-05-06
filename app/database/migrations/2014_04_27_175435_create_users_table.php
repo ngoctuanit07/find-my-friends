@@ -15,8 +15,8 @@ class CreateUsersTable extends Migration {
         Schema::create('user', function($table)
         {
             $table->increments('id');
-            $table->string('email')->unique();
-            $table->string('name');
+            $table->string('email')->unique()->nullable();
+            $table->string('name')->nullable();
             $table->string('password')->nullable();
             $table->string('remember_token')->nullable();
             $table->string('fb_token')->nullable();
