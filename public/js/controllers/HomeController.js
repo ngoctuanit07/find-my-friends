@@ -1,7 +1,8 @@
 angular.module('starter.controllers', [])
 
-    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath) {
+    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath, $ionicLoading) {
 
+        $ionicLoading.hide();
         $scope.user = null;
         $scope.friends = {};
         $scope.markers = [];
