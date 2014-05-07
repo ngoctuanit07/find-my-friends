@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-    .controller('MeCtrl', function($scope, MeModel, FindMyFriendsService, $state) {
+    .controller('MeCtrl', function($scope, MeModel, FindMyFriendsService, $state, $ionicPopup) {
         $scope.user = null;
         $scope.friends = {}
 
@@ -54,9 +54,18 @@ angular.module('starter.controllers')
         }
 
         $scope.unblockFriend = function(friendId) {
-            FindMyFriendsService.unblockFriend(friendId).then(function() {
-                $scope.refresh();
-            })
+            $ionicPopup.confirm({
+                title: 'Unblock Friend',
+                content: 'Are you sure you want to unblock this friend? He will be able to send you requests.',
+                okType: 'button-balanced',
+                okText: 'Unblock'
+            }).then(function(result) {
+                if(result) {
+                    FindMyFriendsService.unblockFriend(friendId).then(function() {
+                        $scope.refresh();
+                    })
+                }
+            });
         }
     })
 ;

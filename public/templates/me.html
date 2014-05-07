@@ -57,7 +57,7 @@
                    class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                     <img ng-src="{{friend.user.photo}}">
                     <h2>{{friend.user.name}}</h2>
-                    <button class="button button-balanced"
+                    <button class="button button-positive"
                             ng-click="startSharingLocation({{friend.user.id}})"
                             prevent-default>Share</button>
                 </a>
@@ -74,7 +74,7 @@
                    class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                     <img ng-src="{{friend.user.photo}}">
                     <h2>{{friend.user.name}}</h2>
-                    <button class="button button-assertive"
+                    <button class="button button-balanced"
                             ng-click="unblockFriend({{friend.user.id}})"
                             prevent-default>Unblock</button>
                 </a>

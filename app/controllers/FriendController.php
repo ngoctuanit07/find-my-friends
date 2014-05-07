@@ -50,6 +50,11 @@ class FriendController extends \BaseController {
         if ($friend === null)
             return Response::error('Not a friend');
 
+        $mode = 'driving';
+        if (Input::has('mode')) {
+            $mode = Input::get('mode');
+        }
+
         if ($friend->status === 'sharing') {
             $userLocation = $user->location;
             $friendLocation = $friendUser->location;
@@ -59,7 +64,9 @@ class FriendController extends \BaseController {
             $url = 'http://maps.googleapis.com/maps/api/distancematrix/json?'
                 . 'origins=' . $userLocation->latitude . ',' . $userLocation->longitude
                 . '&destinations='. $friendLocation->latitude . ',' . $friendLocation->longitude
-                . '&sensor=true';
+                . '&sensor=true'
+                . '&mode=' . $mode;
+
             return Response::ok(json_decode(file_get_contents($url)));
         } else
             return Response::json(['message' => 'Friend not sharing location']);

@@ -1,6 +1,6 @@
 <ion-view title="{{friend.user.name}}">
     <ion-content has-header="true" padding="false">
-        <a href="#/map">
+        <a href="#/map" ng-if="address">
             <google-map
                     center="map.center"
                     zoom="map.zoom"
@@ -20,16 +20,73 @@
             </google-map>
         </a>
 
-        <h2>{{address}}</h2>
+        <div class="card" ng-show="address">
+            <div class="item item-divider">
+                Current address location
+            </div>
+            <a class="item item-icon-left"
+               target="_blank"
+               href="{{address.url}}">
+                <i class="icon ion-android-location"></i>
+                {{address.text}}
+            </a>
+        </div>
 
-        <h4>Distance: {{distance}}</h4>
-        <h4>Duration: {{duration}}</h4>
+        <div class="card" ng-hide="address">
+            <div class="item item-divider">
+                Current address location
+            </div>
+            <a class="item item-icon-left">
+                <i class="icon ion-android-location"></i>
+                No location
+            </a>
+        </div>
 
-        <a target="_blank"
-           href="http://maps.google.com/maps?&q={{friend.user.name}}&ll={{friend.user.location.latitude}},{{friend.user.location.longitude}}">
-            <button class="button button-block button-positive">
-                Open in maps
-            </button>
-        </a>
+
+        <div class="card" ng-show="driving">
+            <div class="item item-divider">
+                Driving distance from my location
+            </div>
+            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
+                <i class="icon ion-model-s"></i>
+                {{driving.distance}}
+            </a>
+            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
+                <i class="icon ion-clock"></i>
+                {{driving.duration}}
+            </a>
+        </div>
+
+        <div class="card" ng-show="walking">
+            <div class="item item-divider">
+                Walking distance from my location
+            </div>
+            <a class="item item-icon-left" target="_blank" href="{{walking.url}}">
+                <i class="icon ion-man"></i>
+                {{walking.distance}}
+            </a>
+            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
+                <i class="icon ion-clock"></i>
+                {{walking.duration}}
+            </a>
+        </div>
+
+        <div class="card" ng-hide="address">
+            <a class="item text-center item-energized" ng-click="unblockFriend(friend.user.id)">
+                Ask for location
+            </a>
+        </div>
+
+        <div class="card" ng-if="friend.status != 'blocked'">
+            <a class="item text-center item-assertive" ng-click="blockFriend(friend.user.id)">
+                Block friend
+            </a>
+        </div>
+
+        <div class="card" ng-if="friend.status == 'blocked'">
+            <a class="item text-center item-balanced" ng-click="unblockFriend(friend.user.id)">
+                Unblock friend
+            </a>
+        </div>
     </ion-content>
 </ion-view>

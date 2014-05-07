@@ -49,8 +49,13 @@
                 </button>
 
                 <button ng-if="friend.user.status == 'asked_to_share'"
-                        class="button button-energized">
-                    Asked
+                        class="button button-stable" disabled>
+                    Waiting
+                </button>
+
+                <button ng-if="friend.user.status == 'blocked'"
+                        class="button button-stable" disabled>
+                    Unavailable
                 </button>
             </a>
         </div>

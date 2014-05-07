@@ -10,6 +10,14 @@ angular.module('starter.services', [])
             });
         }
 
+        this._sendParams = function(method, url, params) {
+            return $http({
+                method: method,
+                url: remoteUrl + 'api/v1/' + url,
+                params: params
+            });
+        }
+
         this.getAddress = function(location) {
             // https://maps.googleapis.com/maps/api/geocode/json?latlng=41.173103,-8.584697&sensor=true
             return $http({
@@ -20,8 +28,8 @@ angular.module('starter.services', [])
             });
         }
 
-        this.getDistance = function(friendId) {
-            return this._sendData('GET', 'friend/distance/' + friendId, {});
+        this.getDistance = function(friendId, mode) {
+            return this._sendParams('GET', 'friend/distance/' + friendId, {'mode': mode});
         }
 
         this.getMe = function () {
