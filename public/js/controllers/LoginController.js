@@ -3,7 +3,7 @@ angular.module('starter.controllers')
     .controller('LoginCtrl', function($scope, $state, FindMyFriendsService, LoginFacebook, MeModel, $ionicLoading) {
 
         $scope.showLoading = function() {
-            $scope.loadingIndicator = $ionicLoading.show({
+            $ionicLoading.show({
                 content: 'Logging in, please wait a moment.',
                 animation: 'fade-in',
                 showBackdrop: false,
@@ -18,12 +18,17 @@ angular.module('starter.controllers')
         }
 
         $scope.login = function(user) {
-            $scope.showLoading();
-            FindMyFriendsService.login(user.email, user.password)
-                .success(function(){
-                    $ionicLoading.hide();
-                    $state.go('home');
-                });
+            if( typeof user !== "undefined" ) {
+                $scope.showLoading();
+
+                FindMyFriendsService.login(user.email, user.password)
+                    .success(function(){
+                        $state.go('home');
+                    })
+                    .error(function() {
+                        $ionicLoading.hide();
+                    })
+            }
         };
 
         $scope.logout = function() {

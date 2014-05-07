@@ -1,19 +1,19 @@
 <ion-view title="Find My Friends">
     <ion-content scroll="false">
-        
+
         <div class="padding">
             <button ng-click="facebook()" class="button button-block button-positive">
-              <i class="icon ion-social-facebook-outline"></i> Login With Facebook
+                <i class="icon ion-social-facebook-outline"></i> Login With Facebook
             </button>
         </div>
-        
+
         <div class="list">
             <div class="item item-divider">
                 Login With Email
-              </div>
+            </div>
             <label class="item item-input">
                 <span class="input-label">Email</span>
-                <input type="text" ng-model="user.email">
+                <input type="email" ng-model="user.email">
             </label>
             <label class="item item-input">
                 <span class="input-label">Password</span>
@@ -24,10 +24,10 @@
             <button class="button button-block button-balanced" ng-click="login(user)">
                 Sign-In
             </button>
-            
-            
+
+
         </div>
-        
-        
+
+
     </ion-content>
 </ion-view>
