@@ -12,7 +12,10 @@
 
     <ion-content has-header="true" padding="true">
 
-        <button ng-click="promptEmail()" class="button button-block button-stable">Invite by email</button>
+        <button ng-click="promptEmail()" class="button button-block button-stable">
+            Invite by email
+            <i class="ion-email"></i>
+        </button>
 
         <ion-list class="list list-inset" ng-if="!data.isLoading">
             <div class="item item-divider">

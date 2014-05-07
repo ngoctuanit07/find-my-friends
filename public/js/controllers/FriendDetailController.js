@@ -56,7 +56,7 @@ angular.module('starter.controllers')
 
                 FindMyFriendsService.getDistance($scope.friend.user.id, 'walking')
                     .success(function(response) {
-                        if (response.rows.length > 0) {
+                        if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
                             $scope.walking = {};
                             $scope.walking.distance = response.rows[0].elements[0].distance.text;
                             $scope.walking.duration = response.rows[0].elements[0].duration.text;
@@ -69,7 +69,7 @@ angular.module('starter.controllers')
 
                 FindMyFriendsService.getDistance($scope.friend.user.id, 'driving')
                     .success(function(response) {
-                        if (response.rows.length > 0) {
+                        if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
                             $scope.driving = {};
                             $scope.driving.distance = response.rows[0].elements[0].distance.text;
                             $scope.driving.duration = response.rows[0].elements[0].duration.text;
@@ -90,9 +90,11 @@ angular.module('starter.controllers')
                 okText: 'Block'
             }).then(function(result) {
                 if(result) {
-                    FindMyFriendsService.blockFriend(friendId).then(function() {
-                        $scope.friend.status = 'blocked';
-                    })
+                    FindMyFriendsService.blockFriend(friendId)
+                        .then(function(response) {
+                            $scope.friend = response.data;
+                            MeModel.reset();
+                        })
                 }
             });
         }
@@ -105,11 +107,21 @@ angular.module('starter.controllers')
                 okText: 'Unblock'
             }).then(function(result) {
                 if(result) {
-                    FindMyFriendsService.unblockFriend(friendId).then(function() {
-                        $scope.friend.status = 'not_sharing';
-                    })
+                    FindMyFriendsService.unblockFriend(friendId)
+                        .then(function(response) {
+                            $scope.friend = response.data;
+                            MeModel.reset();
+                        })
                 }
             });
+        }
+
+        $scope.askForLocation = function(friendId) {
+            FindMyFriendsService.sendShareRequest(friendId)
+                .then(function(response) {
+                    $scope.friend = response.data;
+                    MeModel.reset();
+                })
         }
 
         $scope.fetch();

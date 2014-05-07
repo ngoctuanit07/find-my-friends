@@ -113,7 +113,7 @@ angular.module('starter.controllers', [])
         });
 
         $scope.askForLocation = function(friendId) {
-            // TODO add callback for errors
+            // TODO add callback to get updated friend
             FindMyFriendsService.sendShareRequest(friendId);
             $scope.refresh();
         }

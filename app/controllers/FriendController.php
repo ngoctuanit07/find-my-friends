@@ -84,7 +84,7 @@ class FriendController extends \BaseController {
         if ($friend === null)
             return Response::error('Failed to request location share');
         else
-            return Response::json(['message' => 'Location request sent']);
+            return Response::ok($friend);
     }
 
     public function postIndex()

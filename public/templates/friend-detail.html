@@ -22,7 +22,7 @@
 
         <div class="card" ng-show="address">
             <div class="item item-divider">
-                Current address location
+                Last address location
             </div>
             <a class="item item-icon-left"
                target="_blank"
@@ -34,7 +34,7 @@
 
         <div class="card" ng-hide="address">
             <div class="item item-divider">
-                Current address location
+                Last address location
             </div>
             <a class="item item-icon-left">
                 <i class="icon ion-android-location"></i>
@@ -71,22 +71,43 @@
             </a>
         </div>
 
-        <div class="card" ng-hide="address">
-            <a class="item text-center item-energized" ng-click="unblockFriend(friend.user.id)">
+        <!---    FRIEND STATUS FOR ME WHEN THERE ISN'T A LOCATION     ---->
+        <div class="card" ng-switch="friend.user.status" ng-if="friend.user.status !== 'sharing'">
+            <a ng-switch-when="not_sharing" class="item text-center item-energized"
+               ng-click="askForLocation(friend.user.id)">
                 Ask for location
             </a>
+
+            <div ng-switch-when="blocked" class="item text-center item-stable">
+                Friend unavailable
+            </div>
+
+            <div ng-switch-when="asked_to_share" class="item text-center item-stable">
+                Waiting for friend to share location
+            </div>
+
+            <div ng-switch-when="pending_confirmation" class="item text-center item-stable">
+                Pending friend invite confirmation
+            </div>
+
+            <div ng-switch-when="sent_request" class="item text-center item-stable">
+                Sent you a friend invite
+            </div>
+
+            <div ng-switch-default></div>
         </div>
 
+        <!---    ME BLOCKING FRIEND     ---->
         <div class="card" ng-if="friend.status != 'blocked'">
             <a class="item text-center item-assertive" ng-click="blockFriend(friend.user.id)">
                 Block friend
             </a>
         </div>
-
         <div class="card" ng-if="friend.status == 'blocked'">
             <a class="item text-center item-balanced" ng-click="unblockFriend(friend.user.id)">
                 Unblock friend
             </a>
         </div>
+
     </ion-content>
 </ion-view>

@@ -73,6 +73,8 @@ class MeService
 
         // TODO send push notification to friendUser
 
+        // return user friendship
+        $friend = $user->friends()->where('friend_user_id', $friendUser->id)->first();
         return $friend;
     }
 
