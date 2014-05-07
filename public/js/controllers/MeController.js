@@ -9,6 +9,8 @@ angular.module('starter.controllers')
             MeModel.getMe().then(function(user){
                 $scope.user = user;
                 $scope.friends = user.friends;
+            }, function() {
+                $state.go('login');
             });
         }
 
