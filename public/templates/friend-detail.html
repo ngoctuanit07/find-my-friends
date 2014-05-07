@@ -1,5 +1,5 @@
 <ion-view title="{{friend.user.name}}">
-    <ion-content has-header="true" padding="false">
+    
         <a href="#/map" ng-if="address">
             <google-map
                     center="map.center"
@@ -19,7 +19,8 @@
                 </markers>
             </google-map>
         </a>
-
+        
+    <ion-content has-header="true" padding="false" ng-class="{'has-map-top': address}">
         <div class="card" ng-show="address">
             <div class="item item-divider">
                 Last address location
