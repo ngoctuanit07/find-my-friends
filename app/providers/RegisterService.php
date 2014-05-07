@@ -51,8 +51,13 @@ class RegisterService
 
     private function getPublicUser($facebook_uid)
     {
-        $graphUrl = 'https://graph.facebook.com/'.$facebook_uid;
-        $user = file_get_contents($graphUrl);
-        return json_decode($user);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'https://graph.facebook.com/'.$facebook_uid,
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response);
     }
 }

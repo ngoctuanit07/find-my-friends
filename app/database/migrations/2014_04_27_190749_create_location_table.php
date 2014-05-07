@@ -21,7 +21,7 @@ class CreateLocationTable extends Migration {
                 ->onDelete('cascade');
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
-            $table->decimal('accuracy', 10, 6)->nullable();
+            $table->decimal('accuracy', 16, 4)->nullable();
             $table->string('device_id', 100)->nullable();
             $table->string('user_agent', 200)->nullable();
             $table->timestamps();

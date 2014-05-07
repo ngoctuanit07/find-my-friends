@@ -40,8 +40,8 @@ class FacebookService
 				$answer = $request->execute();
 				return $answer->getResponse();
 			} catch (FacebookRequestException $e) {
-				if (APPLICATION_ENV == "dev") {
-					error_log($e);
+				if (App::environment('dev')) {
+					Log::error($e);
 				}
 			}
 		}
@@ -55,7 +55,7 @@ class FacebookService
 			try {
 				return $session->getToken();
 			} catch (FacebookRequestException $e) {
-				error_log($e);
+				Log::error($e);
 			}
 		}
 		return false;
@@ -93,13 +93,13 @@ class FacebookService
 		} catch (FacebookRequestException $ex) {
 			// When Facebook returns an error
 			//if (APPLICATION_ENV=="dev") {
-			error_log($ex->getMessage());
+			Log::error($ex->getMessage());
 			//}
 			return false;
 		} catch (\Exception $ex) {
 			// When validation fails or other local issues
-			if (APPLICATION_ENV == "dev") {
-				error_log($ex->getMessage());
+			if (App::environment('dev')) {
+				Log::error($ex->getMessage());
 			}
 			return false;
 		}
@@ -114,13 +114,13 @@ class FacebookService
         } catch (FacebookRequestException $ex) {
             // When Facebook returns an error
             //if (APPLICATION_ENV=="dev") {
-            error_log($ex->getMessage());
+            Log::error($ex->getMessage());
             //}
             return false;
         } catch (\Exception $ex) {
             // When validation fails or other local issues
-            if (APPLICATION_ENV == "dev") {
-                error_log($ex->getMessage());
+            if (App::environment('dev')) {
+                Log::error($ex->getMessage());
             }
             return false;
         }
@@ -135,13 +135,13 @@ class FacebookService
 		} catch (FacebookRequestException $ex) {
 			// When Facebook returns an error
 			//if (APPLICATION_ENV=="dev") {
-			error_log($ex->getMessage());
+			Log::error($ex->getMessage());
 			//}
 			return false;
 		} catch (\Exception $ex) {
 			// When validation fails or other local issues
-			if (APPLICATION_ENV == "dev") {
-				error_log($ex->getMessage());
+			if (App::environment('dev')) {
+				Log::error($ex->getMessage());
 			}
 			return false;
 		}
@@ -162,8 +162,8 @@ class FacebookService
                 return $friends;
 
 			} catch (FacebookApiException $e) {
-				if (APPLICATION_ENV == "dev") {
-					error_log($e);
+				if (App::environment('dev')) {
+					Log::error($e);
 				}
 			}
 		}

@@ -113,7 +113,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             'name' => $this->name,
             'photo' => $this->photo,
             'friends' => $this->friends->toArray(),
-            'location' => $this->getLocation()
+            'location' => $this->getLocation(),
+            'facebook_uid' => $this->facebook_uid
         ];
     }
 
@@ -129,7 +130,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             'name' => $this->name,
             'photo' => $this->photo,
             'location' => $location,
-            'status' => $friend->status
+            'status' => $friend->status,
+            'facebook_uid' => $this->facebook_uid
         ];
     }
 }
