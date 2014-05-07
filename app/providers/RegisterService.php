@@ -9,12 +9,12 @@ class RegisterService
 
         if ($user === null) {
             $user = new User();
+            $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
         }
 
         $user->email = $email;
         $user->name = $name;
         $user->password = Hash::make($password);
-        $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
         $user->save();
         return $user;
     }
@@ -25,12 +25,12 @@ class RegisterService
 
         if ($user === null) {
             $user = new User();
+            $user->facebook_uid = $facebook_uid;
+            $user->name = $this->getPublicUser($facebook_uid)->name;
+            $user->photo = 'http://graph.facebook.com/'. $facebook_uid .'/picture';
+            $user->save();
         }
 
-        $user->facebook_uid = $facebook_uid;
-        $user->name = $this->getPublicUser($facebook_uid)->name;
-        $user->photo = 'http://graph.facebook.com/'. $facebook_uid .'/picture';
-        $user->save();
         return $user;
     }
 
@@ -40,12 +40,12 @@ class RegisterService
 
         if ($user === null) {
             $user = new User();
+            $user->email = $email;
+            $user->name = $email;
+            $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
+            $user->save();
         }
 
-        $user->email = $email;
-        $user->name = $email;
-        $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
-        $user->save();
         return $user;
     }
 
