@@ -1,4 +1,3 @@
-/* Empty. Add your own CSS if you like */
 .item.item-button-right .badge {
     right: 30px;
     top: 22px;
@@ -8,13 +7,17 @@
     height: 200px;
 }
 
-img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
-    display: none;
-}
+
 
 .photo-thumb {
     height:32px;
     width:32px;
+}
+
+/* google maps infoWindow hack to display popups with pictures */
+
+img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
+    display: none;
 }
 
 .custom-info-window{
@@ -51,7 +54,15 @@ img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
     height:100%; width:100%; position:absolute; top:0; left:0;
 }
 
+.has-map-top {
+    top: 200px;
+}
+
 /* ------- FOOTER -------- */
+
+.has-footer {
+    bottom: 60px;
+}
 
 .bar-footer {
     height: 60px;
