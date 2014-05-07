@@ -23,9 +23,9 @@ angular.module('starter.controllers')
             MeModel.reset();
             FindMyFriendsService.logout().then(function() {
                 FB.logout(function(response) {
-                    $state.go('login');
+                    
                 });
-
+                $state.go('login');
             });
         };
 
