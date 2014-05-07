@@ -9,6 +9,8 @@ angular.module('starter.controllers')
             MeModel.getMe().then(function(user){
                 $scope.user = user;
                 $scope.friends = user.friends;
+            }, function() {
+                $state.go('login');
             });
         }
 
@@ -23,9 +25,9 @@ angular.module('starter.controllers')
             MeModel.reset();
             FindMyFriendsService.logout().then(function() {
                 FB.logout(function(response) {
-                    $state.go('login');
+                    
                 });
-
+                $state.go('login');
             });
         };
 
