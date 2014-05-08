@@ -5,8 +5,7 @@
             </button>
         </a>
     </ion-nav-buttons>
-
-    <ion-content padding="false">
+        
         <a href="#/map">
             <google-map
              center="map.center" 
@@ -30,30 +29,43 @@
                 </marker>-->
             </google-map>
         </a>
-        <div class="list">
-            <a ng-repeat="friend in friends" 
-               class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
-                <img ng-src="{{friend.user.photo}}?type=square">
+        
+    <ion-content padding="false" scroll="true" class="has-map-top">
+            <div class="list">
+                <a ng-repeat="friend in friends" 
+                   class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
+                    <img ng-src="{{friend.user.photo}}?type=square">
 
-                {{friend.user.name}}
-                <p style="margin:0;">{{timeSince(friend.user.location.updated.date)}}</p>
-                <span ng-if="friend.user.status == 'sharing'"
-                      class="badge badge-balanced">
-                    {{friend.user.distance | number:2 }} km
-                </span>
+                    {{friend.user.name}}
+                    <p style="margin:0;">{{timeSince(friend.user.location.updated.date)}}</p>
+                    <span ng-if="friend.user.status == 'sharing'"
+                          class="badge badge-balanced">
+                        {{friend.user.distance | number:2 }} km
+                    </span>
 
-                <button ng-if="friend.user.status == 'not_sharing'"
-                        class="button button-energized"
-                        ng-click="askForLocation({{friend.user.id}})" prevent-default>
-                    Ask
-                </button>
+                    <button ng-if="friend.user.status == 'not_sharing'"
+                            class="button button-energized"
+                            ng-click="askForLocation({{friend.user.id}})" prevent-default>
+                        Ask
+                    </button>
 
-                <button ng-if="friend.user.status == 'asked_to_share'"
-                        class="button button-energized">
-                    Asked
-                </button>
-            </a>
-        </div>
+                    <button ng-if="friend.user.status == 'asked_to_share'"
+                            class="button button-stable" disabled>
+                        Waiting
+                    </button>
+
+                    <button ng-if="friend.user.status == 'blocked'"
+                            class="button button-stable" disabled>
+                        Unavailable
+                    </button>
+
+                    <button ng-if="friend.user.status == 'pending_confirmation'"
+                            class="button button-stable" disabled>
+                        Invited
+                    </button>
+                </a>
+            </div>
+        
     </ion-content>
 
     <ion-footer-bar class="bar-footer bar-positive">
@@ -65,7 +77,7 @@
                 {{ (user.friends | filter:{status:'sharing'}:true).length }}
                 friend(s)
             </p>
-            <i id="footerIcon" class="button button-clear pull-right ion-chevron-right"></i>
+            <i id="footer-icon" class="footer-icon button button-clear pull-right ion-chevron-right"></i>
         </a>
     </ion-footer-bar>
 </ion-view>

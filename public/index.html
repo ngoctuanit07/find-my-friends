@@ -17,35 +17,8 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    
-    <!-- facebook stuff, cordova seems to want this CDV.FB variable -->
-    <script>
-        window.fbAsyncInit = function() {
-            var opt = {
-                appId      : '694514773928221',
-                useCachedDialogs: false,
-                status     : true, // check login status
-                cookie     : true, // enable cookies to allow the server to access the session
-                oauth      : true, // enable OAuth 2.0
-                xfbml      : true  // parse XFBML
-            };
-            if (typeof CDV != 'undefined') {
-                opt.nativeInterface = CDV.FB;
-            }
-            FB.init(opt);
-        };
-    </script>
-    <script src="cdv-plugin-fb-connect.js"></script>
-    <script src="facebook-js-sdk.js"></script>
-    <script>
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
 
+    <script>
         if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
             remoteUrl = 'http://find-my-friends.zipleen.com/find-my-friends/';
         } else {
@@ -69,7 +42,6 @@
     <script src="js/services/MeModel.js"></script>
     <script src="js/services/LoginFacebook.js"></script>
 </head>
-<div id="fb-root"></div>
 
 <body ng-app="starter" animation="slide-left-right-ios7">
 <ion-nav-bar class="bar-stable nav-title-slide-ios7">
@@ -78,6 +50,38 @@
 </ion-nav-bar>
 
 <ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+<div id="fb-root"></div>
+
+<!-- facebook stuff, cordova seems to want this CDV.FB variable -->
+<script>
+    window.fbAsyncInit = function() {
+        var opt = {
+            appId      : '694514773928221',
+            useCachedDialogs: false,
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            oauth      : true, // enable OAuth 2.0
+            xfbml      : true  // parse XFBML
+        };
+        if (typeof CDV != 'undefined') {
+            opt.nativeInterface = CDV.FB;
+        }
+        FB.init(opt);
+    };
+</script>
+<script src="cdv-plugin-fb-connect.js"></script>
+<script src="facebook-js-sdk.js"></script>
+<script>
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+</script>
 
 </body>
 </html>

@@ -10,7 +10,7 @@ angular.module('starter.controllers')
                 latitude: 40.175488,
                 longitude: -8.5978381
             },
-            zoom: 10,
+            zoom: 1,
             control: {},
             dragging: true,
             options: {

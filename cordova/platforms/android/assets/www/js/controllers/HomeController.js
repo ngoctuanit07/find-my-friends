@@ -1,9 +1,10 @@
 angular.module('starter.controllers', [])
 
-    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath) {
+    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath, $ionicLoading) {
 
+        $ionicLoading.hide();
         $scope.user = null;
-        $scope.friends = {};
+        $scope.friends = [];
         $scope.markers = [];
         $scope.poller = null;
         $scope.navPoller = null;
@@ -15,7 +16,7 @@ angular.module('starter.controllers', [])
                 latitude: 41.1781072,
                 longitude: -8.5955717
             },
-            zoom: 10,
+            zoom: 1,
             control: {},
             dragging: false,
             options: {
@@ -72,7 +73,8 @@ angular.module('starter.controllers', [])
 
                 var markers = MeModel.getMarkers();
                 angular.extend($scope.markers, markers);
-                
+
+                $ionicLoading.hide();
                 return user;
                 
             }, function(data){
@@ -112,14 +114,34 @@ angular.module('starter.controllers', [])
             $interval.cancel($scope.navPoller);
         });
 
-        $scope.askForLocation = function(friendId) {
-            // TODO add callback for errors
-            FindMyFriendsService.sendShareRequest(friendId);
-            $scope.refresh();
+
+        $scope.updateFriend = function(friendId, updatedFriend) {
+            for(var i = 0; i < $scope.friends.length; i += 1) {
+                if($scope.friends[i]['friend_id'] === friendId) {
+                    $scope.friends[i] = updatedFriend;
+                    return true;
+                }
+            }
+            return false;
         }
 
-        $scope.do = function($event) {
-            $event.preventDefault()
+        $scope.showLoading = function(content) {
+            $ionicLoading.show({
+                content: content,
+                animation: 'fade-in',
+                showBackdrop: false,
+                maxWidth: 200,
+                showDelay: 0
+            });
+        }
+
+        $scope.askForLocation = function(friendId) {
+            $scope.showLoading('Requesting friend location');
+            FindMyFriendsService.sendShareRequest(friendId)
+                .success(function(result) {
+                    $scope.updateFriend(friendId, result);
+                    $ionicLoading.hide();
+                });
         }
     })
 ;

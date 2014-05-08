@@ -4,30 +4,37 @@
     </ion-nav-buttons>
     <ion-content has-header="true" padding="true">
 
-        <!------------- SHARING --------------->
-        <div ng-if="(friends | filter:{status:'sharing'}:true).length > 0">
+        <div class="list" ng-show="address">
             <div class="item item-divider">
-                Sharing location with
+                My last address location
             </div>
-            <div class="list">
-                <a ng-repeat="friend in friends | filter:{status:'sharing'}:true"
-                   class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
-                    <img ng-src="{{friend.user.photo}}">
-                    <h2>{{friend.user.name}}</h2>
-                    <button class="button button-assertive"
-                            ng-click="stopSharingLocation({{friend.user.id}})"
-                            prevent-default>Stop</button>
-                </a>
-            </div>
+            <a class="item item-icon-left"
+               target="_blank"
+               href="{{address.url}}">
+                <i class="icon ion-android-location"></i>
+                {{address.text}}
+            </a>
+            <a class="item item-icon-left"
+               target="_blank"
+               href="{{address.url}}">
+                <i class="icon ion-android-timer"></i>
+                {{timeSince(user.location.updated.date)}}
+            </a>
+            <a class="item item-icon-left"
+               target="_blank"
+               href="{{address.url}}">
+                <i class="icon ion-android-locate"></i>
+                Accuracy: {{user.location.accuracy | number:2}} meters
+            </a>
         </div>
 
         <!------------- PENDING CONFIRMATION --------------->
-        <div ng-if="(friends | filter:{status:'pending_confirmation'}:true).length > 0">
+        <div ng-show="pendingFriends.length">
             <div class="item item-divider">
                 Pending friendship requests
             </div>
             <div class="list">
-                <a ng-repeat="friend in friends | filter:{status:'pending_confirmation'}:true"
+                <a ng-repeat="friend in pendingFriends = ( friends | filter:{status:'pending_confirmation'}:true )"
                    class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                     <img ng-src="{{friend.user.photo}}">
                     <h2>{{friend.user.name}}</h2>
@@ -47,17 +54,34 @@
             </div>
         </div>
 
+        <!------------- SHARING --------------->
+        <div ng-show="sharingFriends.length">
+            <div class="item item-divider">
+                Sharing location with
+            </div>
+            <div class="list">
+                <a ng-repeat="friend in sharingFriends = ( friends | filter:{status:'sharing'}:true )"
+                   class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
+                    <img ng-src="{{friend.user.photo}}">
+                    <h2>{{friend.user.name}}</h2>
+                    <button class="button button-assertive"
+                            ng-click="stopSharingLocation({{friend.user.id}})"
+                            prevent-default>Stop</button>
+                </a>
+            </div>
+        </div>
+
         <!------------- NOT SHARING --------------->
-        <div ng-if="(friends | filter:{status:'not_sharing'}:true).length > 0">
+        <div ng-show="notSharingFriends.length">
             <div class="item item-divider">
                 Share your location with
             </div>
             <div class="list">
-                <a ng-repeat="friend in friends | filter:{status:'not_sharing'}:true"
+                <a ng-repeat="friend in notSharingFriends = ( friends | filter:{status:'not_sharing'}:true )"
                    class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                     <img ng-src="{{friend.user.photo}}">
                     <h2>{{friend.user.name}}</h2>
-                    <button class="button button-balanced"
+                    <button class="button button-positive"
                             ng-click="startSharingLocation({{friend.user.id}})"
                             prevent-default>Share</button>
                 </a>
@@ -65,16 +89,16 @@
         </div>
 
         <!------------- BLOCKED --------------->
-        <div ng-if="(friends | filter:{status:'blocked'}:true).length > 0">
+        <div ng-show="blockedFriends.length">
             <div class="item item-divider">
                 Blocked contacts
             </div>
             <div class="list">
-                <a ng-repeat="friend in friends | filter:{status:'blocked'}:true"
+                <a ng-repeat="friend in blockedFriends = ( friends | filter:{status:'blocked'}:true )"
                    class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                     <img ng-src="{{friend.user.photo}}">
                     <h2>{{friend.user.name}}</h2>
-                    <button class="button button-assertive"
+                    <button class="button button-balanced"
                             ng-click="unblockFriend({{friend.user.id}})"
                             prevent-default>Unblock</button>
                 </a>
@@ -82,17 +106,17 @@
         </div>
 
         <!------------- SENT REQUESTS --------------->
-        <div ng-if="(friends | filter:{status:'sent_request'}:true).length > 0">
+        <div ng-show="invitedFriends.length">
             <div class="item item-divider">
-                Sent Requests
+                Sent friendship requests
             </div>
             <div class="list">
-                <a ng-repeat="friend in friends | filter:{status:'sent_request'}:true"
+                <a ng-repeat="friend in invitedFriends = ( friends | filter:{status:'sent_request'}:true )"
                    class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                     <img ng-src="{{friend.user.photo}}">
                     <h2>{{friend.user.name}}</h2>
                     <button class="button button-stable" disabled
-                            prevent-default>Waiting</button>
+                            prevent-default>Invited</button>
                 </a>
             </div>
         </div>

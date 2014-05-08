@@ -1,11 +1,12 @@
 angular.module('starter.controllers')
 
-    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel, FindMyFriendsService) {
+    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel, FindMyFriendsService, $ionicPopup, $ionicLoading, GeoMath) {
         $scope.user = null;
         $scope.markers = [];
-        $scope.address = '';
-        $scope.distance = '';
-        $scope.duration = '';
+        $scope.address = false;
+        $scope.walking = false;
+        $scope.driving = false;
+        $scope.timeSince = GeoMath.timeSince;
 
         // google maps object that controls the map
         $scope.map = {
@@ -13,7 +14,7 @@ angular.module('starter.controllers')
                 latitude: 41.1781072,
                 longitude: -8.5955717
             },
-            zoom: 10,
+            zoom: 1,
             control: {},
             dragging: false,
             options: {
@@ -37,9 +38,12 @@ angular.module('starter.controllers')
             $scope.map.center.longitude = $scope.friend.user.location.longitude;
             $scope.map.zoom = 16;
 
-            FindMyFriendsService.getAddress($scope.friend.user.location).then(function(response) {
-                if (response.data.results.length > 0)
-                    $scope.address = response.data.results[0].formatted_address;
+            FindMyFriendsService.getAddress($scope.friend.user.location).success(function(response) {
+                if (response.results.length > 0) {
+                    $scope.address = {}
+                    $scope.address.text = response.results[0].formatted_address;
+                    $scope.address.url = FindMyFriendsService.getMapsUrl($scope.friend.user.location);
+                }
             })
         }
 
@@ -48,17 +52,85 @@ angular.module('starter.controllers')
                 $scope.user = user;
                 $scope.markers = MeModel.getMarkers();
 
-                FindMyFriendsService.getDistance($scope.friend.user.id)
+                FindMyFriendsService.getDistance($scope.friend.user.id, 'walking')
                     .success(function(response) {
-                        console.log(response);
-
-                        if (response.rows.length > 0) {
-                            $scope.distance = response.rows[0].elements[0].distance.text;
-                            $scope.duration = response.rows[0].elements[0].duration.text;
+                        if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
+                            $scope.walking = {};
+                            $scope.walking.distance = response.rows[0].elements[0].distance.text;
+                            $scope.walking.duration = response.rows[0].elements[0].duration.text;
+                            $scope.walking.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'walking');
                         }
-                    })
+                    });
+
+                FindMyFriendsService.getDistance($scope.friend.user.id, 'driving')
+                    .success(function(response) {
+                        if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
+                            $scope.driving = {};
+                            $scope.driving.distance = response.rows[0].elements[0].distance.text;
+                            $scope.driving.duration = response.rows[0].elements[0].duration.text;
+                            $scope.driving.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'driving');
+                        }
+                    });
             });
         };
+
+        $scope.showLoading = function(content) {
+            $ionicLoading.show({
+                content: content,
+                animation: 'fade-in',
+                showBackdrop: false,
+                maxWidth: 200,
+                showDelay: 0
+            });
+        }
+
+        $scope.blockFriend = function(friendId) {
+            $ionicPopup.confirm({
+                title: 'Block Friend',
+                content: 'Are you sure you want to block this friend? His requests will no longer be received.',
+                okType: 'button-assertive',
+                okText: 'Block'
+            }).then(function(result) {
+                if(result) {
+                    $scope.showLoading('Blocking friend. Please wait...');
+                    FindMyFriendsService.blockFriend(friendId)
+                        .then(function(response) {
+                            $scope.friend = response.data;
+                            MeModel.reset();
+                            $ionicLoading.hide();
+                        })
+                }
+            });
+        }
+
+        $scope.unblockFriend = function(friendId) {
+            $ionicPopup.confirm({
+                title: 'Unblock Friend',
+                content: 'Are you sure you want to unblock this friend? He will be able to send you requests.',
+                okType: 'button-balanced',
+                okText: 'Unblock'
+            }).then(function(result) {
+                if(result) {
+                    $scope.showLoading('Unblocking friend. Please wait...');
+                    FindMyFriendsService.unblockFriend(friendId)
+                        .then(function(response) {
+                            $scope.friend = response.data;
+                            MeModel.reset();
+                            $ionicLoading.hide();
+                        })
+                }
+            });
+        }
+
+        $scope.askForLocation = function(friendId) {
+            $scope.showLoading('Asking for friend location. Please wait...');
+            FindMyFriendsService.sendShareRequest(friendId)
+                .then(function(response) {
+                    $scope.friend = response.data;
+                    MeModel.reset();
+                    $ionicLoading.hide();
+                })
+        }
 
         $scope.fetch();
     })

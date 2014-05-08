@@ -1,6 +1,6 @@
 <ion-view title="{{friend.user.name}}">
-    <ion-content has-header="true" padding="false">
-        <a href="#/map">
+
+        <a href="#/map" ng-if="address">
             <google-map
                     center="map.center"
                     zoom="map.zoom"
@@ -20,16 +20,107 @@
             </google-map>
         </a>
 
-        <h2>{{address}}</h2>
+    <ion-content has-header="true" padding="false" ng-class="{'has-map-top': address}">
+        <div class="card" ng-show="address">
+            <div class="item item-divider">
+                Last address location
+            </div>
+            <a class="item item-icon-left"
+               target="_blank"
+               href="{{address.url}}">
+                <i class="icon ion-android-location"></i>
+                {{address.text}}
+            </a>
+            <a class="item item-icon-left"
+               target="_blank"
+               href="{{address.url}}">
+                <i class="icon ion-android-timer"></i>
+                {{timeSince(friend.user.location.updated.date)}}
+            </a>
+            <a class="item item-icon-left"
+               target="_blank"
+               href="{{address.url}}">
+                <i class="icon ion-android-locate"></i>
+                Accuracy: {{friend.user.location.accuracy | number:2}} meters
+            </a>
+        </div>
 
-        <h4>Distance: {{distance}}</h4>
-        <h4>Duration: {{duration}}</h4>
+        <div class="card" ng-hide="address">
+            <div class="item item-divider">
+                Last address location
+            </div>
+            <a class="item item-icon-left">
+                <i class="icon ion-android-location"></i>
+                No location
+            </a>
+        </div>
 
-        <a target="_blank"
-           href="http://maps.google.com/maps?&q={{friend.user.name}}&ll={{friend.user.location.latitude}},{{friend.user.location.longitude}}">
-            <button class="button button-block button-positive">
-                Open in maps
-            </button>
-        </a>
+
+        <div class="card" ng-show="driving">
+            <div class="item item-divider">
+                Driving distance from my location
+            </div>
+            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
+                <i class="icon ion-model-s"></i>
+                {{driving.distance}}
+            </a>
+            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
+                <i class="icon ion-clock"></i>
+                {{driving.duration}}
+            </a>
+        </div>
+
+        <div class="card" ng-show="walking">
+            <div class="item item-divider">
+                Walking distance from my location
+            </div>
+            <a class="item item-icon-left" target="_blank" href="{{walking.url}}">
+                <i class="icon ion-man"></i>
+                {{walking.distance}}
+            </a>
+            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
+                <i class="icon ion-clock"></i>
+                {{walking.duration}}
+            </a>
+        </div>
+
+        <!---    FRIEND STATUS FOR ME WHEN THERE ISN'T A LOCATION     ---->
+        <div class="card" ng-switch="friend.user.status" ng-if="friend.user.status !== 'sharing'">
+            <a ng-switch-when="not_sharing" class="item text-center item-energized"
+               ng-click="askForLocation(friend.user.id)">
+                Ask for location
+            </a>
+
+            <div ng-switch-when="blocked" class="item text-center item-stable">
+                Friend unavailable
+            </div>
+
+            <div ng-switch-when="asked_to_share" class="item text-center item-stable">
+                Waiting for friend to share location
+            </div>
+
+            <div ng-switch-when="pending_confirmation" class="item text-center item-stable">
+                Pending friend invite confirmation
+            </div>
+
+            <div ng-switch-when="sent_request" class="item text-center item-stable">
+                Sent you a friend invite
+            </div>
+
+            <div ng-switch-default></div>
+        </div>
+
+        <!---    ME BLOCKING FRIEND     ---->
+        <div class="card" ng-if="friend.status != 'blocked'">
+            <a class="item text-center item-assertive" ng-click="blockFriend(friend.user.id)">
+                Block friend
+            </a>
+        </div>
+        <div class="card" ng-if="friend.status == 'blocked'">
+            <a class="item text-center item-balanced" ng-click="unblockFriend(friend.user.id)">
+                Unblock friend
+            </a>
+        </div>
+
     </ion-content>
 </ion-view>
