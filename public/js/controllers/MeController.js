@@ -1,14 +1,35 @@
 angular.module('starter.controllers')
 
-    .controller('MeCtrl', function($scope, MeModel, FindMyFriendsService, $state, $ionicPopup) {
+    .controller('MeCtrl', function($scope, MeModel, FindMyFriendsService, $state, $ionicPopup, $ionicLoading) {
         $scope.user = null;
         $scope.friends = {}
 
+        $scope.showLoading = function(content) {
+            $ionicLoading.show({
+                content: content,
+                animation: 'fade-in',
+                showBackdrop: false,
+                maxWidth: 200,
+                showDelay: 0
+            });
+        }
+
+        $scope.updateFriend = function(friendId, updatedFriend) {
+            for(var i = 0; i < $scope.friends.length; i += 1) {
+                if($scope.friends[i]['friend_id'] === friendId) {
+                    $scope.friends[i] = updatedFriend;
+                    MeModel.reset();
+                    return true;
+                }
+            }
+            return false;
+        }
 
         $scope.fetch = function() {
             MeModel.getMe().then(function(user){
                 $scope.user = user;
                 $scope.friends = user.friends;
+                $ionicLoading.hide();
             }, function() {
                 $state.go('login');
             });
@@ -20,7 +41,7 @@ angular.module('starter.controllers')
         }
 
         $scope.refresh();
-        
+
         $scope.logOut = function() {
             MeModel.reset();
             FindMyFriendsService.logout().then(function() {
@@ -29,27 +50,39 @@ angular.module('starter.controllers')
         };
 
         $scope.stopSharingLocation = function(friendId) {
-            FindMyFriendsService.stopSharingLocation(friendId).then(function() {
-                $scope.refresh();
-            })
+            $scope.showLoading('Stopping location share. Please wait...');
+            FindMyFriendsService.stopSharingLocation(friendId)
+                .success(function(result) {
+                    $scope.updateFriend(friendId, result);
+                    $ionicLoading.hide();
+                })
         }
 
         $scope.startSharingLocation = function(friendId) {
-            FindMyFriendsService.startSharingLocation(friendId).then(function() {
-                $scope.refresh();
-            })
+            $scope.showLoading('Starting location share. Please wait...');
+            FindMyFriendsService.startSharingLocation(friendId)
+                .success(function(result) {
+                    $scope.updateFriend(friendId, result);
+                    $ionicLoading.hide();
+                })
         }
 
         $scope.acceptFriendRequest = function(friendId) {
-            FindMyFriendsService.acceptFriendRequest(friendId).then(function() {
-                $scope.refresh();
-            })
+            $scope.showLoading('Accepting friend request. Please wait...');
+            FindMyFriendsService.acceptFriendRequest(friendId)
+                .success(function(result) {
+                    $scope.updateFriend(friendId, result);
+                    $ionicLoading.hide();
+                })
         }
 
         $scope.declineFriendRequest = function(friendId) {
-            FindMyFriendsService.blockFriend(friendId).then(function() {
-                $scope.refresh();
-            })
+            $scope.showLoading('Declining friend request. Please wait...');
+            FindMyFriendsService.blockFriend(friendId)
+                .success(function(result) {
+                    $scope.updateFriend(friendId, result);
+                    $ionicLoading.hide();
+                })
         }
 
         $scope.unblockFriend = function(friendId) {
@@ -60,9 +93,12 @@ angular.module('starter.controllers')
                 okText: 'Unblock'
             }).then(function(result) {
                 if(result) {
-                    FindMyFriendsService.unblockFriend(friendId).then(function() {
-                        $scope.refresh();
-                    })
+                    $scope.showLoading('Unblocking friend. Please wait...');
+                    FindMyFriendsService.unblockFriend(friendId)
+                        .success(function(updatedFriend) {
+                            $scope.updateFriend(friendId, updatedFriend);
+                            $ionicLoading.hide();
+                        })
                 }
             });
         }

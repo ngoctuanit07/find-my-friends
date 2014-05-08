@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
         $ionicLoading.hide();
         $scope.user = null;
-        $scope.friends = {};
+        $scope.friends = [];
         $scope.markers = [];
         $scope.poller = null;
         $scope.navPoller = null;
@@ -73,7 +73,8 @@ angular.module('starter.controllers', [])
 
                 var markers = MeModel.getMarkers();
                 angular.extend($scope.markers, markers);
-                
+
+                $ionicLoading.hide();
                 return user;
                 
             }, function(data){
@@ -113,14 +114,34 @@ angular.module('starter.controllers', [])
             $interval.cancel($scope.navPoller);
         });
 
-        $scope.askForLocation = function(friendId) {
-            // TODO add callback to get updated friend
-            FindMyFriendsService.sendShareRequest(friendId);
-            $scope.refresh();
+
+        $scope.updateFriend = function(friendId, updatedFriend) {
+            for(var i = 0; i < $scope.friends.length; i += 1) {
+                if($scope.friends[i]['friend_id'] === friendId) {
+                    $scope.friends[i] = updatedFriend;
+                    return true;
+                }
+            }
+            return false;
         }
 
-        $scope.do = function($event) {
-            $event.preventDefault()
+        $scope.showLoading = function(content) {
+            $ionicLoading.show({
+                content: content,
+                animation: 'fade-in',
+                showBackdrop: false,
+                maxWidth: 200,
+                showDelay: 0
+            });
+        }
+
+        $scope.askForLocation = function(friendId) {
+            $scope.showLoading('Requesting friend location');
+            FindMyFriendsService.sendShareRequest(friendId)
+                .success(function(result) {
+                    $scope.updateFriend(friendId, result);
+                    $ionicLoading.hide();
+                });
         }
     })
 ;
