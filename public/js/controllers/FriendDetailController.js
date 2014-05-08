@@ -1,11 +1,12 @@
 angular.module('starter.controllers')
 
-    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel, FindMyFriendsService, $ionicPopup) {
+    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel, FindMyFriendsService, $ionicPopup, $ionicLoading, GeoMath) {
         $scope.user = null;
         $scope.markers = [];
         $scope.address = false;
         $scope.walking = false;
         $scope.driving = false;
+        $scope.timeSince = GeoMath.timeSince;
 
         // google maps object that controls the map
         $scope.map = {
@@ -82,6 +83,16 @@ angular.module('starter.controllers')
             });
         };
 
+        $scope.showLoading = function(content) {
+            $ionicLoading.show({
+                content: content,
+                animation: 'fade-in',
+                showBackdrop: false,
+                maxWidth: 200,
+                showDelay: 0
+            });
+        }
+
         $scope.blockFriend = function(friendId) {
             $ionicPopup.confirm({
                 title: 'Block Friend',
@@ -90,10 +101,12 @@ angular.module('starter.controllers')
                 okText: 'Block'
             }).then(function(result) {
                 if(result) {
+                    $scope.showLoading('Blocking friend. Please wait...');
                     FindMyFriendsService.blockFriend(friendId)
                         .then(function(response) {
                             $scope.friend = response.data;
                             MeModel.reset();
+                            $ionicLoading.hide();
                         })
                 }
             });
@@ -107,20 +120,24 @@ angular.module('starter.controllers')
                 okText: 'Unblock'
             }).then(function(result) {
                 if(result) {
+                    $scope.showLoading('Unblocking friend. Please wait...');
                     FindMyFriendsService.unblockFriend(friendId)
                         .then(function(response) {
                             $scope.friend = response.data;
                             MeModel.reset();
+                            $ionicLoading.hide();
                         })
                 }
             });
         }
 
         $scope.askForLocation = function(friendId) {
+            $scope.showLoading('Asking for friend location. Please wait...');
             FindMyFriendsService.sendShareRequest(friendId)
                 .then(function(response) {
                     $scope.friend = response.data;
                     MeModel.reset();
+                    $ionicLoading.hide();
                 })
         }
 
