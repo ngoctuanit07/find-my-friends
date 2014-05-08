@@ -38,14 +38,11 @@ angular.module('starter.controllers')
             $scope.map.center.longitude = $scope.friend.user.location.longitude;
             $scope.map.zoom = 16;
 
-            FindMyFriendsService.getAddress($scope.friend.user.location).then(function(response) {
-                if (response.data.results.length > 0) {
+            FindMyFriendsService.getAddress($scope.friend.user.location).success(function(response) {
+                if (response.results.length > 0) {
                     $scope.address = {}
-                    $scope.address.text = response.data.results[0].formatted_address;
-                    $scope.address.url = "http://maps.google.com/maps?" +
-                        "&q=" + $scope.friend.user.location.latitude + "," + $scope.friend.user.location.longitude +
-                        "&ll=" + $scope.friend.user.location.latitude + "," + $scope.friend.user.location.longitude;
-
+                    $scope.address.text = response.results[0].formatted_address;
+                    $scope.address.url = FindMyFriendsService.getMapsUrl($scope.friend.user.location);
                 }
             })
         }
@@ -61,10 +58,7 @@ angular.module('starter.controllers')
                             $scope.walking = {};
                             $scope.walking.distance = response.rows[0].elements[0].distance.text;
                             $scope.walking.duration = response.rows[0].elements[0].duration.text;
-                            $scope.walking.url = "http://maps.google.com/maps?" +
-                                "&saddr=" + $scope.user.location.latitude + "," + $scope.user.location.longitude +
-                                "&daddr=" + $scope.friend.user.location.latitude + "," + $scope.friend.user.location.longitude +
-                                "&dirflg=w";
+                            $scope.walking.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'walking');
                         }
                     });
 
@@ -74,10 +68,7 @@ angular.module('starter.controllers')
                             $scope.driving = {};
                             $scope.driving.distance = response.rows[0].elements[0].distance.text;
                             $scope.driving.duration = response.rows[0].elements[0].duration.text;
-                            $scope.driving.url = "http://maps.google.com/maps?" +
-                                "&saddr=" + $scope.user.location.latitude + "," + $scope.user.location.longitude +
-                                "&daddr=" + $scope.friend.user.location.latitude + "," + $scope.friend.user.location.longitude +
-                                "&dirflg=d";
+                            $scope.driving.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'driving');
                         }
                     });
             });

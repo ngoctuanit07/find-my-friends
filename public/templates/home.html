@@ -58,6 +58,11 @@
                             class="button button-stable" disabled>
                         Unavailable
                     </button>
+
+                    <button ng-if="friend.user.status == 'pending_confirmation'"
+                            class="button button-stable" disabled>
+                        Invited
+                    </button>
                 </a>
             </div>
         
@@ -72,7 +77,7 @@
                 {{ (user.friends | filter:{status:'sharing'}:true).length }}
                 friend(s)
             </p>
-            <i id="footerIcon" class="button button-clear pull-right ion-chevron-right"></i>
+            <i id="footer-icon" class="footer-icon button button-clear pull-right ion-chevron-right"></i>
         </a>
     </ion-footer-bar>
 </ion-view>

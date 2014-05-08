@@ -91,5 +91,22 @@ angular.module('starter.services', [])
         this.loginFacebook = function(token) {
             return this._sendData('POST', 'login/facebook?code=' + token, {});
         }
+
+        this.getMapsUrl = function(location) {
+            return "http://maps.google.com/maps?" +
+                "&q=" + location.latitude + "," + location.longitude +
+                "&ll=" + location.latitude + "," + location.longitude;
+        }
+
+        this.getMapsUrlFromTo = function(location1, location2, mode) {
+            if (mode === 'walking') mode = 'w';
+            else if (mode === 'driving') mode = 'd';
+            else mode = 'd';
+
+            return "http://maps.google.com/maps?" +
+                "&saddr=" + location1.latitude + "," + location1.longitude +
+                "&daddr=" + location2.latitude + "," + location2.longitude +
+                "&dirflg=" + mode;
+        }
     }])
 ;
