@@ -106,6 +106,19 @@ class MeService
         return $friend;
     }
 
+    public function deleteFriendship($user, $friendUser)
+    {
+        $friendShip = $user->friends()->where('friend_user_id', $friendUser->id)->first();
+        if ($friendShip === null) return null;
+        $friendShip->delete();
+
+        $friendShip = $friendUser->friends()->where('friend_user_id', $user->id)->first();
+        if ($friendShip === null) return null;
+        $friendShip->delete();
+
+        return $user;
+    }
+
     public function updateLocation($latitude, $longitude, $accuracy, $user)
     {
         $location = $user->location ?: new Location();

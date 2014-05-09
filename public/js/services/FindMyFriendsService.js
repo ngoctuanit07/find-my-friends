@@ -60,25 +60,28 @@ angular.module('starter.services', [])
             return this._sendData('POST', 'friend/request/' + friendId, {});
         }
 
-        // TODO refactor POST to PATCH
         this.stopSharingLocation = function(friendId) {
-            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'not_sharing'});
+            return this._sendData('PATCH', 'friend/status/' + friendId, {'status': 'not_sharing'});
         }
 
         this.startSharingLocation = function(friendId) {
-            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'sharing'});
+            return this._sendData('PATCH', 'friend/status/' + friendId, {'status': 'sharing'});
         }
 
         this.acceptFriendRequest = function(friendId) {
-            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'not_sharing'});
+            return this._sendData('PATCH', 'friend/status/' + friendId, {'status': 'not_sharing'});
         }
 
         this.blockFriend = function(friendId) {
-            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'blocked'});
+            return this._sendData('PATCH', 'friend/status/' + friendId, {'status': 'blocked'});
         }
 
         this.unblockFriend = function(friendId) {
-            return this._sendData('POST', 'friend/status/' + friendId, {'status': 'not_sharing'});
+            return this._sendData('PATCH', 'friend/status/' + friendId, {'status': 'not_sharing'});
+        }
+
+        this.deleteFriend = function(friendId) {
+            return this._sendData('DELETE', 'friend/' + friendId, {});
         }
 
         this.login = function(email, pass) {

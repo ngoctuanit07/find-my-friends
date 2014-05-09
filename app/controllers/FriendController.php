@@ -11,7 +11,7 @@ class FriendController extends \BaseController {
         $this->registerService = $registerService;
     }
 
-    public function postStatus($id)
+    public function patchStatus($id)
     {
         if (Input::has('status')) {
             $status = Input::get('status');
@@ -119,8 +119,19 @@ class FriendController extends \BaseController {
         }
     }
 
-    public function deleteIndex()
+    public function destroy($id)
     {
+        $user = Auth::getUser();
+        $friendUser = $this->meService->getUser($id);
+        if ($friendUser === null) {
+            return Response::error('Invalid friend id');
+        }
+
+        $response = $this->meService->deleteFriendship($user, $friendUser);
+        if ($response === null)
+            return Response::error('Failed to delete friendship');
+        else
+            return Response::ok($response);
 
     }
 }

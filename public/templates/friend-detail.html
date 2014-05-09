@@ -121,6 +121,11 @@
                 Unblock friend
             </a>
         </div>
+        <div class="card" ng-if="friend.status == 'blocked'">
+            <a class="item text-center item-assertive" ng-click="deleteFriend(friend.user.id)">
+                Delete friend
+            </a>
+        </div>
 
     </ion-content>
 </ion-view>
