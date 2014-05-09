@@ -13,6 +13,10 @@
 
 Route::group(array('prefix' => 'v1'), function()
 {
+	Route::get('facebook/{name?}', function($name = null)
+	{
+		return Response::view("facebook", array('name' => $name));
+	});
     Route::controller('me', 'MeController');
     Route::controller('login', 'LoginController');
     Route::controller('friend', 'FriendController');
