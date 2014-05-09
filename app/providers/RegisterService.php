@@ -36,15 +36,13 @@ class RegisterService
 
     public function registerEmail($email)
     {
-        $user = User::where('email', '=', $email)->first();
 
-        if ($user === null) {
             $user = new User();
             $user->email = $email;
             $user->name = $email;
             $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
             $user->save();
-        }
+
 
         return $user;
     }
@@ -59,5 +57,14 @@ class RegisterService
         $response = curl_exec($curl);
         curl_close($curl);
         return json_decode($response);
+    }
+
+    public function sendEmailInvite($user, $friendUser)
+    {
+        $data = ['user' => $user, 'friendUser' => $friendUser];
+        Mail::send('emails.invited', $data, function($message) use ($user, $friendUser)
+        {
+            $message->to($friendUser->email)->subject("$user->name invited you to use Spot My Friends");
+        });
     }
 }
