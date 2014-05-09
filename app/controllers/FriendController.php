@@ -124,19 +124,20 @@ class FriendController extends \BaseController {
         }
     }
 
-    public function destroy($id)
+    public function deleteIndex()
     {
         $user = Auth::getUser();
-        $friendUser = $this->meService->getUser($id);
-        if ($friendUser === null) {
-            return Response::error('Invalid friend id');
-        }
+		if (Input::has('id')) {
+			$friendUser = $this->meService->getUser(Input::get('id'));
+			if ($friendUser === null) {
+				return Response::error('Invalid friend id');
+			}
 
-        $response = $this->meService->deleteFriendship($user, $friendUser);
-        if ($response === null)
-            return Response::error('Failed to delete friendship');
-        else
-            return Response::ok($response);
-
-    }
+			$response = $this->meService->deleteFriendship($user, $friendUser);
+			if ($response !== null) {
+				return Response::ok($response);
+			}
+		}
+		return Response::error('Failed to delete friendship');
+	}
 }
