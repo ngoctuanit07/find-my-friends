@@ -1,6 +1,26 @@
 angular.module('starter.controllers', [])
 
-    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath, $ionicLoading) {
+    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath, $ionicLoading, push) {
+
+        push.registerPush(function (result) {
+            console.log('aaaa');
+            console.log(result);
+            if (result.type === 'registration') {
+                localStorage.setItem('device_id', result.id);
+                localStorage.setItem('device', result.device);
+
+                FindMyFriendsService.registerDevice('appNameAndroid', result.id)
+                    .then(function() {
+                        console.log('registered')    
+                    }, function() {
+                        console.log('oops nao registado');
+                    });
+            }
+             
+            if (result.type === 'message') {
+                $scope.showLoading(result.message);
+             }
+        });
 
         $ionicLoading.hide();
         $scope.user = null;

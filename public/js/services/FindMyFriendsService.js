@@ -60,6 +60,7 @@ angular.module('starter.services', [])
             return this._sendData('POST', 'friend/request/' + friendId, {});
         }
 
+        // TODO refactor POST to PATCH
         this.stopSharingLocation = function(friendId) {
             return this._sendData('POST', 'friend/status/' + friendId, {'status': 'not_sharing'});
         }
@@ -90,6 +91,10 @@ angular.module('starter.services', [])
 
         this.loginFacebook = function(token) {
             return this._sendData('POST', 'login/facebook?code=' + token, {});
+        }
+
+        this.registerDevice = function(deviceType, token) {
+            return this._sendData('POST', 'me/device', {'device_type': deviceType, 'token': token});
         }
 
         this.getMapsUrl = function(location) {

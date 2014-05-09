@@ -52,6 +52,8 @@
 		CDFE7774896444A48562C07D /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DA422F692A342FAA38785DC /* CDVLocation.m */; };
 		D223CB3314424EF7A171C944 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17C2BF26A444768835972C /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
+		73A430F387294B41A02109B6 /* AppDelegate+notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7710F2C3F83C48019B59E284 /* AppDelegate+notification.m */; };
+		25D9A43F2C08451B83E2EF32 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = C524573A6D974531B761590E /* PushPlugin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +173,10 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = FindMyFriends/config.xml; sourceTree = "<group>"; };
 		F96EA6B3829F4B948A32A89A /* Social.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		FE5EDE028B484B4ABE5EFD09 /* CDVContacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVContacts.m; path = org.apache.cordova.contacts/CDVContacts.m; sourceTree = "<group>"; };
+		7710F2C3F83C48019B59E284 /* AppDelegate+notification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+notification.m"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		C524573A6D974531B761590E /* PushPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PushPlugin.m"; path = "com.phonegap.plugins.PushPlugin/PushPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		E4AAF5DA227C49ABABD3D20F /* AppDelegate+notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+notification.h"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		3265CFA0A3704514808F3A00 /* PushPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PushPlugin.h"; path = "com.phonegap.plugins.PushPlugin/PushPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,6 +360,10 @@
 				1C41DB3484F34E63BE53DC0B /* FBWebDialogs.h */,
 				586C47ED1DB34A81BA86C903 /* FacebookSDK.h */,
 				DF191C2044FA4F919C849705 /* NSError+FBError.h */,
+				7710F2C3F83C48019B59E284 /* AppDelegate+notification.m */,
+				C524573A6D974531B761590E /* PushPlugin.m */,
+				E4AAF5DA227C49ABABD3D20F /* AppDelegate+notification.h */,
+				3265CFA0A3704514808F3A00 /* PushPlugin.h */,
 			);
 			name = Plugins;
 			path = FindMyFriends/Plugins;
@@ -559,6 +569,8 @@
 				3F0BE5F77F95424D9AB85386 /* CDVContact.m in Sources */,
 				CDFE7774896444A48562C07D /* CDVLocation.m in Sources */,
 				C30C926587904DE5AD69359A /* FacebookConnectPlugin.m in Sources */,
+				73A430F387294B41A02109B6 /* AppDelegate+notification.m in Sources */,
+				25D9A43F2C08451B83E2EF32 /* PushPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

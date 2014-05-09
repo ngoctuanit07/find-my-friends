@@ -72,10 +72,19 @@ class MeService
         $friend->save();
 
         // TODO send push notification to friendUser
+        $this->pushNotification($friendUser, 'TEST NOTIFICATION');
 
         // return user friendship
         $friend = $user->friends()->where('friend_user_id', $friendUser->id)->first();
         return $friend;
+    }
+
+    public function pushNotification(User $user, $message)
+    {
+        // TODO fix this
+        PushNotification::app('appNameAndroid')
+            ->to($user->device_token)
+            ->send($message);
     }
 
     public function addFriend($user, $friendUser)

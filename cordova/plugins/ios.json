@@ -91,6 +91,10 @@
                         {
                             "xml": "<feature name=\"org.apache.cordova.facebook.Connect\"><param name=\"ios-package\" value=\"FacebookConnectPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -129,6 +133,9 @@
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "694514773928221",
             "APP_NAME": "Find My Friends",
+            "PACKAGE_NAME": "edu.find-my-friends"
+        },
+        "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "edu.find-my-friends"
         }
     },

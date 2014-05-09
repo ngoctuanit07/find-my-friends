@@ -41,6 +41,21 @@ class MeController extends \BaseController {
         return Response::ok($this->facebookService->getFriends($user->fb_token));
     }
 
+    public function postDevice()
+    {
+        if (Input::has('device_type') && Input::has('token')) {
+            $deviceType = Input::get('device_type');
+            $token = Input::get('token');
+            $user = Auth::getUser();
+            $user->device_type = $deviceType;
+            $user->device_token = $token;
+            $user->save();
+            return Response::ok($user);
+        } else {
+            return Response::error('Missing parameters');
+        }
+    }
+
     public function getTest()
     {
         DB::unprepared("SET foreign_key_checks=0");
