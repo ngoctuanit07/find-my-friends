@@ -1,26 +1,32 @@
 angular.module('starter.controllers', [])
 
-    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath, $ionicLoading, push) {
+    .controller('HomeCtrl', function($scope, FindMyFriendsService, MeModel, $interval, $filter, $state, GeoMath, $ionicLoading, push, phone, $ionicPopup) {
 
-        push.registerPush(function (result) {
-            console.log('aaaa');
-            console.log(result);
-            if (result.type === 'registration') {
-                localStorage.setItem('device_id', result.id);
-                localStorage.setItem('device', result.device);
+        if (phone.isAndroid() ){
+            push.registerPush(function (result) {
+                if (result.type === 'registration') {
+                    FindMyFriendsService.registerDevice(result.device, result.id)
+                        .then(function() {
+                            console.log('Registered device')
+                        }, function() {
+                            console.log('Failed to register device!!');
+                        });
+                }
 
-                FindMyFriendsService.registerDevice('appNameAndroid', result.id)
-                    .then(function() {
-                        console.log('registered')    
-                    }, function() {
-                        console.log('oops nao registado');
-                    });
-            }
-             
-            if (result.type === 'message') {
-                $scope.showLoading(result.message);
-             }
-        });
+                if (result.type === 'message') {
+                        $ionicPopup.confirm({
+                            title: 'Notification',
+                            content: result.message,
+                            cancelText: 'Dismiss',
+                            okText: 'See request'
+                        }).then(function(res) {
+                            if(res) {
+                                $state.go('me');
+                            }
+                        });
+                };
+            });
+        }
 
         $ionicLoading.hide();
         $scope.user = null;
@@ -61,14 +67,14 @@ angular.module('starter.controllers', [])
             $scope.$apply(function () {
                 userObjectInMarkers.location = newLocation.coords;
             });
-            
+
             // now let's send this to the api
             FindMyFriendsService.updateLocation(newLocation.coords);
         }
-        
+
         $scope.errorLocation = function(error) {
             console.log('code: '    + error.code    + '\n' +
-            'message: ' + error.message + '\n');
+                'message: ' + error.message + '\n');
         }
 
         $scope.refreshPosition = function() {
@@ -96,7 +102,7 @@ angular.module('starter.controllers', [])
 
                 $ionicLoading.hide();
                 return user;
-                
+
             }, function(data){
                 if (data.status == "error") {
                     $state.go('login');
@@ -124,10 +130,10 @@ angular.module('starter.controllers', [])
         $scope.fetch().then(function(data){
             if (data.status === undefined) {
                 $scope.refreshPosition();
-                $scope.start();  
+                $scope.start();
             }
         });
-        
+
 
         $scope.$on('$destroy', function(e) {
             $interval.cancel($scope.poller);

@@ -3,7 +3,6 @@ angular.module('starter.controllers')
     .controller('MeCtrl', function($scope, MeModel, FindMyFriendsService, $state, $ionicPopup, $ionicLoading, GeoMath) {
         $scope.user = null;
         $scope.friends = {};
-        $scope.timeSince = GeoMath.timeSince;
 
         $scope.showLoading = function(content) {
             $ionicLoading.show({
@@ -26,24 +25,10 @@ angular.module('starter.controllers')
             return false;
         }
 
-        $scope.setAddress = function(location) {
-            if (location) {
-                FindMyFriendsService.getAddress(location)
-                    .success(function(response) {
-                        if (response.results.length > 0) {
-                            $scope.address = {}
-                            $scope.address.text = response.results[0].formatted_address;
-                            $scope.address.url = FindMyFriendsService.getMapsUrl(location);
-                        }
-                    })
-            }
-        }
-
         $scope.fetch = function() {
             MeModel.getMe().then(function(user){
                 $scope.user = user;
                 $scope.friends = user.friends;
-                $scope.setAddress(user.location);
                 $ionicLoading.hide();
             }, function() {
                 $state.go('login');

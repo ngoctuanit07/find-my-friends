@@ -71,8 +71,7 @@ class MeService
         $friend->status = 'asked_to_share';
         $friend->save();
 
-        // TODO send push notification to friendUser
-        $this->pushNotification($friendUser, 'TEST NOTIFICATION');
+        $this->pushNotification($friendUser, "$user->name is requesting your location!");
 
         // return user friendship
         $friend = $user->friends()->where('friend_user_id', $friendUser->id)->first();
@@ -81,7 +80,8 @@ class MeService
 
     public function pushNotification(User $user, $message)
     {
-        // TODO fix this
+        if ($user->device_token === null) return;
+        // only support android notifications for now
         PushNotification::app('appNameAndroid')
             ->to($user->device_token)
             ->send($message);
