@@ -152,7 +152,7 @@ class FacebookService
 		$session = $this->getFacebookSession($access_token);
 		if ($session) {
 			try {
-				$request = new FacebookRequest($session, 'GET', '/me/friends', ['limit' => 5000]);
+				$request = new FacebookRequest($session, 'GET', '/me/friends', ['limit' => 5000], "v1.0");
                 $objectList = $request->execute()->getGraphObjectList();
 
                 $friends = [];
