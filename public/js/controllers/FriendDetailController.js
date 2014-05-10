@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel, FindMyFriendsService, $ionicPopup, $ionicLoading, GeoMath) {
+    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel, FindMyFriendsService, $ionicPopup, $ionicLoading, GeoMath, $state) {
         $scope.user = null;
         $scope.markers = [];
         $scope.address = false;
@@ -119,6 +119,8 @@ angular.module('starter.controllers')
                             $scope.friend = response.data;
                             MeModel.reset();
                             $ionicLoading.hide();
+                            MeModel.reset();
+                            $state.go('home');
                         })
                 }
             });

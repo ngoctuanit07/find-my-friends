@@ -136,8 +136,9 @@ class FriendController extends \BaseController {
 			$response = $this->meService->deleteFriendship($user, $friendUser);
 			if ($response !== null) {
 				return Response::ok($response);
-			}
-		}
-		return Response::error('Failed to delete friendship');
+			} else
+                return Response::error('Failed to delete friendship');
+        } else
+		    return Response::error('Missing parameters');
 	}
 }

@@ -81,7 +81,7 @@ angular.module('starter.services', [])
         }
 
         this.deleteFriend = function(friendId) {
-            return this._sendData('DELETE', 'friend/' + friendId, {});
+            return this._sendParams('DELETE', 'friend', {'id': friendId});
         }
 
         this.login = function(email, pass) {
