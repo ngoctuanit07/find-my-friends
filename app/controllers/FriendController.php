@@ -25,11 +25,12 @@ class FriendController extends \BaseController {
             if ($friendUser === null) {
                 return Response::error('Invalid friend id');
             }
+
             $friend = $this->meService->updateStatus($user, $friendUser, $status);
             if ($friend === null) {
                 return Response::error('Failed updating status to friend');
             } else {
-                return Response::ok($this->meService->updateStatus($user, $friendUser, $status));
+                return Response::ok($friend);
             }
         }
 

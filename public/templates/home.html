@@ -33,7 +33,7 @@
         </a>
 
         <div class="list">
-            <a ng-repeat="friend in friends"
+            <a ng-repeat="friend in friends | filter:{status:'!blocked'}:true"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                 <img ng-src="{{friend.user.photo}}?type=square">
 

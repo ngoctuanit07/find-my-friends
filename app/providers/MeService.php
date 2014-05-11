@@ -29,9 +29,15 @@ class MeService
                 ->get()->isEmpty();
     }
 
-    public function acceptedRequest($friend, $newStatus)
+    private function acceptedRequest($friend, $newStatus)
     {
         return $friend->status === 'pending_confirmation'
+            && ( $newStatus === 'sharing' || $newStatus === 'not_sharing' );
+    }
+
+    private function unblockedFriend($friend, $newStatus)
+    {
+        return $friend->status === 'blocked'
             && ( $newStatus === 'sharing' || $newStatus === 'not_sharing' );
     }
 
@@ -48,7 +54,7 @@ class MeService
         if ($friend === null) return null;
         if ($friend->status === 'sent_request') return null;
 
-        if ( $this->acceptedRequest($friend, $newStatus) ) {
+        if ( $this->acceptedRequest($friend, $newStatus) || $this->unblockedFriend($friend, $newStatus) ) {
             $friendBack = $friendUser->friends()->where('friend_user_id', $user->id)->first();
             if ($friendBack->status === 'sent_request') {
                 $friendBack->status = 'not_sharing';
