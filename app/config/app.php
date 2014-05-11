@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://find-my-friends.zipleen.com',
+	'url' => 'https://rasteirinho.zipleen.com/spot-my-friends',
 
 	/*
 	|--------------------------------------------------------------------------
