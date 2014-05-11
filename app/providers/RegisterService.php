@@ -14,7 +14,7 @@ class RegisterService
             return null; // user already exists
         }
 
-        $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
+        $user->photo = "https://graph.facebook.com/$this->defaultPictureId/picture";
         $user->email = $email;
         $user->name = $name;
         $user->password = Hash::make($password);
@@ -35,7 +35,7 @@ class RegisterService
         $user->email = $userProfile->email;
         $user->name = $userProfile->name;
         $user->facebook_uid = $userProfile->id;
-        $user->photo = 'http://graph.facebook.com/' . $user->facebook_uid . '/picture';
+        $user->photo = 'https://graph.facebook.com/' . $user->facebook_uid . '/picture';
         $user->save();
 
         return $user;
@@ -60,7 +60,7 @@ class RegisterService
             $user = new User();
             $user->facebook_uid = $facebook_uid;
             $user->name = $this->getPublicUser($facebook_uid)->name;
-            $user->photo = 'http://graph.facebook.com/'. $facebook_uid .'/picture';
+            $user->photo = 'https://graph.facebook.com/'. $facebook_uid .'/picture';
             $user->save();
         }
 
@@ -84,7 +84,7 @@ class RegisterService
         $user = new User();
         $user->email = $email;
         $user->name = $email;
-        $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
+        $user->photo = "https://graph.facebook.com/$this->defaultPictureId/picture";
         $user->save();
 
         return $user;
