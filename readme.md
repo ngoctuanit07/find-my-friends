@@ -52,4 +52,6 @@ Release Android:
 - cd cordova/platforms/android
 - cordova build android --release
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ../my-release-key.keystore ant-build/FindMyFriends-release-unsigned.apk spotmyfriends
+- zipalign -v 4 ant-build/FindMyFriends-release-unsigned.apk ant-build/FindMyFriends-release-aligned.apk
 password is spotmyfriends
+zipalign for performance. 
