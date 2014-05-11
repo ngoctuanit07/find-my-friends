@@ -4,6 +4,5 @@
 
 <p>To download, please follow the following links:</p>
 
-<a href="http://find-my-friends.zipleen.com/find-my-friends">Browser</a>
-<a>iOS</a>
-<a>Android</a>
+<a href="https://rasteirinho.zipleen.com/hockeyapp/">Download app</a>
+<a href="https://rasteirinho.zipleen.com/spot-my-friends">Use in browser</a>
