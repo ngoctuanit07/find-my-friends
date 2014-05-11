@@ -102,7 +102,7 @@ class FriendController extends \BaseController {
         }
         else if (Input::has('facebook_uid')) {
             $facebook_uid = Input::get('facebook_uid');
-            $friendUser = $this->registerService->registerFacebookId($facebook_uid);
+            $friendUser = $this->registerService->preRegisterFacebookId($facebook_uid);
         }
         else if (Input::has('email')) {
             $email = Input::get('email');

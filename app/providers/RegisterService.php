@@ -22,6 +22,25 @@ class RegisterService
         return $user;
     }
 
+    public function registerFacebook($userProfile)
+    {
+        $user = User::where('facebook_uid', '=', $userProfile->id)->first();
+
+        if ($user === null)
+            $user = User::where('email', '=', $userProfile->email)->first();
+
+        if ($user === null)
+            $user = new User();
+
+        $user->email = $userProfile->email;
+        $user->name = $userProfile->name;
+        $user->facebook_uid = $userProfile->id;
+        $user->photo = 'http://graph.facebook.com/' . $user->facebook_uid . '/picture';
+        $user->save();
+
+        return $user;
+    }
+
     private function isActive($user)
     {
         if ($user->email !== null && $user->password !== null)
@@ -33,7 +52,7 @@ class RegisterService
         return false;
     }
 
-    public function registerFacebookId($facebook_uid)
+    public function preRegisterFacebookId($facebook_uid)
     {
         $user = User::where('facebook_uid', '=', $facebook_uid)->first();
 
@@ -53,14 +72,14 @@ class RegisterService
         $friendUser = User::where('email', '=', $email)->first();
 
         if ($friendUser === null) {
-            $friendUser = $this->registerEmail($email);
+            $friendUser = $this->preRegisterEmail($email);
             $this->sendEmailInvite($inviterUser, $friendUser);
         }
 
         return $friendUser;
     }
 
-    public function registerEmail($email)
+    public function preRegisterEmail($email)
     {
         $user = new User();
         $user->email = $email;

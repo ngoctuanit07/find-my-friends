@@ -71,19 +71,7 @@ class LoginController extends \BaseController {
         $userProfile = $this->facebookService->getUserProfile();
         if ($userProfile) {
 
-            $user = $this->meService->getUserFromFacebookId($userProfile->id);
-
-            if ($user === null)
-                $user = $this->meService->getUserFromEmail($userProfile->email);
-
-            if ($user === null)
-                $user = new User();
-
-            $user->email = $userProfile->email;
-            $user->name = $userProfile->name;
-            $user->facebook_uid = $userProfile->id;
-            $user->photo = 'http://graph.facebook.com/' . $user->facebook_uid . '/picture';
-            $user->save();
+            $user = $this->registerService->registerFacebook($userProfile);
 
             Auth::login($user, true);
             $this->getTokenAndUpdateLoginTime();
