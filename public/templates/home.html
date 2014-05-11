@@ -6,31 +6,31 @@
         </a>
     </ion-nav-buttons>
 
-    <ion-content padding="false" scroll="true"> <!-- class="has-map-top"> -->
-
-        <a href="#/map">
-            <google-map
-                    center="map.center"
-                    zoom="map.zoom"
-                    control="map.control"
-                    options="map.options"
+    <a href="#/map">
+        <google-map
+                center="map.center"
+                zoom="map.zoom"
+                control="map.control"
+                options="map.options"
+                >
+            <markers models="markers"
+                     coords="'location'"
+                     icon="'photoSmall'"
+                     fit="true"
+                     options="'options'"
+                     click="'onClicked'"
                     >
-                <markers models="markers"
-                         coords="'location'"
-                         icon="'photoSmall'"
-                         fit="true"
-                         options="'options'"
-                         click="'onClicked'"
-                        >
-                    <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
-                        <img class="photo-thumb" href="#/friend/{{ id }}" ng-non-bindable src="{{ photoThumb }}">
-                    </windows>
-                </markers>
-                <!--<marker coords="location"
-                        icon="user.photo">
-                </marker>-->
-            </google-map>
-        </a>
+                <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
+                    <img class="photo-thumb" href="#/friend/{{ id }}" ng-non-bindable src="{{ photoThumb }}">
+                </windows>
+            </markers>
+            <!--<marker coords="location"
+                    icon="user.photo">
+            </marker>-->
+        </google-map>
+    </a>
+
+    <ion-content padding="false" scroll="true" class="has-map-top">
 
         <div class="list">
             <a ng-repeat="friend in friends | filter:{status:'!blocked'}:true"
