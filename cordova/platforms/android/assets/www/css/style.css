@@ -7,7 +7,10 @@
     height: 200px;
 }
 
-
+.icon-start {
+    margin-bottom:0px;
+    text-align: center;
+}
 
 .photo-thumb {
     height:32px;

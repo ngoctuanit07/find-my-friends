@@ -94,11 +94,12 @@ angular.module('starter.controllers', [])
             return MeModel.getMe().then(function(user){
                 $scope.user = user;
 
-                // TODO handle deleted users, and calculate distance if wasn't cached
-                angular.extend($scope.friends, user.friends);
+                //angular.extend($scope.friends, user.friends);
+                $scope.friends = user.friends;
 
                 var markers = MeModel.getMarkers();
-                angular.extend($scope.markers, markers);
+                //angular.extend($scope.markers, markers);
+                $scope.markers = markers;
 
                 $ionicLoading.hide();
                 return user;

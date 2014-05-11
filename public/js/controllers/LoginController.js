@@ -12,6 +12,14 @@ angular.module('starter.controllers')
             });
         }
 
+        $scope.errorCallback = function(response) {
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+                title: 'Error',
+                content: response.message
+            });
+        }
+
         $scope.facebook = function() {
             $scope.showLoading('Logging in with facebook, please wait a moment.');
             LoginFacebook.facebook();
@@ -25,35 +33,22 @@ angular.module('starter.controllers')
                     .success(function(){
                         $state.go('home');
                     })
-                    .error(function() {
-                        $ionicLoading.hide();
-                    })
+                    .error($scope.errorCallback);
             }
         };
-
-        $scope.logout = function() {
-            FindMyFriendsService.logout();
-            $state.go('login');
-        }
 
         $scope.register = function(user) {
             if( typeof user !== "undefined" ) {
                 $scope.showLoading('Registering account, please wait a moment.');
 
                 FindMyFriendsService.register(user.email, user.name, user.password)
-                    .then(function(){
+                    .success(function(){
                         $ionicLoading.hide();
                         FindMyFriendsService.login(user.email, user.password).then(function() {
                             $state.go('home');
                         })
-                    },
-                    function() {
-                        $ionicLoading.hide();
-                        $ionicPopup.alert({
-                            title: 'Error',
-                            content: 'Email already registered.'
-                        });
-                    });
+                    })
+                    .error($scope.errorCallback);
             }
         }
 

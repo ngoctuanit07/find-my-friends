@@ -5,67 +5,68 @@
             </button>
         </a>
     </ion-nav-buttons>
-        
+
+    <ion-content padding="false" scroll="true"> <!-- class="has-map-top"> -->
+
         <a href="#/map">
             <google-map
-             center="map.center" 
-             zoom="map.zoom" 
-             control="map.control"
-             options="map.options" 
-            >
+                    center="map.center"
+                    zoom="map.zoom"
+                    control="map.control"
+                    options="map.options"
+                    >
                 <markers models="markers"
-                        coords="'location'"
-                        icon="'photoSmall'"
-                        fit="true"
-                        options="'options'"
-                        click="'onClicked'"
+                         coords="'location'"
+                         icon="'photoSmall'"
+                         fit="true"
+                         options="'options'"
+                         click="'onClicked'"
                         >
-                        <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
-                            <img class="photo-thumb" href="#/friend/{{ id }}" ng-non-bindable src="{{ photoThumb }}">
-                        </windows>
+                    <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
+                        <img class="photo-thumb" href="#/friend/{{ id }}" ng-non-bindable src="{{ photoThumb }}">
+                    </windows>
                 </markers>
                 <!--<marker coords="location"
                         icon="user.photo">
                 </marker>-->
             </google-map>
         </a>
-        
-    <ion-content padding="false" scroll="true" class="has-map-top">
-            <div class="list">
-                <a ng-repeat="friend in friends" 
-                   class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
-                    <img ng-src="{{friend.user.photo}}?type=square">
 
-                    {{friend.user.name}}
-                    <p style="margin:0;">{{timeSince(friend.user.location.updated.date)}}</p>
+        <div class="list">
+            <a ng-repeat="friend in friends"
+               class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
+                <img ng-src="{{friend.user.photo}}?type=square">
+
+                {{friend.user.name}}
+                <p style="margin:0;">{{timeSince(friend.user.location.updated.date)}}</p>
                     <span ng-if="friend.user.status == 'sharing'"
                           class="badge badge-balanced">
                         {{friend.user.distance | number:2 }} km
                     </span>
 
-                    <button ng-if="friend.user.status == 'not_sharing'"
-                            class="button button-energized"
-                            ng-click="askForLocation({{friend.user.id}})" prevent-default>
-                        Ask
-                    </button>
+                <button ng-if="friend.user.status == 'not_sharing'"
+                        class="button button-energized"
+                        ng-click="askForLocation({{friend.user.id}})" prevent-default>
+                    Ask
+                </button>
 
-                    <button ng-if="friend.user.status == 'asked_to_share'"
-                            class="button button-stable" disabled>
-                        Waiting
-                    </button>
+                <button ng-if="friend.user.status == 'asked_to_share'"
+                        class="button button-stable" disabled>
+                    Waiting
+                </button>
 
-                    <button ng-if="friend.user.status == 'blocked'"
-                            class="button button-stable" disabled>
-                        Unavailable
-                    </button>
+                <button ng-if="friend.user.status == 'blocked'"
+                        class="button button-stable" disabled>
+                    Unavailable
+                </button>
 
-                    <button ng-if="friend.user.status == 'pending_confirmation'"
-                            class="button button-stable" disabled>
-                        Invited
-                    </button>
-                </a>
-            </div>
-        
+                <button ng-if="friend.user.status == 'pending_confirmation'"
+                        class="button button-stable" disabled>
+                    Invited
+                </button>
+            </a>
+        </div>
+
     </ion-content>
 
     <ion-footer-bar class="bar-footer bar-positive">

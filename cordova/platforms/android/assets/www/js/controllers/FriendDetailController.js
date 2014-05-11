@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel, FindMyFriendsService, $ionicPopup, $ionicLoading, GeoMath) {
+    .controller('FriendDetailCtrl', function($scope, $stateParams, MeModel, FindMyFriendsService, $ionicPopup, $ionicLoading, GeoMath, $state) {
         $scope.user = null;
         $scope.markers = [];
         $scope.address = false;
@@ -52,6 +52,7 @@ angular.module('starter.controllers')
                 $scope.user = user;
                 $scope.markers = MeModel.getMarkers();
 
+                if ($scope.friend.user.location) {
                 FindMyFriendsService.getDistance($scope.friend.user.id, 'walking')
                     .success(function(response) {
                         if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
@@ -71,6 +72,7 @@ angular.module('starter.controllers')
                             $scope.driving.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'driving');
                         }
                     });
+                }
             });
         };
 
@@ -98,6 +100,27 @@ angular.module('starter.controllers')
                             $scope.friend = response.data;
                             MeModel.reset();
                             $ionicLoading.hide();
+                        })
+                }
+            });
+        }
+
+        $scope.deleteFriend = function(friendId) {
+            $ionicPopup.confirm({
+                title: 'Delete Friend',
+                content: 'Are you sure you want to delete this friend?',
+                okType: 'button-assertive',
+                okText: 'Delete'
+            }).then(function(result) {
+                if(result) {
+                    $scope.showLoading('Deleting friend. Please wait...');
+                    FindMyFriendsService.deleteFriend(friendId)
+                        .then(function(response) {
+                            $scope.friend = response.data;
+                            MeModel.reset();
+                            $ionicLoading.hide();
+                            MeModel.reset();
+                            $state.go('home');
                         })
                 }
             });

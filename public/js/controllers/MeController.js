@@ -14,6 +14,14 @@ angular.module('starter.controllers')
             });
         }
 
+        $scope.errorCallback = function(response) {
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+                title: 'Error',
+                content: response.message
+            });
+        }
+
         $scope.updateFriend = function(friendId, updatedFriend) {
             for(var i = 0; i < $scope.friends.length; i += 1) {
                 if($scope.friends[i]['friend_id'] === friendId) {
@@ -56,6 +64,7 @@ angular.module('starter.controllers')
                     $scope.updateFriend(friendId, result);
                     $ionicLoading.hide();
                 })
+                .error($scope.errorCallback);
         }
 
         $scope.startSharingLocation = function(friendId) {
@@ -65,6 +74,7 @@ angular.module('starter.controllers')
                     $scope.updateFriend(friendId, result);
                     $ionicLoading.hide();
                 })
+                .error($scope.errorCallback);
         }
 
         $scope.acceptFriendRequest = function(friendId) {
@@ -74,6 +84,7 @@ angular.module('starter.controllers')
                     $scope.updateFriend(friendId, result);
                     $ionicLoading.hide();
                 })
+                .error($scope.errorCallback);
         }
 
         $scope.declineFriendRequest = function(friendId) {
@@ -83,6 +94,7 @@ angular.module('starter.controllers')
                     $scope.updateFriend(friendId, result);
                     $ionicLoading.hide();
                 })
+                .error($scope.errorCallback);
         }
 
         $scope.unblockFriend = function(friendId) {

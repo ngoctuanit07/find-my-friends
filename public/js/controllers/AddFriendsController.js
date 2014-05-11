@@ -9,6 +9,13 @@ angular.module('starter.controllers')
             isLoading: true
         };
 
+        $scope.errorCallback = function(response) {
+            $ionicPopup.alert({
+                title: 'Error',
+                content: response.message
+            });
+        }
+
         MeModel.getMe().then(function(user){
             $scope.user = user;
             $scope.user.friends.forEach(function(friend) {
@@ -42,11 +49,13 @@ angular.module('starter.controllers')
                 subTitle: 'What\'s your friend\'s email?'
             }).then(function(email) {
                 if (email) {
-                    FindMyFriendsService.addEmailFriend(email).then(function() {
-                        $ionicPopup.alert({
-                            title: 'Invite has been sent to ' + email
+                    FindMyFriendsService.addEmailFriend(email)
+                        .success(function() {
+                            $ionicPopup.alert({
+                                title: 'Invite has been sent to ' + email
+                            })
                         })
-                    })
+                        .error($scope.errorCallback);
                 }
             });
         };
