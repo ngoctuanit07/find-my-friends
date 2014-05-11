@@ -54,7 +54,9 @@
                              // Send the plugin result. Wait for a successful fetch of user info.
                              CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                                                            messageAsDictionary:[self responseObject]];
-                             [self.commandDelegate sendPluginResult:pluginResult callbackId:self.loginCallbackId];
+                             if (self.loginCallbackId) {
+                                 [self.commandDelegate sendPluginResult:pluginResult callbackId:self.loginCallbackId];
+                             }
                          } else {
                              self.userid = @"";
                              

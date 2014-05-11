@@ -27,7 +27,7 @@
                 <img ng-src="http://graph.facebook.com/{{friend.id}}/picture">
                 <h2>{{friend.name}}</h2>
                 <button class="button button-calm"
-                        ng-click="inviteFriend($index)"
+                        ng-click="inviteFriend(friend)"
                         prevent-default>Invite</button>
             </ion-item>
         </ion-list>

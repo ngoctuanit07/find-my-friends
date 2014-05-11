@@ -27,10 +27,9 @@ angular.module('starter.controllers')
             return $scope.invitedFriends.indexOf(parseInt(friend.id)) == -1;
         }
 
-        $scope.inviteFriend = function(friendIndex) {
-            var friend = $scope.socialFriends[friendIndex];
-
+        $scope.inviteFriend = function(friend) {
             FindMyFriendsService.addFacebookFriend(friend.id).then(function() {
+                friendIndex = $scope.socialFriends.indexOf(friend);
                 $scope.socialFriends.splice(friendIndex, 1);
             })
         }

@@ -3,7 +3,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Spot My Friends</title>
-
+	<meta property="og:image" content="https://rasteirinho.zipleen.com/find-my-friends/img/icon_128.png"/>
+	<meta property="og:title" content="Share your location with Spot My Friends"/>
+	<meta property="og:site_name" content="Spot My Friends"/>
 	<style>
 		/* Reset */
 
