@@ -1,39 +1,40 @@
 <ion-view title="Find My Friends">
     <ion-nav-buttons side="right">
         <a href="#/add-friends">
-            <button class="button button-clear ion-person-add">
+            <button class="button button-clear button-positive">
+                Add
             </button>
         </a>
     </ion-nav-buttons>
 
-    <ion-content padding="false" scroll="true"> <!-- class="has-map-top"> -->
-
-        <a href="#/map">
-            <google-map
-                    center="map.center"
-                    zoom="map.zoom"
-                    control="map.control"
-                    options="map.options"
+    <a href="#/map">
+        <google-map
+                center="map.center"
+                zoom="map.zoom"
+                control="map.control"
+                options="map.options"
+                >
+            <markers models="markers"
+                     coords="'location'"
+                     icon="'photoSmall'"
+                     fit="true"
+                     options="'options'"
+                     click="'onClicked'"
                     >
-                <markers models="markers"
-                         coords="'location'"
-                         icon="'photoSmall'"
-                         fit="true"
-                         options="'options'"
-                         click="'onClicked'"
-                        >
-                    <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
-                        <img class="photo-thumb" href="#/friend/{{ id }}" ng-non-bindable src="{{ photoThumb }}">
-                    </windows>
-                </markers>
-                <!--<marker coords="location"
-                        icon="user.photo">
-                </marker>-->
-            </google-map>
-        </a>
+                <windows show="'showWindow'" options="map.infoWindowWithCustomClass.options" ng-cloak>
+                    <img class="photo-thumb" href="#/friend/{{ id }}" ng-non-bindable src="{{ photoThumb }}">
+                </windows>
+            </markers>
+            <!--<marker coords="location"
+                    icon="user.photo">
+            </marker>-->
+        </google-map>
+    </a>
+
+    <ion-content padding="false" scroll="true" class="has-map-top">
 
         <div class="list">
-            <a ng-repeat="friend in friends"
+            <a ng-repeat="friend in friends | filter:{status:'!blocked'}:true"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                 <img ng-src="{{friend.user.photo}}?type=square">
 

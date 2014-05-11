@@ -47,3 +47,9 @@ first set adb directory in cordova/local.properties and cordova/CordovaLib/local
 Run with:
 - cordova emulate ios
 - cordova emulate android
+
+Release Android:
+- cd cordova/platforms/android
+- cordova build android --release
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ../my-release-key.keystore ant-build/FindMyFriends-release-unsigned.apk spotmyfriends
+password is spotmyfriends

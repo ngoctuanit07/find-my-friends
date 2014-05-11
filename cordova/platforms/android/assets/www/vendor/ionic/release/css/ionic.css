@@ -2207,7 +2207,7 @@ ion-infinite-scroll.active .scroll-infinite {
   top: 137px; }
 
 .has-footer {
-  bottom: 44px; }
+  bottom: 60px; }
 
 .has-tabs, .bar-footer.has-tabs {
   bottom: 49px; }
@@ -2659,7 +2659,7 @@ a.subdued {
     background: none;
     box-shadow: none;
     color: #444;
-    /* font-size: 30px; */ }
+    font-size: 17px; }
   .bar-stable .button.button-icon {
     border-color: transparent;
     background: none; }
