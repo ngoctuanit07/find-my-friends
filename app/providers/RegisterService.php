@@ -9,14 +9,28 @@ class RegisterService
 
         if ($user === null) {
             $user = new User();
-            $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
+        }
+        else if ($this->isActive($user)) {
+            return null; // user already exists
         }
 
+        $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
         $user->email = $email;
         $user->name = $name;
         $user->password = Hash::make($password);
         $user->save();
         return $user;
+    }
+
+    private function isActive($user)
+    {
+        if ($user->email !== null && $user->password !== null)
+            return true; // active user with email
+
+        if ($user->email !== null && $user->facebook_uid !== null)
+            return true; // active user with facebook
+
+        return false;
     }
 
     public function registerFacebookId($facebook_uid)
@@ -34,15 +48,25 @@ class RegisterService
         return $user;
     }
 
+    public function inviteByEmail($email, $inviterUser)
+    {
+        $friendUser = User::where('email', '=', $email)->first();
+
+        if ($friendUser === null) {
+            $friendUser = $this->registerEmail($email);
+            $this->sendEmailInvite($inviterUser, $friendUser);
+        }
+
+        return $friendUser;
+    }
+
     public function registerEmail($email)
     {
-
-            $user = new User();
-            $user->email = $email;
-            $user->name = $email;
-            $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
-            $user->save();
-
+        $user = new User();
+        $user->email = $email;
+        $user->name = $email;
+        $user->photo = "http://graph.facebook.com/$this->defaultPictureId/picture";
+        $user->save();
 
         return $user;
     }

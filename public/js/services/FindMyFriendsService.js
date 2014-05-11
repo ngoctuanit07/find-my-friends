@@ -92,6 +92,10 @@ angular.module('starter.services', [])
             return this._sendData('POST', 'login/logout');
         }
 
+        this.register = function(email, name, password) {
+            return this._sendData('POST', 'login/register', {'email': email, 'name': name, 'password': password});
+        }
+
         this.loginFacebook = function(token) {
             return this._sendData('POST', 'login/facebook?code=' + token, {});
         }

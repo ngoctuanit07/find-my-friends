@@ -20,7 +20,7 @@ class LoginController extends \BaseController {
             if ( $user === NULL ) {
                 return Response::error('Failed to register');
             } else {
-                return Response::json(['message' => 'Registered']);
+                return Response::ok($user);
             }
         } else {
             return Response::error('Missing parameters');
@@ -70,6 +70,7 @@ class LoginController extends \BaseController {
     {
         $userProfile = $this->facebookService->getUserProfile();
         if ($userProfile) {
+
             $user = $this->meService->getUserFromFacebookId($userProfile->id);
 
             if ($user === null)

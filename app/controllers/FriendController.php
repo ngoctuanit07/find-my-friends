@@ -105,15 +105,14 @@ class FriendController extends \BaseController {
         }
         else if (Input::has('email')) {
             $email = Input::get('email');
-
-            $friendUser = $this->meService->getUserFromEmail($email);
-            if ($friendUser === null) {
-                $friendUser = $this->registerService->registerEmail($email);
-                $this->registerService->sendEmailInvite($user, $friendUser);
-            }
+            $friendUser = $this->registerService->inviteByEmail($email, $user);
         }
         else {
             return Response::error('Missing parameters');
+        }
+
+        if ($user->id === $friendUser->id) {
+            return Response::error('Invited same user');
         }
 
         $friend = $this->meService->addFriend($user, $friendUser);
