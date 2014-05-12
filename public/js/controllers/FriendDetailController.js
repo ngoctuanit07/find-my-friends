@@ -7,6 +7,7 @@ angular.module('starter.controllers')
         $scope.walking = false;
         $scope.driving = false;
         $scope.timeSince = GeoMath.timeSince;
+        $scope.places = [];
 
         $scope.friend = MeModel.getFriend($stateParams.friendId);
 
@@ -67,6 +68,22 @@ angular.module('starter.controllers')
                                 $scope.driving.duration = response.rows[0].elements[0].duration.text;
                                 $scope.driving.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'driving');
                             }
+                        });
+
+                    FindMyFriendsService.getNearbyPlaces($scope.friend.user.id)
+                        .success(function(data) {
+                            var items = data.response.groups[0].items;
+                            angular.forEach(items, function(item) {
+                                var venueLocation = {
+                                    latitude: item.venue.location.lat,
+                                    longitude: item.venue.location.lng
+                                };
+                                $scope.places.push({
+                                    name: item.venue.name,
+                                    distance: item.venue.location.distance,
+                                    url: FindMyFriendsService.getMapsUrlFromTo($scope.friend.user.location, venueLocation, 'driving')
+                                })
+                            })
                         });
                 }
             });

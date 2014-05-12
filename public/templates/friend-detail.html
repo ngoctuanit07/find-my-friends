@@ -64,10 +64,9 @@
             <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
                 <i class="icon ion-model-s"></i>
                 {{driving.distance}}
-            </a>
-            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
-                <i class="icon ion-clock"></i>
-                {{driving.duration}}
+                <span class="item-note">
+                    {{driving.duration}}
+                </span>
             </a>
         </div>
 
@@ -78,10 +77,22 @@
             <a class="item item-icon-left" target="_blank" href="{{walking.url}}">
                 <i class="icon ion-man"></i>
                 {{walking.distance}}
+                <span class="item-note">
+                    {{walking.duration}}
+                </span>
             </a>
-            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
-                <i class="icon ion-clock"></i>
-                {{walking.duration}}
+        </div>
+
+        <div class="card" ng-show="places.length">
+            <div class="item item-divider">
+                Places to meet up nearby
+            </div>
+            <a class="item item-icon-left" ng-repeat="place in places" target="_blank" href="{{place.url}}">
+                <i class="icon ion-android-contacts"></i>
+                {{place.name}}
+                   <span class="item-note">
+                      {{place.distance}} m
+                  </span>
             </a>
         </div>
 
