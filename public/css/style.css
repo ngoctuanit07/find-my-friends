@@ -58,7 +58,7 @@ img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
 }
 
 .has-map-top {
-    top: 200px;
+    top: 200px!important;
 }
 
 /* ------- FOOTER -------- */
