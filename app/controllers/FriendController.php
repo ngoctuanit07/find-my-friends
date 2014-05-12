@@ -4,11 +4,12 @@ class FriendController extends \BaseController {
 
     public $restful = true;
 
-    public function __construct(MeService $meService, RegisterService $registerService)
+    public function __construct(MeService $meService, RegisterService $registerService, FoursquareService $foursquareService)
     {
         $this->beforeFilter('auth');
         $this->meService = $meService;
         $this->registerService = $registerService;
+        $this->foursquareService = $foursquareService;
     }
 
     public function patchStatus($id)
@@ -72,6 +73,30 @@ class FriendController extends \BaseController {
         } else
             return Response::json(['message' => 'Friend not sharing location']);
 
+    }
+
+    public function getNearbyPlaces($id)
+    {
+        $user = Auth::getUser();
+        $friendUser = $this->meService->getUser($id);
+        if ($friendUser === null) {
+            return Response::error('Invalid friend id');
+        }
+        $friend = $friendUser->friends()->where('friend_user_id', $user->id)->first();
+
+        if ($friend === null)
+            return Response::error('Not a friend');
+
+        if ($friend->status === 'sharing') {
+            $userLocation = $user->location;
+            $friendLocation = $friendUser->location;
+            if ($userLocation === null || $friendLocation === null)
+                return Response::error('Don\'t have user or friend location');
+
+            $places = $this->foursquareService->getVenuesNear($friendLocation->latitude, $friendLocation->longitude);
+            return Response::ok($places);
+        } else
+            return Response::json(['message' => 'Friend not sharing location']);
     }
 
     public function postRequest($id)
