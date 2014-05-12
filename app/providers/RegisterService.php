@@ -2,7 +2,7 @@
 
 class RegisterService
 {
-    private $defaultPictureId = 100008244347938;
+    private $defaultPictureId = '100008244347938';
     public function register($email, $name, $password)
     {
         $user = User::where('email', '=', $email)->first();
