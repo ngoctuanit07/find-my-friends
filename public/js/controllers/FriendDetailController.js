@@ -11,7 +11,7 @@ angular.module('starter.controllers')
 
         $scope.friend = MeModel.getFriend($stateParams.friendId);
 
-        if ($scope.friend.user.location) {
+        if (typeof $scope.friend !== 'undefined' && $scope.friend.user.location) {
 
             $scope.map = {
                 control: {},
@@ -48,6 +48,7 @@ angular.module('starter.controllers')
             return MeModel.getMe().then(function(user){
                 $scope.user = user;
                 $scope.markers = MeModel.getMarkers();
+                $scope.friend = MeModel.getFriend($stateParams.friendId);
 
                 if ($scope.friend.user.location) {
                     FindMyFriendsService.getDistance($scope.friend.user.id, 'walking')
