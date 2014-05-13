@@ -6,7 +6,7 @@
     "component.json"
   ],
   "dependencies": {
-      "ionic": "1.0.0-beta.3",
+      "ionic": "1.0.0-beta.4",
       "angular-google-maps": "1.0.18",
       "underscore": "1.5.0"
   }
