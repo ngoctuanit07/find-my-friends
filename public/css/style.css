@@ -141,3 +141,9 @@ img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
     height: 24px;
     border-width: 1px;
 }
+
+
+.list .item-button-right button {
+    margin-top:10px;
+    margin-right:5px;
+}
