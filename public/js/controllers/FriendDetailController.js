@@ -30,6 +30,7 @@ angular.module('starter.controllers')
                 },
                 infoWindowWithCustomClass: {
                     options: {
+                        disableAutoPan: true,
                         boxClass: 'custom-info-window'
                     }
                 }
