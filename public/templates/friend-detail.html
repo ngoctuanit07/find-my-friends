@@ -123,21 +123,22 @@
         </div>
 
         <!---    ME BLOCKING FRIEND     ---->
-        <div class="card" ng-if="friend.status != 'blocked'">
-            <a class="item text-center item-assertive" ng-click="blockFriend(friend.user.id)">
-                Block friend
-            </a>
+        <div style="padding-bottom: 15px">
+            <div class="card" ng-if="friend.status != 'blocked'">
+                <a class="item text-center item-assertive" ng-click="blockFriend(friend.user.id)">
+                    Block friend
+                </a>
+            </div>
+            <div class="card" ng-if="friend.status == 'blocked'">
+                <a class="item text-center item-balanced" ng-click="unblockFriend(friend.user.id)">
+                    Unblock friend
+                </a>
+            </div>
+            <div class="card" ng-if="friend.status == 'blocked'">
+                <a class="item text-center item-assertive" ng-click="deleteFriend(friend.user.id)">
+                    Delete friend
+                </a>
+            </div>
         </div>
-        <div class="card" ng-if="friend.status == 'blocked'">
-            <a class="item text-center item-balanced" ng-click="unblockFriend(friend.user.id)">
-                Unblock friend
-            </a>
-        </div>
-        <div class="card" ng-if="friend.status == 'blocked'">
-            <a class="item text-center item-assertive" ng-click="deleteFriend(friend.user.id)">
-                Delete friend
-            </a>
-        </div>
-
     </ion-content>
 </ion-view>
