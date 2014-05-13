@@ -39,7 +39,7 @@
                 <img ng-src="{{friend.user.photo}}?type=square">
 
                 {{friend.user.name}}
-                <p style="margin:0;">{{timeSince(friend.user.location.updated.date)}}</p>
+                <p style="margin:0;">{{timeSince(friend.user.location.updated)}}</p>
                     <span ng-if="friend.user.status == 'sharing'"
                           class="badge badge-balanced">
                         {{friend.user.distance | number:2 }} km

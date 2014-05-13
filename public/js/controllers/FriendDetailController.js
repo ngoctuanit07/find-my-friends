@@ -81,7 +81,7 @@ angular.module('starter.controllers')
                                 $scope.places.push({
                                     name: item.venue.name,
                                     distance: item.venue.location.distance,
-                                    url: FindMyFriendsService.getMapsUrlFromTo($scope.friend.user.location, venueLocation, 'driving')
+                                    url: FindMyFriendsService.getMapsUrlFromTo($scope.user.location, venueLocation, 'driving')
                                 })
                             })
                         });
