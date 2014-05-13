@@ -34,7 +34,7 @@
     <ion-content padding="false" scroll="true" class="has-map-top">
 
         <div class="list">
-            <a ng-repeat="friend in friends | filter:{status:'!blocked'}:true"
+            <a ng-repeat="friend in friends | filter:{status:'!blocked', status:'!pending_confirmation'}:true"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                 <img ng-src="{{friend.user.photo}}?type=square">
 
@@ -71,16 +71,24 @@
 
     </ion-content>
 
-    <ion-footer-bar class="bar-footer bar-positive">
+    <ion-footer-bar
+            ng-class="{true: 'bar-assertive', false: 'bar-positive'}[pendingRequests]"
+            class="bar-footer">
         <a class="item-avatar-left item-button-right" href="#/me">
             <img ng-src="{{user.photo}}">
             <h4>Me</h4>
-            <p>
+            <p ng-show="!pendingRequests">
                 Sharing with
-                {{ (user.friends | filter:{status:'sharing'}:true).length }}
+                {{ numberOfSharingFriends }}
                 friend(s)
             </p>
-            <i id="footer-icon" class="footer-icon button button-clear pull-right ion-chevron-right"></i>
+            <p ng-show="pendingRequests">
+                {{ numberOfRequests }}
+                pending request(s). Click here to see.
+            </p>
+            <i ng-class="{true: 'ion-alert', false: 'ion-chevron-right'}[pendingRequests]"
+               id="footer-icon"
+               class="footer-icon button button-clear pull-right"></i>
         </a>
     </ion-footer-bar>
 </ion-view>

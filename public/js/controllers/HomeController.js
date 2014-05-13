@@ -35,6 +35,9 @@ angular.module('starter.controllers', [])
         $scope.poller = null;
         $scope.navPoller = null;
         $scope.timeSince = GeoMath.timeSince;
+        $scope.pendingRequests = false;
+        $scope.numberOfRequests = 0;
+        $scope.numberOfSharingFriends = 0;
 
         // google maps object that controls the map
         $scope.map = {
@@ -100,6 +103,7 @@ angular.module('starter.controllers', [])
                 var markers = MeModel.getMarkers();
                 //angular.extend($scope.markers, markers);
                 $scope.markers = markers;
+                updateNumberOfRequests();
 
                 $ionicLoading.hide();
                 return user;
@@ -113,6 +117,24 @@ angular.module('starter.controllers', [])
                 }
                 return data;
             });
+        }
+
+        function updateNumberOfRequests() {
+            $scope.numberOfRequests = 0;
+            $scope.numberOfSharingFriends = 0;
+            $scope.pendingRequests = false;
+            for (var i = 0; i < $scope.friends.length; i++) {
+                var friend = $scope.friends[i];
+
+                if (friend.status === 'pending_confirmation' || friend.status === 'asked_to_share') {
+                    $scope.numberOfRequests += 1;
+                }
+
+                if (friend.status === 'sharing') {
+                    $scope.numberOfSharingFriends += 1;
+                }
+            }
+            if ($scope.numberOfRequests > 0) $scope.pendingRequests = true;
         }
 
         $scope.start = function() {
