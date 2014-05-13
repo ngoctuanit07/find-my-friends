@@ -47,23 +47,23 @@
                 </span>
 
                 <button ng-if="friend.user.status == 'not_sharing'"
-                        class="button button-energized"
+                        class="button button-energized button-large"
                         ng-click="askForLocation({{friend.user.id}})" prevent-default>
                     Ask
                 </button>
 
                 <button ng-if="friend.user.status == 'asked_to_share'"
-                        class="button button-stable" disabled>
+                        class="button button-stable button-large" disabled>
                     Waiting
                 </button>
 
                 <button ng-if="friend.user.status == 'blocked'"
-                        class="button button-stable" disabled>
+                        class="button button-stable button-large" disabled>
                     Unavailable
                 </button>
 
                 <button ng-if="friend.user.status == 'pending_confirmation'"
-                        class="button button-stable" disabled>
+                        class="button button-stable button-large" disabled>
                     Invited
                 </button>
             </a>
