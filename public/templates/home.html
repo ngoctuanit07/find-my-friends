@@ -33,6 +33,12 @@
 
     <ion-content padding="false" scroll="true" class="has-map-top">
 
+        <ion-refresher on-refresh="refresh()"
+                       pulling-text="Pull to refresh..."
+                       refreshing-text="Refreshing!"
+                       refreshing-icon="ion-loading-c">
+
+        </ion-refresher>
         <div class="list">
             <a ng-repeat="friend in friends | filter:{status:'!blocked', status:'!pending_confirmation'}:true"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">

@@ -106,6 +106,8 @@ angular.module('starter.controllers', [])
                 updateNumberOfRequests();
 
                 $ionicLoading.hide();
+                $scope.$broadcast('scroll.refreshComplete');
+
                 return user;
 
             }, function(data){
