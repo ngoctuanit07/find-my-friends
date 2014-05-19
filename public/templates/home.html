@@ -47,10 +47,15 @@
                 {{friend.user.name}}
                 <p style="margin:0;">{{timeSince(friend.user.location.updated)}}</p>
 
-                <span ng-if="friend.user.status == 'sharing'"
+                <span ng-if="friend.user.status == 'sharing' && friend.user.location"
                       class="badge badge-balanced">
                     {{friend.user.distance | number:2 }} km
                 </span>
+
+                <button ng-if="friend.user.status == 'sharing' && !friend.user.location"
+                        class="button button-stable button-large" disabled>
+                    No location
+                </button>
 
                 <button ng-if="friend.user.status == 'not_sharing'"
                         class="button button-energized button-large"
