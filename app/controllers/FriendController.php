@@ -4,12 +4,13 @@ class FriendController extends \BaseController {
 
     public $restful = true;
 
-    public function __construct(MeService $meService, RegisterService $registerService, FoursquareService $foursquareService)
+    public function __construct(MeService $meService, RegisterService $registerService, FoursquareService $foursquareService, GoogleAPIsService $googleAPIsService)
     {
         $this->beforeFilter('auth');
         $this->meService = $meService;
         $this->registerService = $registerService;
         $this->foursquareService = $foursquareService;
+        $this->googleAPIsService = $googleAPIsService;
     }
 
     public function patchStatus($id)
@@ -63,13 +64,9 @@ class FriendController extends \BaseController {
             if ($userLocation === null || $friendLocation === null)
                 return Response::error('Don\'t have user or friend location');
 
-            $url = 'http://maps.googleapis.com/maps/api/distancematrix/json?'
-                . 'origins=' . $userLocation->latitude . ',' . $userLocation->longitude
-                . '&destinations='. $friendLocation->latitude . ',' . $friendLocation->longitude
-                . '&sensor=true'
-                . '&mode=' . $mode;
+            $response = $this->googleAPIsService->getDistanceMatrix($user, $friendUser, $mode);
 
-            return Response::ok(json_decode(file_get_contents($url)));
+            return Response::ok($response);
         } else
             return Response::json(['message' => 'Friend not sharing location']);
 

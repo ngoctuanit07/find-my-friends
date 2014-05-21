@@ -24,7 +24,7 @@ angular.module('starter.services', [])
                 method: 'GET',
                 url: 'https://maps.googleapis.com/maps/api/geocode/json',
                 params: {'latlng': location.latitude + ',' + location.longitude,
-                    'sensor': 'true' }
+                    'sensor': 'true', 'key': 'AIzaSyBQsgDTkLhr7JfJUzAF_SS8MN4VFOz62fE' }
             });
         }
 
