@@ -58,7 +58,7 @@ img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
 }
 
 .has-map-top {
-    top: 200px;
+    top: 200px!important;
 }
 
 /* ------- FOOTER -------- */
@@ -78,16 +78,13 @@ img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
 .bar-footer a {
     width: 100%;
     height: 100%;
+    text-decoration:none;
+    color: #ffffff;
 }
 
 .bar-footer a h4 {
     margin-top: 5px;
     margin-bottom: 5px;
-    color: #ffffff;
-}
-
-.bar-footer a {
-    text-decoration:none;
     color: #ffffff;
 }
 
@@ -140,4 +137,13 @@ img[src="http://www.google.com/intl/en_us/mapfiles/close.gif"] {
 .bar-loading.ng-leave {
     height: 24px;
     border-width: 1px;
+}
+
+
+.list .item-button-right button {
+    margin-top:10px;
+}
+
+.list .item-button-right .badge {
+    margin-right: -15px;
 }

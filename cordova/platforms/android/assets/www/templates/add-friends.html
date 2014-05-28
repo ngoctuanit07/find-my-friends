@@ -21,7 +21,7 @@
                 Facebook Friends
             </div>
             <ion-item ng-hide="filteredFriends.length">No Facebook friends found. Try to login with Facebook.</ion-item>
-            <ion-item ng-repeat="friend in filteredFriends = (socialFriends | filter:{name:filter.text} | filter:filterInvited)"
+            <ion-item ng-repeat="friend in filteredFriends = (socialFriends | filter:{name:filter.text} | filter:filterInvited | orderBy:'name' )"
                       class="item-avatar-left item-button-right">
                 <img ng-src="http://graph.facebook.com/{{friend.id}}/picture">
                 <h2>{{friend.name}}</h2>

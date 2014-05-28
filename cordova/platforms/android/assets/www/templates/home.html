@@ -33,36 +33,48 @@
 
     <ion-content padding="false" scroll="true" class="has-map-top">
 
+        <ion-refresher on-refresh="refresh()"
+                       pulling-text="Pull to refresh..."
+                       refreshing-text="Refreshing!"
+                       refreshing-icon="ion-loading-c">
+
+        </ion-refresher>
         <div class="list">
-            <a ng-repeat="friend in friends | filter:{status:'!blocked'}:true"
+            <a ng-repeat="friend in friends | filter:{status:'!blocked', status:'!pending_confirmation'}:true"
                class="item item-avatar item-button-right" href="#/friend/{{friend.user.id}}">
                 <img ng-src="{{friend.user.photo}}?type=square">
 
                 {{friend.user.name}}
-                <p style="margin:0;">{{timeSince(friend.user.location.updated.date)}}</p>
-                    <span ng-if="friend.user.status == 'sharing'"
-                          class="badge badge-balanced">
-                        {{friend.user.distance | number:2 }} km
-                    </span>
+                <p style="margin:0;">{{timeSince(friend.user.location.updated)}}</p>
+
+                <span ng-if="friend.user.status == 'sharing' && friend.user.location"
+                      class="badge badge-balanced">
+                    {{friend.user.distance | number:2 }} km
+                </span>
+
+                <button ng-if="friend.user.status == 'sharing' && !friend.user.location"
+                        class="button button-stable button-large" disabled>
+                    No location
+                </button>
 
                 <button ng-if="friend.user.status == 'not_sharing'"
-                        class="button button-energized"
+                        class="button button-energized button-large"
                         ng-click="askForLocation({{friend.user.id}})" prevent-default>
                     Ask
                 </button>
 
                 <button ng-if="friend.user.status == 'asked_to_share'"
-                        class="button button-stable" disabled>
+                        class="button button-stable button-large" disabled>
                     Waiting
                 </button>
 
                 <button ng-if="friend.user.status == 'blocked'"
-                        class="button button-stable" disabled>
+                        class="button button-stable button-large" disabled>
                     Unavailable
                 </button>
 
                 <button ng-if="friend.user.status == 'pending_confirmation'"
-                        class="button button-stable" disabled>
+                        class="button button-stable button-large" disabled>
                     Invited
                 </button>
             </a>
@@ -70,16 +82,24 @@
 
     </ion-content>
 
-    <ion-footer-bar class="bar-footer bar-positive">
+    <ion-footer-bar
+            ng-class="{true: 'bar-assertive', false: 'bar-positive'}[pendingRequests]"
+            class="bar-footer">
         <a class="item-avatar-left item-button-right" href="#/me">
             <img ng-src="{{user.photo}}">
             <h4>Me</h4>
-            <p>
+            <p ng-show="!pendingRequests">
                 Sharing with
-                {{ (user.friends | filter:{status:'sharing'}:true).length }}
+                {{ numberOfSharingFriends }}
                 friend(s)
             </p>
-            <i id="footer-icon" class="footer-icon button button-clear pull-right ion-chevron-right"></i>
+            <p ng-show="pendingRequests">
+                {{ numberOfRequests }}
+                pending request(s). Click here to see.
+            </p>
+            <i ng-class="{true: 'ion-alert', false: 'ion-chevron-right'}[pendingRequests]"
+               id="footer-icon"
+               class="footer-icon button button-clear pull-right"></i>
         </a>
     </ion-footer-bar>
 </ion-view>

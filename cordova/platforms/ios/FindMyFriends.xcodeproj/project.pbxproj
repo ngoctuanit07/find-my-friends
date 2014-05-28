@@ -54,6 +54,7 @@
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		73A430F387294B41A02109B6 /* AppDelegate+notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7710F2C3F83C48019B59E284 /* AppDelegate+notification.m */; };
 		25D9A43F2C08451B83E2EF32 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = C524573A6D974531B761590E /* PushPlugin.m */; };
+		FD4B2120311044BEBD10A29D /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B63EB0C565640608CDEE801 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,8 @@
 		C524573A6D974531B761590E /* PushPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PushPlugin.m"; path = "com.phonegap.plugins.PushPlugin/PushPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		E4AAF5DA227C49ABABD3D20F /* AppDelegate+notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+notification.h"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		3265CFA0A3704514808F3A00 /* PushPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PushPlugin.h"; path = "com.phonegap.plugins.PushPlugin/PushPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		6B63EB0C565640608CDEE801 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		03042533B25B42EBBFDAD279 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +367,8 @@
 				C524573A6D974531B761590E /* PushPlugin.m */,
 				E4AAF5DA227C49ABABD3D20F /* AppDelegate+notification.h */,
 				3265CFA0A3704514808F3A00 /* PushPlugin.h */,
+				6B63EB0C565640608CDEE801 /* CDVInAppBrowser.m */,
+				03042533B25B42EBBFDAD279 /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = FindMyFriends/Plugins;
@@ -571,6 +576,7 @@
 				C30C926587904DE5AD69359A /* FacebookConnectPlugin.m in Sources */,
 				73A430F387294B41A02109B6 /* AppDelegate+notification.m in Sources */,
 				25D9A43F2C08451B83E2EF32 /* PushPlugin.m in Sources */,
+				FD4B2120311044BEBD10A29D /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

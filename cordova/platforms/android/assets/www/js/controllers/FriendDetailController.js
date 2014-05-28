@@ -7,36 +7,34 @@ angular.module('starter.controllers')
         $scope.walking = false;
         $scope.driving = false;
         $scope.timeSince = GeoMath.timeSince;
-
-        // google maps object that controls the map
-        $scope.map = {
-            center: {
-                latitude: 41.1781072,
-                longitude: -8.5955717
-            },
-            zoom: 1,
-            control: {},
-            dragging: false,
-            options: {
-                panControl: false,
-                streetViewControl: false,
-                mapTypeControl: false,
-                scaleControl: false,
-                zoomControl: false
-            },
-            infoWindowWithCustomClass: {
-                options: {
-                    boxClass: 'custom-info-window'
-                }
-            }
-        };
+        $scope.places = [];
 
         $scope.friend = MeModel.getFriend($stateParams.friendId);
 
-        if ($scope.friend.user.location) {
-            $scope.map.center.latitude = $scope.friend.user.location.latitude;
-            $scope.map.center.longitude = $scope.friend.user.location.longitude;
-            $scope.map.zoom = 16;
+        if (typeof $scope.friend !== 'undefined' && $scope.friend.user.location) {
+
+            $scope.map = {
+                control: {},
+                center: {
+                    latitude: parseFloat($scope.friend.user.location.latitude),
+                    longitude: parseFloat($scope.friend.user.location.longitude)
+                },
+                zoom: 16,
+                dragging: false,
+                options: {
+                    panControl: false,
+                    streetViewControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    zoomControl: false
+                },
+                infoWindowWithCustomClass: {
+                    options: {
+                        disableAutoPan: true,
+                        boxClass: 'custom-info-window'
+                    }
+                }
+            };
 
             FindMyFriendsService.getAddress($scope.friend.user.location).success(function(response) {
                 if (response.results.length > 0) {
@@ -51,27 +49,44 @@ angular.module('starter.controllers')
             return MeModel.getMe().then(function(user){
                 $scope.user = user;
                 $scope.markers = MeModel.getMarkers();
+                $scope.friend = MeModel.getFriend($stateParams.friendId);
 
                 if ($scope.friend.user.location) {
-                FindMyFriendsService.getDistance($scope.friend.user.id, 'walking')
-                    .success(function(response) {
-                        if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
-                            $scope.walking = {};
-                            $scope.walking.distance = response.rows[0].elements[0].distance.text;
-                            $scope.walking.duration = response.rows[0].elements[0].duration.text;
-                            $scope.walking.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'walking');
-                        }
-                    });
+                    FindMyFriendsService.getDistance($scope.friend.user.id, 'walking')
+                        .success(function(response) {
+                            if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
+                                $scope.walking = {};
+                                $scope.walking.distance = response.rows[0].elements[0].distance.text;
+                                $scope.walking.duration = response.rows[0].elements[0].duration.text;
+                                $scope.walking.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'walking');
+                            }
+                        });
 
-                FindMyFriendsService.getDistance($scope.friend.user.id, 'driving')
-                    .success(function(response) {
-                        if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
-                            $scope.driving = {};
-                            $scope.driving.distance = response.rows[0].elements[0].distance.text;
-                            $scope.driving.duration = response.rows[0].elements[0].duration.text;
-                            $scope.driving.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'driving');
-                        }
-                    });
+                    FindMyFriendsService.getDistance($scope.friend.user.id, 'driving')
+                        .success(function(response) {
+                            if (typeof response.rows !== 'undefined' && response.rows.length > 0) {
+                                $scope.driving = {};
+                                $scope.driving.distance = response.rows[0].elements[0].distance.text;
+                                $scope.driving.duration = response.rows[0].elements[0].duration.text;
+                                $scope.driving.url = FindMyFriendsService.getMapsUrlFromTo($scope.user.location, $scope.friend.user.location, 'driving');
+                            }
+                        });
+
+                    FindMyFriendsService.getNearbyPlaces($scope.friend.user.id)
+                        .success(function(data) {
+                            var items = data.response.groups[0].items;
+                            angular.forEach(items, function(item) {
+                                var venueLocation = {
+                                    latitude: item.venue.location.lat,
+                                    longitude: item.venue.location.lng
+                                };
+                                $scope.places.push({
+                                    name: item.venue.name,
+                                    distance: item.venue.location.distance,
+                                    url: FindMyFriendsService.getMapsUrlFromTo($scope.user.location, venueLocation, 'driving')
+                                })
+                            })
+                        });
                 }
             });
         };
@@ -153,6 +168,13 @@ angular.module('starter.controllers')
                     MeModel.reset();
                     $ionicLoading.hide();
                 })
+        }
+
+        $scope.openExternal = function(url) {
+            if (typeof navigator.app != 'undefined' )
+                navigator.app.loadUrl(url, { openExternal:true });
+            else
+                window.open(url, '_system');
         }
 
         $scope.fetch();

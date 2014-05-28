@@ -170,6 +170,13 @@ angular.module('starter.controllers')
                 })
         }
 
+        $scope.openExternal = function(url) {
+            if (typeof navigator.app != 'undefined' )
+                navigator.app.loadUrl(url, { openExternal:true });
+            else
+                window.open(url, '_system');
+        }
+
         $scope.fetch();
     })
 ;

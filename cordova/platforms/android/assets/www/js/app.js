@@ -33,10 +33,6 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
                 templateUrl: "templates/login.html",
                 controller: 'LoginCtrl'
             })
-            .state('forgotpassword', {
-                url: "/forgot-password",
-                templateUrl: "templates/forgot-password.html"
-            })
             .state('home', {
                 url: "/home",
                 templateUrl: "templates/home.html",

@@ -22,9 +22,10 @@ angular.module('starter.services')
         return deg * (Math.PI/180)
     }
 
-    this.timeSince = function(date) {
-        if (typeof date !== 'object') {
-            date = new Date(date);
+    this.timeSince = function(timestamp) {
+
+        if (typeof timestamp !== 'undefined') {
+            var date = new Date(timestamp.date + ' ' + timestamp.timezone);
         }
 
         var seconds = Math.floor((new Date() - date) / 1000);

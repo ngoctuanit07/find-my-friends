@@ -28,19 +28,19 @@
             </div>
             <a class="item item-icon-left"
                target="_blank"
-               href="{{address.url}}">
+               ng-click="openExternal(address.url);">
                 <i class="icon ion-android-location"></i>
                 {{address.text}}
             </a>
             <a class="item item-icon-left"
                target="_blank"
-               href="{{address.url}}">
+               ng-click="openExternal(address.url)">
                 <i class="icon ion-ios7-clock-outline"></i>
                 {{timeSince(friend.user.location.updated)}}
             </a>
             <a class="item item-icon-left"
                target="_blank"
-               href="{{address.url}}">
+               ng-click="openExternal(address.url)">
                 <i class="icon ion-android-locate"></i>
                 Accuracy: {{friend.user.location.accuracy | number:2}} meters
             </a>
@@ -61,7 +61,7 @@
             <div class="item item-divider">
                 Driving distance from my location
             </div>
-            <a class="item item-icon-left" target="_blank" href="{{driving.url}}">
+            <a class="item item-icon-left" target="_blank" ng-click="openExternal(driving.url)">
                 <i class="icon ion-model-s"></i>
                 {{driving.distance}}
                 <span class="item-note">
@@ -74,7 +74,7 @@
             <div class="item item-divider">
                 Walking distance from my location
             </div>
-            <a class="item item-icon-left" target="_blank" href="{{walking.url}}">
+            <a class="item item-icon-left" target="_blank" ng-click="openExternal(walking.url)">
                 <i class="icon ion-man"></i>
                 {{walking.distance}}
                 <span class="item-note">
@@ -87,7 +87,7 @@
             <div class="item item-divider">
                 Places to meet up near your friend
             </div>
-            <a class="item item-icon-left" ng-repeat="place in places" target="_blank" href="{{place.url}}">
+            <a class="item item-icon-left" ng-repeat="place in places" target="_blank" ng-click="openExternal(place.url)">
                 <i class="icon ion-android-contacts"></i>
                 {{place.name}}
                    <span class="item-note">
