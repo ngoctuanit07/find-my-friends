@@ -11,6 +11,8 @@ class FacebookService
 {
 
 	private $_user;
+    private $_appId = '694514773928221';
+    private $_secret = '998d17a5f14b9303cba4622e5c7127dc';
 
 	public function __construct()
 	{
@@ -53,7 +55,8 @@ class FacebookService
         $session = $this->getFacebookSession();
 		if ($session) {
 			try {
-				return $session->getToken();
+                $longSession = $session->getLongLivedSession($this->_appId, $this->_secret);
+				return $longSession->getToken();
 			} catch (FacebookRequestException $e) {
 				Log::error($e);
 			}
