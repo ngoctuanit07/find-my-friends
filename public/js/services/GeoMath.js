@@ -25,7 +25,7 @@ angular.module('starter.services')
     this.timeSince = function(timestamp) {
 
         if (typeof timestamp !== 'undefined') {
-            var date = new Date(timestamp.date + ' ' + timestamp.timezone);
+            var date = new Date(timestamp.date.replace(/-/g, "/") + ' ' + timestamp.timezone);
         }
 
         var seconds = Math.floor((new Date() - date) / 1000);
